@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WordpressApiService } from '../../core/services/wordpress-api.service';
 import { WpPost } from '../../core/models/wordpress.models';
@@ -18,7 +18,8 @@ import { CategoryFilterComponent } from '../../shared/components/category-filter
     CategoryFilterComponent
   ],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
   private wpApi = inject(WordpressApiService);
@@ -139,5 +140,10 @@ export class HomeComponent implements OnInit {
         this.loading.set(false);
       }
     });
+  }
+
+  // TrackBy function for optimized list rendering
+  trackByPostId(index: number, post: WpPost): number {
+    return post.id;
   }
 }

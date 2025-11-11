@@ -1,24 +1,28 @@
 <main class="py-12">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    <app-loading-spinner *ngIf="loading()"></app-loading-spinner>
+    @if (loading()) {
+      <app-loading-spinner></app-loading-spinner>
+    }
 
-    <div 
-      *ngIf="error()" 
-      class="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded mb-8"
-    >
-      {{ error() }}
-      <div class="mt-4">
-        <a 
-          routerLink="/" 
-          class="text-primary hover:underline"
-        >
-          Volver al inicio
-        </a>
+    @if (error()) {
+      <div 
+        class="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded mb-8"
+      >
+        {{ error() }}
+        <div class="mt-4">
+          <a 
+            routerLink="/" 
+            class="text-primary hover:underline"
+          >
+            Volver al inicio
+          </a>
+        </div>
       </div>
-    </div>
+    }
 
-    <article *ngIf="post() && !loading()" class="prose prose-lg max-w-none">
+    @if (post() && !loading()) {
+      <article class="prose prose-lg max-w-none">
       <!-- Breadcrumb -->
       <nav class="mb-8 text-sm">
         <a 
@@ -81,13 +85,15 @@
           Volver al inicio
         </a>
       </div>
-    </article>
+      </article>
+    }
 
     <!-- Related Posts -->
-    <app-related-posts 
-      *ngIf="post() && !loading()"
-      [currentPostId]="post()!.id"
-      [categoryId]="post()?._embedded?.['wp:term']?.[0]?.[0]?.id"
-    ></app-related-posts>
+    @if (post() && !loading()) {
+      <app-related-posts 
+        [currentPostId]="post()!.id"
+        [categoryId]="post()?._embedded?.['wp:term']?.[0]?.[0]?.id"
+      ></app-related-posts>
+    }
   </div>
 </main>

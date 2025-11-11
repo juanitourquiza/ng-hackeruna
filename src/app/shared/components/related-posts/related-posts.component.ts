@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject, signal } from '@angular/core';
+import { Component, Input, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { WordpressApiService } from '../../../core/services/wordpress-api.service';
@@ -8,6 +8,7 @@ import { WpPost } from '../../../core/models/wordpress.models';
   selector: 'app-related-posts',
   standalone: true,
   imports: [CommonModule, RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section *ngIf="relatedPosts().length > 0" class="mt-16 pt-12" style="border-top: 1px solid var(--border-color);">
       <h2 class="text-2xl font-bold mb-8" style="color: var(--text-primary);">
@@ -15,7 +16,7 @@ import { WpPost } from '../../../core/models/wordpress.models';
       </h2>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <article *ngFor="let post of relatedPosts()" class="group">
+        <article *ngFor="let post of relatedPosts(); trackBy: trackByPostId" class="group">
           <a [routerLink]="['/post', post.slug]">
             <div class="mb-4 overflow-hidden rounded-lg">
               <img 
@@ -112,5 +113,10 @@ export class RelatedPostsComponent implements OnInit {
     const tmp = document.createElement('div');
     tmp.innerHTML = html;
     return tmp.textContent || tmp.innerText || '';
+  }
+
+  // TrackBy function for optimized list rendering
+  trackByPostId(index: number, post: WpPost): number {
+    return post.id;
   }
 }

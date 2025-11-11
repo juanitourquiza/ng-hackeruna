@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { WordpressApiService } from '../../core/services/wordpress-api.service';
@@ -10,6 +10,7 @@ import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner
   selector: 'app-search',
   standalone: true,
   imports: [CommonModule, PostCardComponent, LoadingSpinnerComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <main class="py-8 lg:py-12">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,7 +32,7 @@ import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner
         </div>
 
         <div *ngIf="!loading()" class="space-y-12">
-          <app-post-card *ngFor="let post of results()" [post]="post"></app-post-card>
+          <app-post-card *ngFor="let post of results(); trackBy: trackByPostId" [post]="post"></app-post-card>
         </div>
       </div>
     </main>
@@ -71,5 +72,10 @@ export class SearchComponent implements OnInit {
         this.loading.set(false);
       }
     });
+  }
+
+  // TrackBy function for optimized list rendering
+  trackByPostId(index: number, post: WpPost): number {
+    return post.id;
   }
 }

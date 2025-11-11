@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, output } from '@angular/core';
+import { Component, OnInit, inject, signal, output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WordpressApiService } from '../../../core/services/wordpress-api.service';
 
@@ -13,6 +13,7 @@ interface Category {
   selector: 'app-category-filter',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="mb-8">
       <div class="flex flex-wrap gap-3 items-center">
@@ -27,7 +28,7 @@ interface Category {
         </button>
         
         <button
-          *ngFor="let category of categories()"
+          *ngFor="let category of categories(); trackBy: trackByCategoryId"
           (click)="selectCategory(category.id)"
           [class.active]="selectedCategoryId() === category.id"
           class="category-btn px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:scale-105"
@@ -86,5 +87,10 @@ export class CategoryFilterComponent implements OnInit {
   selectCategory(categoryId: number | null): void {
     this.selectedCategoryId.set(categoryId);
     this.categorySelected.emit(categoryId);
+  }
+
+  // TrackBy function for optimized list rendering
+  trackByCategoryId(index: number, category: Category): number {
+    return category.id;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Project {
@@ -18,7 +18,8 @@ interface Project {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './portfolio.component.html',
-  styleUrls: ['./portfolio.component.scss']
+  styleUrls: ['./portfolio.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PortfolioComponent implements OnInit {
   projects = signal<Project[]>([
@@ -142,5 +143,10 @@ export class PortfolioComponent implements OnInit {
       return this.projects();
     }
     return this.projects().filter(project => project.category === category);
+  }
+
+  // TrackBy function for optimized list rendering
+  trackByProjectId(index: number, project: Project): number {
+    return project.id;
   }
 }
