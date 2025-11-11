@@ -1,0 +1,109 @@
+<header class="py-6 px-4 lg:px-8" style="border-bottom: 1px solid var(--border-color);">
+  <div class="max-w-screen-2xl mx-auto">
+    <div class="flex justify-between items-center">
+    <div class="flex items-center space-x-8">
+      <a 
+        routerLink="/" 
+        class="text-2xl md:text-3xl font-bold tracking-tight hover:opacity-80 transition-opacity"
+        style="color: var(--text-primary);"
+      >
+        HACKERUNA
+      </a>
+      <nav class="hidden md:flex items-center space-x-6">
+        <a
+          href="https://juanitourquiza.github.io"
+          target="_blank"
+          class="text-sm font-medium hover:opacity-70 transition-opacity"
+          style="color: var(--text-secondary);"
+        >
+          Autor
+        </a>
+        <a
+          routerLink="/portfolio"
+          class="text-sm font-medium hover:opacity-70 transition-opacity"
+          style="color: var(--text-secondary);"
+        >
+          Portafolio
+        </a>
+        <a
+          routerLink="/contact"
+          class="text-sm font-medium hover:opacity-70 transition-opacity"
+          style="color: var(--text-secondary);"
+        >
+          Contacto
+        </a>
+      </nav>
+    </div>
+
+    <div class="flex items-center space-x-4">
+      <!-- Desktop Search -->
+      <form (submit)="onSearch($event)" class="relative hidden sm:block">
+        <input
+          [(ngModel)]="searchQuery"
+          name="search"
+          class="w-48 text-sm py-2 pl-10 pr-4 rounded-md focus:outline-none focus:ring-2 transition-all"
+          style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); --tw-ring-color: var(--accent-blue);"
+          placeholder="Buscar..."
+          type="search"
+        />
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2" style="color: var(--text-tertiary);">
+          search
+        </span>
+      </form>
+
+      <!-- Theme Toggle -->
+      <button
+        (click)="toggleTheme()"
+        class="p-2 rounded-full hover:opacity-70 transition-opacity"
+        style="color: var(--text-secondary);"
+        [attr.aria-label]="'Toggle ' + themeIcon() + ' mode'"
+      >
+        <span class="material-symbols-outlined">{{ themeIcon() }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div class="flex md:hidden justify-center items-center space-x-6 mt-4 pt-4" style="border-top: 1px solid var(--border-color);">
+    <a
+      href="https://juanitourquiza.github.io"
+      target="_blank"
+      class="text-sm font-medium hover:opacity-70 transition-opacity"
+      style="color: var(--text-secondary);"
+    >
+      Autor
+    </a>
+    <a
+      routerLink="/portfolio"
+      class="text-sm font-medium hover:opacity-70 transition-opacity"
+      style="color: var(--text-secondary);"
+    >
+      Portafolio
+    </a>
+    <a
+      routerLink="/contact"
+      class="text-sm font-medium hover:opacity-70 transition-opacity"
+      style="color: var(--text-secondary);"
+    >
+      Contacto
+    </a>
+  </div>
+
+  <!-- Mobile Search -->
+  <div class="mt-4 sm:hidden">
+    <form (submit)="onSearch($event)" class="relative">
+      <input
+        [(ngModel)]="searchQuery"
+        name="search"
+        class="w-full text-sm py-2 pl-10 pr-4 rounded-md focus:outline-none focus:ring-2 transition-all"
+        style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); --tw-ring-color: var(--accent-blue);"
+        placeholder="Buscar en Hackeruna.com"
+        type="search"
+      />
+      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2" style="color: var(--text-tertiary);">
+        search
+      </span>
+    </form>
+  </div>
+</div>
+</header>

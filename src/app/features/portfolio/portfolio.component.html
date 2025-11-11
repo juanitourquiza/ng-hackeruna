@@ -1,0 +1,157 @@
+<main class="flex-1 py-12 sm:py-16 lg:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header Section -->
+    <div class="flex flex-col items-center text-center mb-12">
+      <h1 
+        class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
+        style="color: var(--text-primary);"
+      >
+        Portafolio de Proyectos
+      </h1>
+      <p 
+        class="max-w-2xl text-lg leading-relaxed"
+        style="color: var(--text-secondary);"
+      >
+        Aquí puedes encontrar una selección de mis trabajos más destacados, desde desarrollo web y blockchain hasta aplicaciones PWA. Explora cada proyecto para conocer más sobre mi experiencia y las tecnologías que utilizo.
+      </p>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+      <button
+        (click)="selectCategory('all')"
+        [class.active]="selectedCategory() === 'all'"
+        class="px-6 py-2 rounded-full text-sm font-medium transition-all duration-200"
+        [style.background-color]="selectedCategory() === 'all' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
+        [style.color]="selectedCategory() === 'all' ? 'white' : 'var(--text-secondary)'"
+      >
+        Todos
+      </button>
+      <button
+        (click)="selectCategory('web')"
+        [class.active]="selectedCategory() === 'web'"
+        class="px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
+        [style.background-color]="selectedCategory() === 'web' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
+        [style.color]="selectedCategory() === 'web' ? 'white' : 'var(--text-secondary)'"
+      >
+        Desarrollo Web
+      </button>
+      <button
+        (click)="selectCategory('fullstack')"
+        [class.active]="selectedCategory() === 'fullstack'"
+        class="px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
+        [style.background-color]="selectedCategory() === 'fullstack' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
+        [style.color]="selectedCategory() === 'fullstack' ? 'white' : 'var(--text-secondary)'"
+      >
+        Fullstack
+      </button>
+      <button
+        (click)="selectCategory('blockchain')"
+        [class.active]="selectedCategory() === 'blockchain'"
+        class="px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
+        [style.background-color]="selectedCategory() === 'blockchain' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
+        [style.color]="selectedCategory() === 'blockchain' ? 'white' : 'var(--text-secondary)'"
+      >
+        Blockchain
+      </button>
+      <button
+        (click)="selectCategory('pwa')"
+        [class.active]="selectedCategory() === 'pwa'"
+        class="px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
+        [style.background-color]="selectedCategory() === 'pwa' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
+        [style.color]="selectedCategory() === 'pwa' ? 'white' : 'var(--text-secondary)'"
+      >
+        PWA
+      </button>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <article
+        *ngFor="let project of filteredProjects"
+        class="group overflow-hidden rounded-lg transition-all duration-300 hover:shadow-lg cursor-pointer"
+        style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);"
+      >
+        <!-- Project Image -->
+        <div class="aspect-video w-full overflow-hidden bg-gray-200">
+          <img
+            [src]="project.image"
+            [alt]="project.title"
+            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+          />
+        </div>
+
+        <!-- Project Info -->
+        <div class="p-6">
+          <h3
+            class="text-lg font-semibold mb-2 group-hover:underline transition-all"
+            style="color: var(--text-primary);"
+          >
+            {{ project.title }}
+          </h3>
+          <p
+            class="text-sm leading-relaxed mb-4"
+            style="color: var(--text-secondary);"
+          >
+            {{ project.description }}
+          </p>
+
+          <!-- Period -->
+          <p
+            *ngIf="project.period"
+            class="text-xs font-medium mb-3"
+            style="color: var(--text-tertiary);"
+          >
+            📅 {{ project.period }}
+          </p>
+
+          <!-- Technologies -->
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span
+              *ngFor="let tech of project.technologies"
+              class="inline-block px-3 py-1 text-xs font-medium rounded-full"
+              style="background-color: var(--accent-blue); color: white; opacity: 0.8;"
+            >
+              {{ tech }}
+            </span>
+          </div>
+
+          <!-- Links -->
+          <div class="flex gap-3 mt-4">
+            <a
+              *ngIf="project.github"
+              [href]="project.github"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 text-sm font-medium hover:underline"
+              style="color: var(--accent-blue);"
+            >
+              <span class="material-symbols-outlined text-base">code</span>
+              GitHub
+            </a>
+            <a
+              *ngIf="project.link"
+              [href]="project.link"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 text-sm font-medium hover:underline"
+              style="color: var(--accent-blue);"
+            >
+              <span class="material-symbols-outlined text-base">open_in_new</span>
+              Ver proyecto
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Empty State -->
+    <div
+      *ngIf="filteredProjects.length === 0"
+      class="text-center py-12"
+      style="color: var(--text-secondary);"
+    >
+      <p class="text-lg">No hay proyectos en esta categoría</p>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,22 @@
+// Portfolio component styles
+:host {
+  display: block;
+}
+
+// Smooth transitions
+.group {
+  transition: all 0.3s ease;
+}
+
+// Button active state
+button.active {
+  transform: scale(1.05);
+}
+
+// Responsive adjustments
+@media (max-width: 640px) {
+  :host ::ng-deep main {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}

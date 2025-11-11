@@ -1,0 +1,106 @@
+// Custom prose styles for better contrast
+:host ::ng-deep {
+  .prose {
+    color: var(--text-primary);
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--text-primary);
+      font-weight: 700;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      line-height: 1.75;
+    }
+    
+    a {
+      color: var(--accent-blue);
+      text-decoration: underline;
+      
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    
+    strong, b {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    code {
+      background-color: var(--bg-tertiary);
+      color: var(--text-primary);
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      font-size: 0.9em;
+    }
+    
+    pre {
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      overflow-x: auto;
+      
+      code {
+        background: none;
+        padding: 0;
+      }
+    }
+    
+    blockquote {
+      border-left: 4px solid var(--accent-blue);
+      background-color: var(--bg-secondary);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+    
+    ul, ol {
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    img {
+      border-radius: 0.5rem;
+      width: 100%;
+      height: auto;
+    }
+    
+    hr {
+      border-color: var(--border-color);
+      margin: 2rem 0;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      
+      th, td {
+        border: 1px solid var(--border-color);
+        padding: 0.75rem;
+        text-align: left;
+      }
+      
+      th {
+        background-color: var(--bg-secondary);
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+      
+      td {
+        color: var(--text-primary);
+      }
+    }
+  }
+}

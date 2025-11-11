@@ -1,0 +1,28 @@
+<div class="sticky top-8 p-6 rounded-lg" style="background-color: var(--bg-secondary);">
+  <h3 class="text-sm font-mono uppercase tracking-widest pb-2 mb-6" style="color: var(--text-primary); border-bottom: 2px solid var(--accent-blue);">
+    Tendencias Globales
+  </h3>
+  
+  <div class="space-y-6">
+    <article 
+      *ngFor="let post of posts; let i = index" 
+      class="group flex items-start space-x-3"
+    >
+      <span class="text-2xl font-mono font-bold" style="color: var(--accent-blue);">
+        {{ (i + 1).toString().padStart(2, '0') }}
+      </span>
+      <div class="flex-1">
+        <a [routerLink]="['/post', post.slug]">
+          <h4 
+            class="text-base font-semibold leading-snug group-hover:underline transition-all"
+            style="color: var(--text-primary);"
+            [innerHTML]="stripHtml(post.title.rendered)"
+          ></h4>
+        </a>
+        <p class="text-xs uppercase mt-1.5" style="color: var(--text-tertiary);">
+          POR {{ getAuthorName(post).toUpperCase() }}
+        </p>
+      </div>
+    </article>
+  </div>
+</div>

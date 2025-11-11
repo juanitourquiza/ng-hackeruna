@@ -1,0 +1,35 @@
+// Contact component styles
+:host {
+  display: block;
+}
+
+// Form styles
+form {
+  .form-input,
+  .form-textarea {
+    &::placeholder {
+      opacity: 0.5;
+    }
+
+    &:hover {
+      border-color: var(--accent-blue);
+    }
+
+    &:focus {
+      border-color: var(--accent-blue);
+    }
+  }
+}
+
+// Button hover effect
+button[type="submit"]:not(:disabled):hover {
+  opacity: 0.9;
+}
+
+// Responsive adjustments
+@media (max-width: 640px) {
+  :host ::ng-deep main {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}

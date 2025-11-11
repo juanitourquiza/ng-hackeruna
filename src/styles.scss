@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Modo Claro (Default) */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #FAFAFA;
+  --bg-tertiary: #F5F5F5;
+  --text-primary: #1A1A1A;
+  --text-secondary: #666666;
+  --text-tertiary: #999999;
+  --border-color: #E5E5E5;
+  --accent-blue: #0077FF;
+}
+
+html.dark {
+  /* Modo Oscuro - Mayor contraste */
+  --bg-primary: #000000;
+  --bg-secondary: #0A0A0A;
+  --bg-tertiary: #1A1A1A;
+  --text-primary: #FFFFFF;
+  --text-secondary: #CCCCCC;
+  --text-tertiary: #999999;
+  --border-color: #2A2A2A;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.group:hover .group-hover\:text-primary {
+  color: var(--accent-blue);
+}
+
+.group:hover .group-hover\:underline {
+  text-decoration: underline;
+}
