@@ -117,7 +117,7 @@ describe('ContactComponent', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
 
       // Ahora sí esperar la petición HTTP
-      const req = httpMock.expectOne('https://wordpress-1212383-4299996.cloudwaysapps.com/wp-json/hackeruna/v1/contact');
+      const req = httpMock.expectOne('https://backend.hackeruna.com/wp-json/hackeruna/v1/contact');
       
       // Verificar método y payload
       expect(req.request.method).toBe('POST');
@@ -160,7 +160,7 @@ describe('ContactComponent', () => {
 
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      const req = httpMock.expectOne('https://wordpress-1212383-4299996.cloudwaysapps.com/wp-json/hackeruna/v1/contact');
+      const req = httpMock.expectOne('https://backend.hackeruna.com/wp-json/hackeruna/v1/contact');
       
       // Simular error del servidor
       req.flush(
@@ -190,7 +190,7 @@ describe('ContactComponent', () => {
 
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      const req = httpMock.expectOne('https://wordpress-1212383-4299996.cloudwaysapps.com/wp-json/hackeruna/v1/contact');
+      const req = httpMock.expectOne('https://backend.hackeruna.com/wp-json/hackeruna/v1/contact');
       
       // Verificar que usa token dummy
       expect(req.request.body.recaptchaToken).toBe('dummy-token-development');
@@ -219,11 +219,11 @@ describe('ContactComponent', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
 
       const req = httpMock.expectOne((request) => {
-        return request.url === 'https://wordpress-1212383-4299996.cloudwaysapps.com/wp-json/hackeruna/v1/contact' &&
+        return request.url === 'https://backend.hackeruna.com/wp-json/hackeruna/v1/contact' &&
                request.method === 'POST';
       });
 
-      expect(req.request.url).toBe('https://wordpress-1212383-4299996.cloudwaysapps.com/wp-json/hackeruna/v1/contact');
+      expect(req.request.url).toBe('https://backend.hackeruna.com/wp-json/hackeruna/v1/contact');
       
       req.flush({ status: 'mail_sent' });
       await new Promise(resolve => setTimeout(resolve, 10));
@@ -246,7 +246,7 @@ describe('ContactComponent', () => {
 
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      const req = httpMock.expectOne('https://wordpress-1212383-4299996.cloudwaysapps.com/wp-json/hackeruna/v1/contact');
+      const req = httpMock.expectOne('https://backend.hackeruna.com/wp-json/hackeruna/v1/contact');
       
       // Verificar headers (Angular envía JSON por defecto)
       expect(req.request.headers.get('Content-Type')).toBe('application/json');

@@ -32,7 +32,7 @@ export class ContactComponent {
   recaptchaToken = signal<string | null>(null);
 
   // Endpoint personalizado de Hackeruna
-  private CF7_ENDPOINT = 'https://wordpress-1212383-4299996.cloudwaysapps.com/wp-json/hackeruna/v1/contact';
+  private CF7_ENDPOINT = 'https://backend.hackeruna.com/wp-json/hackeruna/v1/contact';
   private recaptchaSiteKey = environment.recaptchaV3SiteKey;
 
   constructor(private http: HttpClient) {

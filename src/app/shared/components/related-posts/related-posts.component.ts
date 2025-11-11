@@ -96,7 +96,7 @@ export class RelatedPostsComponent implements OnInit {
 
   getPostImage(post: WpPost): string {
     return post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 
-           'https://wordpress-1212383-4299996.cloudwaysapps.com/wp-content/themes/magazinebook/img/default-bg-img.png';
+           'https://backend.hackeruna.com/wp-content/themes/magazinebook/img/default-bg-img.png';
   }
 
   formatDate(dateString: string): string {

@@ -121,7 +121,7 @@ export class PortfolioComponent implements OnInit {
       category: 'web',
       period: '2025',
       technologies: ['Angular 20', 'TypeScript', 'Tailwind CSS', 'WordPress API', 'reCAPTCHA'],
-      link: 'https://wordpress-1212383-4299996.cloudwaysapps.com',
+      link: 'https://backend.hackeruna.com',
       github: 'https://github.com/juanitourquiza/ng-hackeruna'
     }
   ]);
