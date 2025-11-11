@@ -1,10 +1,6 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-# Forzar HTTPS (solo si no es HTTPS)
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
 # Angular routing - redirigir todas las rutas a index.html
 RewriteBase /
 RewriteRule ^index\.html$ - [L]
