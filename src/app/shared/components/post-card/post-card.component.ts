@@ -16,7 +16,7 @@ export class PostCardComponent {
 
   get featuredImage(): string {
     return this.post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 
-           'https://www.hackeruna.com/wp-content/themes/magazinebook/img/default-bg-img.png';
+           'https://wordpress-1212383-4299996.cloudwaysapps.com/wp-content/themes/magazinebook/img/default-bg-img.png';
   }
 
   get authorName(): string {
