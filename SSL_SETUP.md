@@ -119,21 +119,58 @@ Si no quieres usar Cloudways SSL, usa Cloudflare:
 
 ## ✅ Verificar que Funciona
 
-1. **Visita tu sitio:**
+### Paso 1: Verificar Redirección HTTP → HTTPS
+
+1. **Visita tu sitio sin HTTPS:**
    ```
-   https://hackeruna.com
+   http://hackeruna.com
    ```
+   - Debe redirigir automáticamente a `https://hackeruna.com`
 
 2. **Verifica el candado verde** en la barra de direcciones
 
-3. **Prueba la redirección:**
-   ```
-   http://hackeruna.com (debe redirigir a https://)
-   ```
-
-4. **Verifica el certificado:**
+3. **Verifica el certificado:**
    - Click en el candado → "Connection is secure"
    - Debe mostrar: "Valid certificate"
+
+### Paso 2: Verificar Configuración en Servidor
+
+Si aún ves "Not Secure", verifica:
+
+1. **En Cloudways:**
+   - SSL Certificate debe estar instalado ✅
+   - Dominio debe estar apuntando correctamente
+
+2. **En tu servidor (SSH):**
+   ```bash
+   # Verificar que .htaccess existe
+   ls -la /home/*/public_html/.htaccess
+   
+   # Verificar que mod_rewrite está habilitado
+   apache2ctl -M | grep rewrite
+   ```
+
+3. **Limpiar caché del navegador:**
+   - Ctrl+Shift+Delete (Windows/Linux)
+   - Cmd+Shift+Delete (Mac)
+   - O usa modo incógnito
+
+### Paso 3: Si Aún No Funciona
+
+**Opción A: Usar Cloudflare (Recomendado)**
+- Cloudflare maneja SSL automáticamente
+- Agrega protección DDoS
+- CDN global
+
+**Opción B: Forzar HTTPS en WordPress**
+```php
+// En wp-config.php
+define('FORCE_SSL_ADMIN', true);
+define('FORCE_SSL_LOGIN', true);
+
+if (strpos($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false)
+    $_SERVER['HTTPS']='on';
+```
 
 ---
 
