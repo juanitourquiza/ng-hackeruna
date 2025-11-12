@@ -5,17 +5,20 @@ import { WordpressApiService } from '../../core/services/wordpress-api.service';
 import { WpPost } from '../../core/models/wordpress.models';
 import { RelatedPostsComponent } from '../../shared/components/related-posts/related-posts.component';
 import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
+import { SocialShareComponent } from '../../shared/components/social-share/social-share.component';
+import { MetaTagsService } from '../../core/services/meta-tags.service';
 
 @Component({
   selector: 'app-post-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, RelatedPostsComponent, SkeletonLoaderComponent],
+  imports: [CommonModule, RouterLink, RelatedPostsComponent, SkeletonLoaderComponent, SocialShareComponent],
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss']
 })
 export class PostDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private wpApi = inject(WordpressApiService);
+  private metaTagsService = inject(MetaTagsService);
 
   post = signal<WpPost | null>(null);
   loading = signal(true);
@@ -38,6 +41,9 @@ export class PostDetailComponent implements OnInit {
       next: (post) => {
         this.post.set(post);
         this.loading.set(false);
+        
+        // Actualizar meta tags para SEO y compartir en redes sociales
+        this.updateMetaTags(post);
       },
       error: (err) => {
         console.error('Error loading post:', err);
@@ -45,6 +51,33 @@ export class PostDetailComponent implements OnInit {
         this.loading.set(false);
       }
     });
+  }
+
+  private updateMetaTags(post: WpPost): void {
+    const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 
+                         'https://backend.hackeruna.com/wp-content/themes/magazinebook/img/default-bg-img.png';
+    
+    const excerpt = this.stripHtml(post.excerpt?.rendered || '');
+    const categories = post._embedded?.['wp:term']?.[0] || [];
+    const tags = categories.map(cat => cat.name);
+    
+    this.metaTagsService.updateMetaTags({
+      title: `${this.stripHtml(post.title.rendered)} | Hackeruna`,
+      description: excerpt,
+      image: featuredImage,
+      url: `https://hackeruna.com/post/${post.slug}`,
+      type: 'article',
+      author: post._embedded?.author?.[0]?.name || 'Hackeruna',
+      publishedTime: post.date,
+      modifiedTime: post.modified,
+      tags: tags
+    });
+  }
+
+  private stripHtml(html: string): string {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
   }
 
   get featuredImage(): string {

@@ -83,6 +83,13 @@
         [innerHTML]="post()!.content.rendered"
       ></div>
 
+      <!-- Social Share -->
+      <app-social-share
+        [url]="'https://hackeruna.com/post/' + post()!.slug"
+        [title]="post()!.title.rendered"
+        [description]="post()!.excerpt?.rendered || ''"
+      ></app-social-share>
+
       <!-- Back to Home -->
       <div class="mt-12 pt-8 not-prose" style="border-top: 1px solid var(--border-color);">
         <a 
