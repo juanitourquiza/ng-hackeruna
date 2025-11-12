@@ -61,6 +61,11 @@ export class PostDetailComponent implements OnInit {
     return categories?.[0]?.name || 'Uncategorized';
   }
 
+  get categories(): Array<{ id: number; name: string; slug: string }> {
+    const categories = this.post()?._embedded?.['wp:term']?.[0];
+    return categories || [];
+  }
+
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     return date.toLocaleDateString('es-ES', { 

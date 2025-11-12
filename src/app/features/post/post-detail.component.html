@@ -32,15 +32,23 @@
         >
           Inicio
         </a>
-        <span class="mx-2" style="color: var(--text-tertiary);">/</span>
-        <span style="color: var(--text-tertiary);">{{ categoryName }}</span>
+        @if (categories.length > 0) {
+          <span class="mx-2" style="color: var(--text-tertiary);">/</span>
+          @for (category of categories; track category.id; let isLast = $last) {
+            <span style="color: var(--text-tertiary);">
+              {{ category.name }}@if (!isLast) {<span>, </span>}
+            </span>
+          }
+        }
       </nav>
 
-      <!-- Category Badge -->
-      <div class="mb-6">
-        <span class="text-xs font-mono uppercase tracking-wider text-white py-1.5 px-4 inline-block" style="background-color: var(--accent-blue);">
-          {{ categoryName }}
-        </span>
+      <!-- Category Badges -->
+      <div class="mb-6 flex flex-wrap gap-2">
+        @for (category of categories; track category.id) {
+          <span class="text-xs font-mono uppercase tracking-wider text-white py-1.5 px-4 inline-block rounded" style="background-color: var(--accent-blue);">
+            {{ category.name }}
+          </span>
+        }
       </div>
 
       <!-- Title -->
