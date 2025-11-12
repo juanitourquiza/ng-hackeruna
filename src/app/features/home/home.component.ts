@@ -4,8 +4,8 @@ import { WordpressApiService } from '../../core/services/wordpress-api.service';
 import { WpPost } from '../../core/models/wordpress.models';
 import { PostCardComponent } from '../../shared/components/post-card/post-card.component';
 import { TrendingSidebarComponent } from '../../shared/components/trending-sidebar/trending-sidebar.component';
-import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 import { CategoryFilterComponent } from '../../shared/components/category-filter/category-filter.component';
+import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +14,8 @@ import { CategoryFilterComponent } from '../../shared/components/category-filter
     CommonModule, 
     PostCardComponent, 
     TrendingSidebarComponent,
-    LoadingSpinnerComponent,
-    CategoryFilterComponent
+    CategoryFilterComponent,
+    SkeletonLoaderComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],

@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { WordpressApiService } from '../../core/services/wordpress-api.service';
 import { WpPost } from '../../core/models/wordpress.models';
-import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 import { RelatedPostsComponent } from '../../shared/components/related-posts/related-posts.component';
+import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
 
 @Component({
   selector: 'app-post-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, LoadingSpinnerComponent, RelatedPostsComponent],
+  imports: [CommonModule, RouterLink, RelatedPostsComponent, SkeletonLoaderComponent],
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss']
 })

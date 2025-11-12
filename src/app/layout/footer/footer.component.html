@@ -69,9 +69,14 @@
     </div>
 
     <div class="mt-8 pt-8 flex flex-col-reverse md:flex-row justify-between items-center space-y-4 md:space-y-0 text-center md:text-left" style="border-top: 1px solid var(--border-color);">
-      <p class="text-sm" style="color: var(--text-tertiary);">
-        © {{ currentYear }} Hackeruna.com. Todos los derechos reservados.
-      </p>
+      <div class="flex flex-col md:flex-row items-center gap-3">
+        <p class="text-sm" style="color: var(--text-tertiary);">
+          © {{ currentYear }} Hackeruna.com. Todos los derechos reservados.
+        </p>
+        <span class="text-xs px-2 py-1 rounded" style="background-color: var(--bg-tertiary); color: var(--text-tertiary); font-family: 'Roboto Mono', monospace;">
+          v{{ version }}
+        </span>
+      </div>
       
       <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2">
         <a 

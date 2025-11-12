@@ -11,7 +11,7 @@
       }
       
       @if (loading() && !featuredPost()) {
-        <app-loading-spinner></app-loading-spinner>
+        <app-skeleton-loader type="post-featured"></app-skeleton-loader>
       }
     </div>
 
@@ -38,9 +38,7 @@
           <app-category-filter (categorySelected)="onCategorySelected($event)"></app-category-filter>
 
         @if (loading()) {
-          <div class="space-y-12">
-            <app-loading-spinner></app-loading-spinner>
-          </div>
+          <app-skeleton-loader type="post-list"></app-skeleton-loader>
         }
 
         @if (!loading()) {

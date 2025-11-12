@@ -30,6 +30,14 @@ export const routes: Routes = [
     loadComponent: () => import('./features/contact/contact.component').then(m => m.ContactComponent)
   },
   {
+    path: 'privacy',
+    loadComponent: () => import('./features/privacy/privacy.component').then(m => m.PrivacyComponent)
+  },
+  {
+    path: 'terms',
+    loadComponent: () => import('./features/terms/terms.component').then(m => m.TermsComponent)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

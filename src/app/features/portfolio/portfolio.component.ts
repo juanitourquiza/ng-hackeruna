@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Project {
@@ -21,7 +21,7 @@ interface Project {
   styleUrls: ['./portfolio.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PortfolioComponent implements OnInit {
+export class PortfolioComponent {
   projects = signal<Project[]>([
     {
       id: 1,
