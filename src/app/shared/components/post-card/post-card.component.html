@@ -7,6 +7,7 @@
           [src]="featuredImage" 
           [alt]="stripHtml(post.title.rendered)" 
           class="w-full h-full object-cover"
+          fetchpriority="high"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 md:p-12 lg:p-16 flex flex-col justify-end">
           <span class="text-xs font-mono uppercase tracking-wider text-black bg-white py-1.5 px-4 mb-4 inline-block max-w-fit">
@@ -34,6 +35,7 @@
       [src]="featuredImage" 
       [alt]="stripHtml(post.title.rendered)" 
       class="w-full h-48 sm:h-40 object-cover"
+      loading="lazy"
     />
   </a>
 

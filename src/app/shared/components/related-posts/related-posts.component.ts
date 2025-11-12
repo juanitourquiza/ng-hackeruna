@@ -23,6 +23,7 @@ import { WpPost } from '../../../core/models/wordpress.models';
                 [src]="getPostImage(post)" 
                 [alt]="stripHtml(post.title.rendered)" 
                 class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                loading="lazy"
               />
             </div>
             <h3 

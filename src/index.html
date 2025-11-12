@@ -6,6 +6,13 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
+  <!-- Resource Hints para mejorar velocidad -->
+  <link rel="preconnect" href="https://backend.hackeruna.com" crossorigin>
+  <link rel="dns-prefetch" href="https://backend.hackeruna.com">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+  
   <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
@@ -15,11 +22,15 @@
   <link rel="icon" type="image/png" sizes="512x512" href="assets/android-chrome-512x512.png">
   <link rel="manifest" href="assets/site.webmanifest">
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts optimizadas -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" rel="stylesheet">
+  </noscript>
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7207443809240873"
