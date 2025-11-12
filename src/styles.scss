@@ -40,3 +40,36 @@ body {
 .group:hover .group-hover\:underline {
   text-decoration: underline;
 }
+
+/* Estilos para contenido HTML de WordPress */
+.prose img,
+article img {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Asegurar que imágenes externas se carguen */
+img[src*="imgur.com"],
+img[src*="stack.imgur.com"],
+img[src*="i.stack.imgur.com"] {
+  display: block !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 1rem auto;
+}
+
+/* Fix para imágenes rotas */
+img {
+  image-rendering: auto;
+  -webkit-user-drag: auto;
+}
+
+/* Placeholder para imágenes que están cargando */
+img:not([src]),
+img[src=""] {
+  display: none;
+}
