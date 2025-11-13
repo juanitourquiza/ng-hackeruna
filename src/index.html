@@ -35,7 +35,8 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-RXGCTBC67S', {
-      send_page_view: false  // Desactivar pageview automático, lo manejaremos con Angular Router
+      send_page_view: false,  // Desactivar pageview automático, lo manejaremos con Angular Router
+      debug_mode: true  // Modo debug para ver eventos en consola (localhost y producción)
     });
   </script>
   

@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { WordpressApiService } from '../../core/services/wordpress-api.service';
 import { WpPost } from '../../core/models/wordpress.models';
@@ -7,6 +8,7 @@ import { RelatedPostsComponent } from '../../shared/components/related-posts/rel
 import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
 import { SocialShareComponent } from '../../shared/components/social-share/social-share.component';
 import { MetaTagsService } from '../../core/services/meta-tags.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-post-detail',
@@ -19,6 +21,7 @@ export class PostDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private wpApi = inject(WordpressApiService);
   private metaTagsService = inject(MetaTagsService);
+  private http = inject(HttpClient);
 
   post = signal<WpPost | null>(null);
   loading = signal(true);
@@ -42,14 +45,8 @@ export class PostDetailComponent implements OnInit {
         this.post.set(post);
         this.loading.set(false);
         
-        // DEBUG: Ver qué campos de vistas vienen de la API
-        console.log('📊 DEBUG Post Views:', {
-          post: post,
-          views: post.views,
-          post_views: post.post_views,
-          post_views_count: post.post_views_count,
-          allKeys: Object.keys(post)
-        });
+        // Incrementar contador de vistas
+        this.incrementViewCount(post.id);
         
         // Actualizar meta tags para SEO y compartir en redes sociales
         this.updateMetaTags(post);
@@ -58,6 +55,20 @@ export class PostDetailComponent implements OnInit {
         console.error('Error loading post:', err);
         this.error.set('No se pudo cargar el artículo');
         this.loading.set(false);
+      }
+    });
+  }
+
+  private incrementViewCount(postId: number): void {
+    // Llamar al endpoint de WordPress para incrementar el contador
+    const url = `${environment.wordpressApiUrl.replace('/wp/v2', '')}/hackeruna/v1/view/${postId}`;
+    
+    this.http.post(url, {}).subscribe({
+      next: (response: any) => {
+        console.log('✅ Vista contada:', response);
+      },
+      error: (err) => {
+        console.error('❌ Error al contar vista:', err);
       }
     });
   }
