@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Blog de tecnología, programación, desarrollo web, blockchain y tutoriales. Aprende sobre Angular, Laravel, React, Node.js y más.">
   <meta name="author" content="Hackeruna">
-  
+
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hackeruna.com/">
@@ -18,7 +18,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Hackeruna">
   <meta property="og:locale" content="es_ES">
-  
+
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@hackeruna">
@@ -27,7 +27,7 @@
   <meta name="twitter:title" content="Hackeruna - Blog de Tecnología">
   <meta name="twitter:description" content="Blog de tecnología, programación, desarrollo web, blockchain y tutoriales.">
   <meta name="twitter:image" content="https://hackeruna.com/assets/hackeruna.png">
-  
+
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-RXGCTBC67S"></script>
   <script>
@@ -39,23 +39,23 @@
       debug_mode: true  // Modo debug para ver eventos en consola (localhost y producción)
     });
   </script>
-  
+
   <!-- Referrer Policy para permitir imágenes externas (Imgur, etc) -->
   <meta name="referrer" content="no-referrer-when-downgrade">
-  
+
   <!-- Content Security Policy para permitir imágenes externas -->
   <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self'; 
-    img-src 'self' data: https: http:; 
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://*.google-analytics.com https://adservice.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.youtube.com https://s.ytimg.com; 
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://adservice.google.com; 
-    font-src 'self' https://fonts.gstatic.com; 
-    connect-src 'self' https://backend.hackeruna.com https://*.google-analytics.com https://*.analytics.google.com https://pagead2.googlesyndication.com https://*.googletagmanager.com https://www.youtube.com;
+    default-src 'self';
+    img-src 'self' data: https: http:;
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://*.google-analytics.com https://adservice.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.youtube.com https://s.ytimg.com https://mc.yandex.ru;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://adservice.google.com;
+    font-src 'self' https://fonts.gstatic.com;
+    connect-src 'self' https://backend.hackeruna.com https://*.google-analytics.com https://*.analytics.google.com https://pagead2.googlesyndication.com https://*.googletagmanager.com https://www.youtube.com https://mc.yandex.ru https://*.yandex.ru;
     frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://www.dailymotion.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com;
     media-src 'self' https: data: blob:;
     child-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;
   ">
-  
+
   <!-- Resource Hints para mejorar velocidad -->
   <link rel="preconnect" href="https://backend.hackeruna.com" crossorigin>
   <link rel="dns-prefetch" href="https://backend.hackeruna.com">
@@ -66,7 +66,8 @@
   <link rel="dns-prefetch" href="https://imgur.com">
   <link rel="dns-prefetch" href="https://www.youtube.com">
   <link rel="dns-prefetch" href="https://player.vimeo.com">
-  
+  <link rel="dns-prefetch" href="https://mc.yandex.ru">
+
   <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -89,6 +90,20 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7207443809240873"
      crossorigin="anonymous"></script>
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=105301804', 'ym');
+
+    ym(105301804, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/105301804" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
 </head>
 <body class="font-sans bg-background-light dark:bg-background-dark text-text-light-primary dark:text-dark-primary transition-colors duration-300">
   <app-root></app-root>
