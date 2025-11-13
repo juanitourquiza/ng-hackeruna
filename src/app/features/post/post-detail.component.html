@@ -43,11 +43,17 @@
       </nav>
 
       <!-- Category Badges -->
-      <div class="mb-6 flex flex-wrap gap-2">
+      <div class="mb-6 flex flex-wrap gap-2 not-prose">
         @for (category of categories; track category.id) {
-          <span class="text-xs font-mono uppercase tracking-wider text-white py-1.5 px-4 inline-block rounded" style="background-color: var(--accent-blue);">
+          <a 
+            [routerLink]="['/']"
+            [queryParams]="{ category: category.id }"
+            class="text-xs font-mono uppercase tracking-wider py-1.5 px-4 inline-block rounded hover:opacity-80 transition-opacity cursor-pointer" 
+            style="background-color: var(--accent-blue); color: #ffffff !important; text-decoration: none !important;"
+            [title]="'Ver todos los posts de ' + category.name"
+          >
             {{ category.name }}
-          </span>
+          </a>
         }
       </div>
 
@@ -88,7 +94,7 @@
       <div 
         class="text-lg leading-relaxed"
         style="color: var(--text-primary);"
-        [innerHTML]="post()!.content.rendered"
+        [innerHTML]="safeContent()"
       ></div>
 
       <!-- Social Share -->

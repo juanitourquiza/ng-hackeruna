@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { SchemaService } from '../../core/services/schema.service';
+import { MetaTagsService } from '../../core/services/meta-tags.service';
 
 @Component({
   selector: 'app-about',
@@ -317,4 +319,98 @@ import { RouterLink } from '@angular/router';
     }
   `]
 })
-export class AboutComponent {}
+export class AboutComponent implements OnInit {
+  private schemaService = inject(SchemaService);
+  private metaTagsService = inject(MetaTagsService);
+
+  ngOnInit(): void {
+    // Meta Tags
+    this.metaTagsService.updateMetaTags({
+      title: 'Sobre Mí - Juan Urquiza | Hackeruna',
+      description: 'Desarrollador Full Stack especializado en Web Development, Blockchain, Zero-Knowledge Proofs e Inteligencia Artificial. Más de 10 años de experiencia en tecnología.',
+      image: 'https://hackeruna.com/assets/hackeruna.png',
+      url: 'https://hackeruna.com/about',
+      type: 'profile'
+    });
+
+    // AEO: PersonSchema para motores de búsqueda de IA
+    this.schemaService.addMultipleSchemas([
+      // 1. Person Schema
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Juan Urquiza',
+        alternateName: 'Juanito Urquiza',
+        jobTitle: 'Desarrollador Full Stack & Blockchain Engineer',
+        description: 'Desarrollador Full Stack con más de 10 años de experiencia en tecnología. Especializado en desarrollo web moderno, blockchain, Zero-Knowledge Proofs e Inteligencia Artificial.',
+        url: 'https://hackeruna.com/about',
+        image: 'https://hackeruna.com/assets/hackeruna.png',
+        email: 'j@hackeruna.com',
+        sameAs: [
+          'https://www.linkedin.com/in/juanitourquiza',
+          'https://github.com/juanitourquiza',
+          'https://juanitourquiza.github.io',
+          'https://twitter.com/hackeruna',
+          'https://www.facebook.com/hackeruna'
+        ],
+        knowsAbout: [
+          'Desarrollo Web',
+          'Angular',
+          'React',
+          'TypeScript',
+          'JavaScript',
+          'Node.js',
+          'PHP',
+          'Laravel',
+          'Symfony',
+          'Blockchain',
+          'Zero-Knowledge Proofs',
+          'Inteligencia Artificial',
+          'Machine Learning',
+          'TailwindCSS',
+          'Bootstrap',
+          'Vue.js',
+          'Git'
+        ],
+        worksFor: {
+          '@type': 'Organization',
+          name: 'Hackeruna',
+          url: 'https://hackeruna.com'
+        },
+        alumniOf: {
+          '@type': 'Organization',
+          name: 'Universidad'
+        }
+      },
+      // 2. ProfilePage Schema
+      {
+        '@context': 'https://schema.org',
+        '@type': 'ProfilePage',
+        mainEntity: {
+          '@type': 'Person',
+          name: 'Juan Urquiza',
+          url: 'https://hackeruna.com/about'
+        }
+      },
+      // 3. Breadcrumb Schema
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Inicio',
+            item: 'https://hackeruna.com'
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Sobre Mí',
+            item: 'https://hackeruna.com/about'
+          }
+        ]
+      }
+    ]);
+  }
+}

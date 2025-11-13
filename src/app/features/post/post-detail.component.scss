@@ -2,18 +2,21 @@
 :host ::ng-deep {
   .prose {
     color: var(--text-primary);
+    text-align: left; // Forzar alineación izquierda
     
     h1, h2, h3, h4, h5, h6 {
       color: var(--text-primary);
       font-weight: 700;
       margin-top: 2rem;
       margin-bottom: 1rem;
+      text-align: left;
     }
     
     p {
       color: var(--text-primary);
       margin-bottom: 1.5rem;
       line-height: 1.75;
+      text-align: left;
     }
     
     a {
@@ -118,6 +121,65 @@
       
       td {
         color: var(--text-primary);
+      }
+    }
+    
+    // Soporte para videos embebidos (YouTube, Vimeo, etc.)
+    iframe {
+      max-width: 100%;
+      margin: 2rem 0;
+      border-radius: 0.5rem;
+      
+      // Responsive 16:9 aspect ratio para videos
+      &[src*="youtube.com"],
+      &[src*="vimeo.com"],
+      &[src*="dailymotion.com"] {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        height: auto;
+        min-height: 400px;
+      }
+    }
+    
+    // Contenedor de video responsive (si WordPress lo usa)
+    .wp-block-embed,
+    .wp-block-embed__wrapper,
+    .wp-embedded-content {
+      position: relative;
+      width: 100%;
+      margin: 2rem 0;
+      
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.5rem;
+      }
+      
+      // Mantener aspect ratio 16:9
+      &::before {
+        content: '';
+        display: block;
+        padding-top: 56.25%; // 16:9 ratio
+      }
+    }
+    
+    // Figuras de WordPress
+    figure {
+      margin: 2rem 0;
+      text-align: center;
+      
+      iframe {
+        margin: 0 auto;
+      }
+      
+      figcaption {
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+        font-style: italic;
       }
     }
   }

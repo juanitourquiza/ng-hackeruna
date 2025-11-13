@@ -92,7 +92,8 @@ export class PortfolioComponent {
       image: 'assets/hackeruna.png',
       category: 'fullstack',
       period: 'ago. 2024 - nov. 2024',
-      technologies: ['Angular', 'Laravel', 'PHP', 'TypeScript', 'Bootstrap', 'MySQL']
+      technologies: ['Angular', 'Laravel', 'PHP', 'TypeScript', 'Bootstrap', 'MySQL'],
+      link: 'https://declaracion.abgalapagos.gob.ec/'
     },
     {
       id: 8,
@@ -101,7 +102,8 @@ export class PortfolioComponent {
       image: 'assets/hackeruna.png',
       category: 'fullstack',
       period: 'abr. 2021 - nov. 2021',
-      technologies: ['Angular', 'MySQL', 'PostgreSQL', 'Laravel', 'REST APIs', 'Scrum']
+      technologies: ['Angular', 'MySQL', 'PostgreSQL', 'Laravel', 'REST APIs', 'Scrum'],
+      link: 'https://siic.abgalapagos.gob.ec/'
     },
     {
       id: 9,
@@ -122,7 +124,7 @@ export class PortfolioComponent {
       category: 'web',
       period: '2025',
       technologies: ['Angular 20', 'TypeScript', 'Tailwind CSS', 'WordPress API', 'reCAPTCHA'],
-      link: 'https://backend.hackeruna.com',
+      link: 'https://hackeruna.com',
       github: 'https://github.com/juanitourquiza/ng-hackeruna'
     }
   ]);
