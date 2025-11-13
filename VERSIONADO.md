@@ -1,6 +1,6 @@
 # 📦 Sistema de Versionado - Hackeruna
 
-**Versión Actual:** 1.0.0
+**Versión Actual:** 1.0.1
 
 ---
 
@@ -139,6 +139,49 @@ npm run build:prod
 ---
 
 ## 📊 Historial de Versiones
+
+### v1.0.1 (12 Nov 2025) - Features & Analytics
+**Features:**
+- ✅ **Página /about** - "Sobre Mí" con información completa del autor
+  - Experiencia y especialización (Web Dev, Blockchain, ZK-Proofs, IA)
+  - Stack tecnológico (21+ tecnologías)
+  - Links a redes sociales y portafolio personal
+  - Sección "Sobre Hackeruna"
+- ✅ **Google Analytics 4** - Tracking completo
+  - Servicio GoogleAnalyticsService con métodos type-safe
+  - Tracking automático de páginas (SPA-aware)
+  - Eventos personalizados (shares, contacto, errores)
+  - Documentación completa en GOOGLE_ANALYTICS_SETUP.md
+- ✅ **Contador de Vistas** - Preparación para WordPress plugin
+  - Modelo extendido con campos de vistas
+  - Getters y formateo en componentes
+  - UI preparada en PostDetail y PostCard
+  - Documentación en POST_VIEWS_COUNTER.md
+- ✅ **Social Sharing** - Botones de compartir en posts
+  - Facebook, Twitter, LinkedIn, WhatsApp
+  - Copy link functionality
+  - Meta tags Open Graph y Twitter Cards
+  - MetaTagsService para SEO dinámico
+  - Tracking de shares en GA4
+
+**Improvements:**
+- Menú actualizado: "Autor" → "Sobre Mí" (link interno)
+- Stack tecnológico expandido: PHP, Laravel, Symfony, Vue.js, Bootstrap, AI, Windsurf
+- CSP actualizado para Google Analytics
+- Script de limpieza de caché en build
+- Documentación completa para AdSense (ADSENSE_READINESS.md)
+
+**Bug Fixes:**
+- Corregido warning de optional chaining en templates
+- Limpieza de caché mejorada en proceso de build
+
+**Documentation:**
+- GOOGLE_ANALYTICS_SETUP.md - Guía completa de GA4
+- ADSENSE_READINESS.md - Análisis para aprobación AdSense (90% probabilidad)
+- POST_VIEWS_COUNTER.md - Implementación de contador de vistas
+- SOCIAL_SHARE.md - Guía de compartir en redes sociales
+
+---
 
 ### v1.0.0 (11 Nov 2025) - Release Inicial
 **Features:**
@@ -349,6 +392,6 @@ npm run build:prod
 
 ---
 
-**Última Actualización:** 11 de Noviembre, 2025  
-**Versión Actual:** 1.0.0  
-**Próxima Versión:** 1.0.1 (Bug fixes) o 1.1.0 (Nuevas features)
+**Última Actualización:** 12 de Noviembre, 2025  
+**Versión Actual:** 1.0.1  
+**Próxima Versión:** 1.0.2 (Bug fixes) o 1.1.0 (Nuevas features)
