@@ -58,6 +58,13 @@
       <time [attr.datetime]="post.date">{{ formatDate(post.date) }}</time>
       <span class="mx-2">•</span>
       <span>{{ authorName }}</span>
+      @if (postViews > 0) {
+        <span class="mx-2">•</span>
+        <span class="flex items-center">
+          <span class="material-symbols-outlined text-base mr-1">visibility</span>
+          {{ formatViews(postViews) }}
+        </span>
+      }
     </div>
   </div>
   </article>

@@ -27,6 +27,12 @@ export interface WpPost {
   format: string;
   categories: number[];
   tags: number[];
+  
+  // Campos de contador de vistas (Post Views Counter plugin)
+  views?: number;
+  post_views?: number;
+  post_views_count?: number;
+  
   _embedded?: {
     author?: WpAuthor[];
     'wp:featuredmedia'?: WpMedia[];

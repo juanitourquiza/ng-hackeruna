@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { GoogleAnalyticsService } from '../../core/services/google-analytics.service';
 
 interface ContactForm {
   name: string;
@@ -34,8 +35,11 @@ export class ContactComponent {
   // Endpoint personalizado de Hackeruna
   private CF7_ENDPOINT = 'https://backend.hackeruna.com/wp-json/hackeruna/v1/contact';
   private recaptchaSiteKey = environment.recaptchaV3SiteKey;
+  
+  private http = inject(HttpClient);
+  private analytics = inject(GoogleAnalyticsService);
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.loadRecaptchaScript();
   }
 
@@ -107,14 +111,27 @@ export class ContactComponent {
           if (response.status === 'mail_sent') {
             this.successMessage.set('¡Mensaje enviado correctamente! Te contactaremos pronto.');
             this.resetForm();
+            
+            // Track envío exitoso en Google Analytics
+            this.analytics.trackContactFormSubmit(true);
           } else {
             this.errorMessage.set(response.message || 'Hubo un error al enviar el mensaje. Por favor intenta nuevamente.');
+            
+            // Track error en envío
+            this.analytics.trackContactFormSubmit(false);
           }
         },
         error: (err) => {
           console.error('Error sending message:', err);
           this.loading.set(false);
           this.errorMessage.set(err.error?.message || 'Error al enviar el mensaje. Por favor intenta más tarde.');
+          
+          // Track error en Google Analytics
+          this.analytics.trackContactFormSubmit(false);
+          this.analytics.trackError(
+            err.error?.message || 'Contact form submission failed',
+            'ContactComponent'
+          );
         }
       });
     } catch (error) {

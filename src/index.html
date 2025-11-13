@@ -28,6 +28,17 @@
   <meta name="twitter:description" content="Blog de tecnología, programación, desarrollo web, blockchain y tutoriales.">
   <meta name="twitter:image" content="https://hackeruna.com/assets/hackeruna.png">
   
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RXGCTBC67S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RXGCTBC67S', {
+      send_page_view: false  // Desactivar pageview automático, lo manejaremos con Angular Router
+    });
+  </script>
+  
   <!-- Referrer Policy para permitir imágenes externas (Imgur, etc) -->
   <meta name="referrer" content="no-referrer-when-downgrade">
   
@@ -35,10 +46,10 @@
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self'; 
     img-src 'self' data: https: http:; 
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com; 
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com; 
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
     font-src 'self' https://fonts.gstatic.com; 
-    connect-src 'self' https://backend.hackeruna.com;
+    connect-src 'self' https://backend.hackeruna.com https://www.google-analytics.com https://analytics.google.com;
   ">
   
   <!-- Resource Hints para mejorar velocidad -->

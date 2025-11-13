@@ -1,0 +1,320 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-about',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  template: `
+    <main class="py-12 lg:py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center mb-12">
+          <h1 class="text-4xl lg:text-5xl font-bold mb-4" style="color: var(--text-primary);">
+            Sobre Mí
+          </h1>
+          <p class="text-xl" style="color: var(--text-secondary);">
+            Juan Urquiza - Desarrollador Full Stack & Blockchain
+          </p>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="mb-16">
+          <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 lg:p-12 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+              <div class="flex-shrink-0">
+                <div class="w-32 h-32 lg:w-40 lg:h-40 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-6xl lg:text-7xl font-bold">
+                  JU
+                </div>
+              </div>
+              <div class="flex-1 text-center md:text-left">
+                <h2 class="text-3xl font-bold mb-4">Juan Urquiza</h2>
+                <p class="text-lg mb-4 opacity-90">
+                  Desarrollador apasionado por la tecnología blockchain, el desarrollo web moderno 
+                  y la creación de soluciones innovadoras que transforman ideas en realidad.
+                </p>
+                <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+                  <a 
+                    href="https://github.com/juanitourquiza"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
+                  >
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                  </a>
+                  <a 
+                    href="https://www.linkedin.com/in/juanitourquiza"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
+                  >
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                    LinkedIn
+                  </a>
+                  <a 
+                    href="https://juanitourquiza.github.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
+                  >
+                    <span class="material-symbols-outlined text-xl">language</span>
+                    Portafolio
+                  </a>
+                  <a 
+                    href="mailto:j@hackeruna.com"
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
+                  >
+                    <span class="material-symbols-outlined text-xl">email</span>
+                    Email
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience Section -->
+        <div class="mb-16">
+          <h2 class="text-3xl font-bold mb-8" style="color: var(--text-primary);">
+            Experiencia y Especialización
+          </h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="p-6 rounded-xl" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="material-symbols-outlined text-3xl" style="color: var(--accent-blue);">
+                  code
+                </span>
+                <h3 class="text-xl font-bold" style="color: var(--text-primary);">
+                  Desarrollo Web
+                </h3>
+              </div>
+              <p style="color: var(--text-secondary);">
+                Experto en Angular, React, Node.js, y tecnologías modernas de frontend y backend. 
+                Especializado en Single Page Applications (SPA) y arquitecturas escalables.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-xl" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="material-symbols-outlined text-3xl" style="color: var(--accent-blue);">
+                  account_balance
+                </span>
+                <h3 class="text-xl font-bold" style="color: var(--text-primary);">
+                  Blockchain
+                </h3>
+              </div>
+              <p style="color: var(--text-secondary);">
+                Desarrollo de smart contracts, dApps, y soluciones Web3. Experiencia con Ethereum, 
+                Solidity, y tecnologías de criptografía avanzada.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-xl" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="material-symbols-outlined text-3xl" style="color: var(--accent-blue);">
+                  security
+                </span>
+                <h3 class="text-xl font-bold" style="color: var(--text-primary);">
+                  ZK-Proofs
+                </h3>
+              </div>
+              <p style="color: var(--text-secondary);">
+                Implementación de Zero-Knowledge Proofs para privacidad y escalabilidad. 
+                Conocimiento en zkSNARKs, zkSTARKs y protocolos de consenso.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-xl" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="material-symbols-outlined text-3xl" style="color: var(--accent-blue);">
+                  psychology
+                </span>
+                <h3 class="text-xl font-bold" style="color: var(--text-primary);">
+                  IA & Machine Learning
+                </h3>
+              </div>
+              <p style="color: var(--text-secondary);">
+                Integración de modelos de IA en aplicaciones web, automatización con GPT, 
+                y desarrollo de soluciones inteligentes.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- About Blog Section -->
+        <div class="mb-16">
+          <h2 class="text-3xl font-bold mb-6" style="color: var(--text-primary);">
+            Sobre Hackeruna
+          </h2>
+          <div class="p-8 rounded-xl" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
+            <p class="text-lg mb-4" style="color: var(--text-secondary);">
+              Hackeruna es mi espacio personal para compartir conocimiento sobre tecnología, programación, 
+              blockchain y desarrollo web. Aquí encontrarás:
+            </p>
+            <ul class="space-y-3 mb-6">
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined mt-1" style="color: var(--accent-blue);">
+                  check_circle
+                </span>
+                <span style="color: var(--text-secondary);">
+                  <strong>Tutoriales prácticos</strong> con código real y ejemplos funcionales
+                </span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined mt-1" style="color: var(--accent-blue);">
+                  check_circle
+                </span>
+                <span style="color: var(--text-secondary);">
+                  <strong>Análisis profundos</strong> de tecnologías emergentes y tendencias
+                </span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined mt-1" style="color: var(--accent-blue);">
+                  check_circle
+                </span>
+                <span style="color: var(--text-secondary);">
+                  <strong>Proyectos open source</strong> y código que puedes usar en tus aplicaciones
+                </span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined mt-1" style="color: var(--accent-blue);">
+                  check_circle
+                </span>
+                <span style="color: var(--text-secondary);">
+                  <strong>Guías de desarrollo</strong> para principiantes y avanzados
+                </span>
+              </li>
+            </ul>
+            <p class="text-lg" style="color: var(--text-secondary);">
+              Mi objetivo es hacer que la tecnología compleja sea accesible para todos, compartiendo 
+              mi experiencia y aprendizaje continuo en el mundo del desarrollo.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="mb-16">
+          <h2 class="text-3xl font-bold mb-6" style="color: var(--text-primary);">
+            Stack Tecnológico
+          </h2>
+          <div class="flex flex-wrap gap-3">
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              Angular
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              React
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              TypeScript
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              Node.js
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              Solidity
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              Ethereum
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              Web3
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              Python
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              Docker
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              AWS
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              MongoDB
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              PostgreSQL
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              TailwindCSS
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              Bootstrap
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              Git
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              PHP
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              Laravel
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              Symfony
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              Vue.js
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              AI / Machine Learning
+            </span>
+            <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+              Windsurf
+            </span>
+          </div>
+        </div>
+
+        <!-- Contact CTA -->
+        <div class="text-center p-8 rounded-xl" style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: white;">
+          <h2 class="text-2xl lg:text-3xl font-bold mb-4">
+            ¿Quieres colaborar o tienes un proyecto en mente?
+          </h2>
+          <p class="text-lg mb-6 opacity-90">
+            Estoy siempre abierto a nuevas oportunidades y colaboraciones interesantes.
+          </p>
+          <a 
+            routerLink="/contact"
+            class="inline-block px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-opacity-90 transition-all"
+          >
+            Contáctame
+          </a>
+        </div>
+
+      </div>
+    </main>
+  `,
+  styles: [`
+    :host {
+      display: block;
+    }
+  `]
+})
+export class AboutComponent {}

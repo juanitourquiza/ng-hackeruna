@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GoogleAnalyticsService } from '../../../core/services/google-analytics.service';
 
 @Component({
   selector: 'app-social-share',
@@ -197,28 +198,41 @@ export class SocialShareComponent {
   @Input() title: string = '';
   @Input() description: string = '';
 
+  private analytics = inject(GoogleAnalyticsService);
   linkCopied = false;
 
   shareOnFacebook(): void {
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(this.url)}`;
     this.openPopup(facebookUrl, 'Facebook');
+    
+    // Track en Google Analytics
+    this.analytics.trackShare('Facebook', 'article', this.url);
   }
 
   shareOnTwitter(): void {
     const text = `${this.title}\n\n${this.description}`;
     const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(this.url)}&text=${encodeURIComponent(text)}`;
     this.openPopup(twitterUrl, 'Twitter');
+    
+    // Track en Google Analytics
+    this.analytics.trackShare('Twitter', 'article', this.url);
   }
 
   shareOnLinkedIn(): void {
     const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(this.url)}`;
     this.openPopup(linkedInUrl, 'LinkedIn');
+    
+    // Track en Google Analytics
+    this.analytics.trackShare('LinkedIn', 'article', this.url);
   }
 
   shareOnWhatsApp(): void {
     const text = `*${this.title}*\n\n${this.description}\n\n${this.url}`;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
     window.open(whatsappUrl, '_blank');
+    
+    // Track en Google Analytics
+    this.analytics.trackShare('WhatsApp', 'article', this.url);
   }
 
   async copyLink(): Promise<void> {

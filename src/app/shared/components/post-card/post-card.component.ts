@@ -42,4 +42,20 @@ export class PostCardComponent {
     tmp.innerHTML = html;
     return tmp.textContent || tmp.innerText || '';
   }
+
+  get postViews(): number {
+    return this.post.views || 
+           this.post.post_views || 
+           this.post.post_views_count || 
+           0;
+  }
+
+  formatViews(views: number): string {
+    if (views >= 1000000) {
+      return `${(views / 1000000).toFixed(1)}M`;
+    } else if (views >= 1000) {
+      return `${(views / 1000).toFixed(1)}K`;
+    }
+    return views.toString();
+  }
 }

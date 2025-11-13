@@ -42,6 +42,15 @@ export class PostDetailComponent implements OnInit {
         this.post.set(post);
         this.loading.set(false);
         
+        // DEBUG: Ver qué campos de vistas vienen de la API
+        console.log('📊 DEBUG Post Views:', {
+          post: post,
+          views: post.views,
+          post_views: post.post_views,
+          post_views_count: post.post_views_count,
+          allKeys: Object.keys(post)
+        });
+        
         // Actualizar meta tags para SEO y compartir en redes sociales
         this.updateMetaTags(post);
       },
@@ -106,5 +115,25 @@ export class PostDetailComponent implements OnInit {
       month: 'long', 
       day: 'numeric' 
     });
+  }
+
+  get postViews(): number {
+    const post = this.post();
+    if (!post) return 0;
+    
+    // Intentar diferentes nombres de campo del plugin
+    return post.views || 
+           post.post_views || 
+           post.post_views_count || 
+           0;
+  }
+
+  formatViews(views: number): string {
+    if (views >= 1000000) {
+      return `${(views / 1000000).toFixed(1)}M`;
+    } else if (views >= 1000) {
+      return `${(views / 1000).toFixed(1)}K`;
+    }
+    return views.toString();
   }
 }
