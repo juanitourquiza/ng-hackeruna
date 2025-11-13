@@ -19,5 +19,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     // Inicializar tracking de Google Analytics
     this.analytics.init();
+    
+    // Trackear fuente de tráfico (referrer)
+    this.analytics.trackTrafficSource();
   }
 }

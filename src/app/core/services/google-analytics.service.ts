@@ -41,10 +41,75 @@ export class GoogleAnalyticsService {
    */
   pageView(path: string): void {
     if (this.isGtagAvailable()) {
-      window.gtag!('config', this.GA_ID, {
+      // Detectar referrer
+      const referrer = document.referrer;
+      const params: any = {
         page_path: path
-      });
+      };
+      
+      // Agregar referrer si existe
+      if (referrer) {
+        params.page_referrer = referrer;
+      }
+      
+      window.gtag!('config', this.GA_ID, params);
     }
+  }
+
+  /**
+   * Trackear fuente de tráfico (referrer)
+   */
+  trackTrafficSource(): void {
+    if (!this.isGtagAvailable()) return;
+    
+    const referrer = document.referrer;
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Detectar fuente
+    let source = 'direct';
+    let medium = 'none';
+    
+    if (referrer) {
+      const referrerUrl = new URL(referrer);
+      const referrerDomain = referrerUrl.hostname;
+      
+      // Detectar motores de búsqueda
+      if (referrerDomain.includes('google')) {
+        source = 'google';
+        medium = 'organic';
+      } else if (referrerDomain.includes('bing')) {
+        source = 'bing';
+        medium = 'organic';
+      } else if (referrerDomain.includes('facebook')) {
+        source = 'facebook';
+        medium = 'social';
+      } else if (referrerDomain.includes('twitter') || referrerDomain.includes('t.co')) {
+        source = 'twitter';
+        medium = 'social';
+      } else if (referrerDomain.includes('linkedin')) {
+        source = 'linkedin';
+        medium = 'social';
+      } else {
+        source = referrerDomain;
+        medium = 'referral';
+      }
+    }
+    
+    // Detectar UTM params
+    const utmSource = urlParams.get('utm_source');
+    const utmMedium = urlParams.get('utm_medium');
+    const utmCampaign = urlParams.get('utm_campaign');
+    
+    if (utmSource) source = utmSource;
+    if (utmMedium) medium = utmMedium;
+    
+    // Enviar evento
+    this.event('traffic_source', {
+      source: source,
+      medium: medium,
+      campaign: utmCampaign || '(not set)',
+      referrer: referrer || '(direct)'
+    });
   }
 
   /**
