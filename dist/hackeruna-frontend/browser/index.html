@@ -47,13 +47,13 @@
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     img-src 'self' data: https: http:;
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://*.google-analytics.com https://adservice.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.youtube.com https://s.ytimg.com https://mc.yandex.ru https://*.adtrafficquality.google https://region1.google-analytics.com https://region1.analytics.google.com https://cdn.mxpnl.com https://api-js.mixpanel.com https://fundingchoicesmessages.google.com https://*.google.com;
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://*.google-analytics.com https://adservice.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.youtube.com https://s.ytimg.com https://*.adtrafficquality.google https://region1.google-analytics.com https://region1.analytics.google.com https://fundingchoicesmessages.google.com https://*.google.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://adservice.google.com;
     font-src 'self' https://fonts.gstatic.com;
-    connect-src 'self' https://backend.hackeruna.com https://*.google-analytics.com https://*.analytics.google.com https://pagead2.googlesyndication.com https://*.googletagmanager.com https://www.youtube.com https://mc.yandex.ru https://*.yandex.ru wss://mc.yandex.ru wss://*.yandex.ru https://*.adtrafficquality.google https://region1.google-analytics.com https://region1.analytics.google.com https://api.mixpanel.com https://api-eu.mixpanel.com https://api-js.mixpanel.com https://cdn.mxpnl.com;
-    frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://www.dailymotion.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://mc.yandex.ru https://*.yandex.ru https://*.adtrafficquality.google https://www.google.com;
+    connect-src 'self' https://backend.hackeruna.com https://*.google-analytics.com https://*.analytics.google.com https://pagead2.googlesyndication.com https://*.googletagmanager.com https://www.youtube.com https://*.adtrafficquality.google https://region1.google-analytics.com https://region1.analytics.google.com;
+    frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://www.dailymotion.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.adtrafficquality.google https://www.google.com;
     media-src 'self' https: data: blob:;
-    child-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://mc.yandex.ru https://*.yandex.ru https://*.adtrafficquality.google https://www.google.com;
+    child-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://*.adtrafficquality.google https://www.google.com;
   ">
 
   <!-- Resource Hints para mejorar velocidad -->
@@ -66,9 +66,6 @@
   <link rel="dns-prefetch" href="https://imgur.com">
   <link rel="dns-prefetch" href="https://www.youtube.com">
   <link rel="dns-prefetch" href="https://player.vimeo.com">
-  <link rel="dns-prefetch" href="https://mc.yandex.ru">
-  <link rel="dns-prefetch" href="https://cdn.mxpnl.com">
-  <link rel="dns-prefetch" href="https://api.mixpanel.com">
 
   <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -92,35 +89,9 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7207443809240873" crossorigin="anonymous"></script>
 
-  <!-- Yandex.Metrika counter -->
-  <script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=105301804', 'ym');
-
-    ym(105301804, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
-  </script>
-  <!-- /Yandex.Metrika counter -->
-
-  <!-- Mixpanel Analytics -->
-  <script type="text/javascript">
-    (function(e,c){if(!c.__SV){var l,h;window.mixpanel=c;c._i=[];c.init=function(q,r,f){function t(d,a){var g=a.split(".");2==g.length&&(d=d[g[0]],a=g[1]);d[a]=function(){d.push([a].concat(Array.prototype.slice.call(arguments,0)))}}var b=c;"undefined"!==typeof f?b=c[f]=[]:f="mixpanel";b.people=b.people||[];b.toString=function(d){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);d||(a+=" (stub)");return a};b.people.toString=function(){return b.toString(1)+".people (stub)"};l="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders start_session_recording stop_session_recording people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
-    for(h=0;h<l.length;h++)t(b,l[h]);var n="set set_once union unset remove delete".split(" ");b.get_group=function(){function d(p){a[p]=function(){b.push([g,[p].concat(Array.prototype.slice.call(arguments,0))])}}for(var a={},g=["get_group"].concat(Array.prototype.slice.call(arguments,0)),m=0;m<n.length;m++)d(n[m]);return a};c._i.push([q,r,f])};c.__SV=1.2;var k=e.createElement("script");k.type="text/javascript";k.async=!0;k.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=e.getElementsByTagName("script")[0];e.parentNode.insertBefore(k,e)}})(document,window.mixpanel||[])
-
-    mixpanel.init('569d103248457398b9adec970066d8c3', {
-      autocapture: true,
-      record_sessions_percent: 100,
-    })
-  </script>
-  <!-- /Mixpanel Analytics -->
-<style>*,:before,:after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / .5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }*,:before,:after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}:before,:after{--tw-content:""}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Inter,sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}img{display:block;vertical-align:middle}img{max-width:100%;height:auto}.bg-background-light{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.font-sans{font-family:Inter,sans-serif}.text-text-light-primary{--tw-text-opacity:1;color:rgb(18 18 18 / var(--tw-text-opacity, 1))}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-300{transition-duration:.3s}:root{--bg-primary:#FFFFFF;--bg-secondary:#FAFAFA;--bg-tertiary:#F5F5F5;--text-primary:#1A1A1A;--text-secondary:#666666;--text-tertiary:#999999;--border-color:#E5E5E5;--accent-blue:#0077FF}body{background-color:var(--bg-primary);color:var(--text-primary);transition:background-color .3s ease,color .3s ease}img{image-rendering:auto;-webkit-user-drag:auto}img:not([src]){display:none}.dark\:bg-background-dark:is(.dark *){--tw-bg-opacity:1;background-color:rgb(18 18 18 / var(--tw-bg-opacity, 1))}</style><link rel="stylesheet" href="styles-EO6RDRBI.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-EO6RDRBI.css"></noscript></head>
+<style>*,:before,:after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / .5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }*,:before,:after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}:before,:after{--tw-content:""}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Inter,sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}.bg-background-light{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.font-sans{font-family:Inter,sans-serif}.text-text-light-primary{--tw-text-opacity:1;color:rgb(18 18 18 / var(--tw-text-opacity, 1))}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-300{transition-duration:.3s}:root{--bg-primary:#FFFFFF;--bg-secondary:#FAFAFA;--bg-tertiary:#F5F5F5;--text-primary:#1A1A1A;--text-secondary:#666666;--text-tertiary:#999999;--border-color:#E5E5E5;--accent-blue:#0077FF}body{background-color:var(--bg-primary);color:var(--text-primary);transition:background-color .3s ease,color .3s ease}.dark\:bg-background-dark:is(.dark *){--tw-bg-opacity:1;background-color:rgb(18 18 18 / var(--tw-bg-opacity, 1))}</style><link rel="stylesheet" href="styles-EO6RDRBI.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-EO6RDRBI.css"></noscript></head>
 <body class="font-sans bg-background-light dark:bg-background-dark text-text-light-primary dark:text-dark-primary transition-colors duration-300">
   <app-root></app-root>
 
-  <!-- Yandex.Metrika noscript (debe estar en body) -->
-  <noscript><div><img src="https://mc.yandex.ru/watch/105301804" style="position:absolute; left:-9999px;" alt></div></noscript>
 <link rel="modulepreload" href="chunk-G2X6ZLMK.js"><link rel="modulepreload" href="chunk-5PUDGHQF.js"><link rel="modulepreload" href="chunk-PEVXFCB2.js"><link rel="modulepreload" href="chunk-FPFTMN5V.js"><script src="polyfills-B6TNHZQ6.js" type="module"></script><script src="main-6G32MC7F.js" type="module"></script></body>
 </html>

@@ -10,14 +10,14 @@ export const VERSION_HISTORY = [
     version: '1.0.2',
     date: '14 de Noviembre, 2025',
     changes: [
-      'Agregar Mixpanel Analytics',
       'Arreglar estilos de código preformateado en light mode',
-      'Mover noscript de Yandex al body (HTML5 compliance)',
       'Agregar dominios de Google Ad Traffic Quality al CSP',
       'Agregar dominios regionales de Google Analytics al CSP',
       'Crear archivo ads.txt para Google AdSense',
-      'Actualizar CSP para permitir Mixpanel',
-      'Agregar DNS prefetch para optimización'
+      'Agregar DNS prefetch para optimización',
+      'Eliminar Yandex Metrika por problemas de compatibilidad',
+      'Eliminar Mixpanel Analytics por problemas de configuración',
+      'Simplificar CSP solo con Google Analytics y AdSense'
     ]
   },
   {

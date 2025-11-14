@@ -8,12 +8,6 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 
 ### ✨ Agregado
 
-- **Mixpanel Analytics**
-  - Instalación de script de Mixpanel
-  - Configuración de autocapture (100%)
-  - Session recording habilitado (100%)
-  - Integración con CSP
-
 - **Google AdSense**
   - Creación de archivo `ads.txt`
   - Configuración de autorización de vendedores
@@ -22,7 +16,7 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 - **Optimizaciones de CSP**
   - Agregar dominios de Google Ad Traffic Quality (`*.adtrafficquality.google`)
   - Agregar dominios regionales de Google Analytics
-  - Agregar soporte para Mixpanel APIs
+  - Simplificar CSP solo con servicios de Google
 
 ### 🔧 Arreglado
 
@@ -42,12 +36,25 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
   - Agregar `child-src` para Mixpanel
   - Agregar `wss://` para WebSocket de Yandex
 
+### 🗑️ Eliminado
+
+- **Yandex Metrika**
+  - Script eliminado del head
+  - Noscript eliminado del body
+  - Dominios eliminados del CSP
+  - DNS prefetch eliminado
+  - Razón: Problemas de compatibilidad
+
+- **Mixpanel Analytics**
+  - Script eliminado del head
+  - Dominios eliminados del CSP
+  - DNS prefetch eliminado
+  - Razón: Problemas de configuración
+
 ### 📊 Analytics
 
-- Yandex Metrika: Mapa de calor, Webvisor, Clickmap
 - Google Analytics: GA4 con dominios regionales
 - Google Ads: Verificación de calidad de tráfico
-- Mixpanel: Autocapture y session recording
 
 ### 📝 Documentación
 
