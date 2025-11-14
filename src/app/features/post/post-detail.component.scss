@@ -3,7 +3,7 @@
   .prose {
     color: var(--text-primary);
     text-align: left; // Forzar alineación izquierda
-    
+
     h1, h2, h3, h4, h5, h6 {
       color: var(--text-primary);
       font-weight: 700;
@@ -11,28 +11,28 @@
       margin-bottom: 1rem;
       text-align: left;
     }
-    
+
     p {
       color: var(--text-primary);
       margin-bottom: 1.5rem;
       line-height: 1.75;
       text-align: left;
     }
-    
+
     a {
       color: var(--accent-blue);
       text-decoration: underline;
-      
+
       &:hover {
         opacity: 0.8;
       }
     }
-    
+
     strong, b {
       color: var(--text-primary);
       font-weight: 600;
     }
-    
+
     code {
       background-color: #E8E8E8;
       color: #1A1A1A;
@@ -42,36 +42,36 @@
       font-family: 'Courier New', Courier, monospace;
       font-weight: 500;
     }
-    
+
     pre {
-      background-color: #2D2D2D;
-      color: #E8E8E8;
-      border: 1px solid var(--border-color);
+      background-color: #F5F5F5;
+      color: #1A1A1A;
+      border: 1px solid #D0D0D0;
       border-radius: 0.5rem;
       padding: 1rem;
       overflow-x: auto;
-      
+
       code {
         background: none;
         padding: 0;
         color: inherit;
       }
     }
-    
+
     // Dark mode específico para bloques de código
     html.dark & {
       code {
         background-color: #1E1E1E;
         color: #E8E8E8;
       }
-      
+
       pre {
         background-color: #1E1E1E;
         color: #E8E8E8;
         border-color: #3A3A3A;
       }
     }
-    
+
     blockquote {
       border-left: 4px solid var(--accent-blue);
       background-color: var(--bg-secondary);
@@ -80,56 +80,56 @@
       font-style: italic;
       color: var(--text-secondary);
     }
-    
+
     ul, ol {
       color: var(--text-primary);
       margin-bottom: 1.5rem;
       padding-left: 1.5rem;
     }
-    
+
     li {
       margin-bottom: 0.5rem;
     }
-    
+
     img {
       border-radius: 0.5rem;
       width: 100%;
       height: auto;
     }
-    
+
     hr {
       border-color: var(--border-color);
       margin: 2rem 0;
     }
-    
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin: 1.5rem 0;
-      
+
       th, td {
         border: 1px solid var(--border-color);
         padding: 0.75rem;
         text-align: left;
       }
-      
+
       th {
         background-color: var(--bg-secondary);
         font-weight: 600;
         color: var(--text-primary);
       }
-      
+
       td {
         color: var(--text-primary);
       }
     }
-    
+
     // Soporte para videos embebidos (YouTube, Vimeo, etc.)
     iframe {
       max-width: 100%;
       margin: 2rem 0;
       border-radius: 0.5rem;
-      
+
       // Responsive 16:9 aspect ratio para videos
       &[src*="youtube.com"],
       &[src*="vimeo.com"],
@@ -140,7 +140,7 @@
         min-height: 400px;
       }
     }
-    
+
     // Contenedor de video responsive (si WordPress lo usa)
     .wp-block-embed,
     .wp-block-embed__wrapper,
@@ -148,7 +148,7 @@
       position: relative;
       width: 100%;
       margin: 2rem 0;
-      
+
       iframe {
         position: absolute;
         top: 0;
@@ -157,7 +157,7 @@
         height: 100%;
         border-radius: 0.5rem;
       }
-      
+
       // Mantener aspect ratio 16:9
       &::before {
         content: '';
@@ -165,16 +165,16 @@
         padding-top: 56.25%; // 16:9 ratio
       }
     }
-    
+
     // Figuras de WordPress
     figure {
       margin: 2rem 0;
       text-align: center;
-      
+
       iframe {
         margin: 0 auto;
       }
-      
+
       figcaption {
         margin-top: 0.5rem;
         font-size: 0.875rem;
