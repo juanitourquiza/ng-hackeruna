@@ -18,8 +18,4 @@ export class TrendingSidebarComponent {
     tmp.innerHTML = html;
     return tmp.textContent || tmp.innerText || '';
   }
-
-  getAuthorName(post: WpPost): string {
-    return post._embedded?.author?.[0]?.name || 'Anonymous';
-  }
 }

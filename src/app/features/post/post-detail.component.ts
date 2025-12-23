@@ -8,6 +8,7 @@ import { WpPost } from '../../core/models/wordpress.models';
 import { RelatedPostsComponent } from '../../shared/components/related-posts/related-posts.component';
 import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
 import { SocialShareComponent } from '../../shared/components/social-share/social-share.component';
+import { GiscusCommentsComponent } from '../../shared/components/giscus-comments/giscus-comments.component';
 import { MetaTagsService } from '../../core/services/meta-tags.service';
 import { SchemaService } from '../../core/services/schema.service';
 import { environment } from '../../../environments/environment';
@@ -15,7 +16,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-post-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, RelatedPostsComponent, SkeletonLoaderComponent, SocialShareComponent],
+  imports: [CommonModule, RouterLink, RelatedPostsComponent, SkeletonLoaderComponent, SocialShareComponent, GiscusCommentsComponent],
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss']
 })
@@ -48,10 +49,10 @@ export class PostDetailComponent implements OnInit {
       next: (post) => {
         this.post.set(post);
         this.loading.set(false);
-        
+
         // Incrementar contador de vistas
         this.incrementViewCount(post.id);
-        
+
         // Actualizar meta tags para SEO y compartir en redes sociales
         this.updateMetaTags(post);
       },
@@ -66,7 +67,7 @@ export class PostDetailComponent implements OnInit {
   private incrementViewCount(postId: number): void {
     // Llamar al endpoint de WordPress para incrementar el contador
     const url = `${environment.wordpressApiUrl.replace('/wp/v2', '')}/hackeruna/v1/view/${postId}`;
-    
+
     this.http.post(url, {}).subscribe({
       next: (response: any) => {
         console.log('✅ Vista contada:', response);
@@ -78,15 +79,15 @@ export class PostDetailComponent implements OnInit {
   }
 
   private updateMetaTags(post: WpPost): void {
-    const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 
-                         'https://backend.hackeruna.com/wp-content/themes/magazinebook/img/default-bg-img.png';
-    
+    const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
+      'https://backend.hackeruna.com/wp-content/themes/magazinebook/img/default-bg-img.png';
+
     const excerpt = this.stripHtml(post.excerpt?.rendered || '');
     const categories = post._embedded?.['wp:term']?.[0] || [];
     const tags = categories.map(cat => cat.name);
     const authorName = post._embedded?.author?.[0]?.name || 'Juan Urquiza';
     const postUrl = `https://hackeruna.com/post/${post.slug}`;
-    
+
     // Meta Tags (Open Graph, Twitter)
     this.metaTagsService.updateMetaTags({
       title: `${this.stripHtml(post.title.rendered)} | Hackeruna`,
@@ -99,7 +100,7 @@ export class PostDetailComponent implements OnInit {
       modifiedTime: post.modified,
       tags: tags
     });
-    
+
     // AEO: JSON-LD Schema para motores de búsqueda de IA
     this.schemaService.addMultipleSchemas([
       // 1. BlogPosting Schema
@@ -176,8 +177,8 @@ export class PostDetailComponent implements OnInit {
   });
 
   get featuredImage(): string {
-    return this.post()?._embedded?.['wp:featuredmedia']?.[0]?.source_url || 
-           'https://backend.hackeruna.com/wp-content/themes/magazinebook/img/default-bg-img.png';
+    return this.post()?._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
+      'https://backend.hackeruna.com/wp-content/themes/magazinebook/img/default-bg-img.png';
   }
 
   get authorName(): string {
@@ -196,22 +197,22 @@ export class PostDetailComponent implements OnInit {
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleDateString('es-ES', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    return date.toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     });
   }
 
   get postViews(): number {
     const post = this.post();
     if (!post) return 0;
-    
+
     // Intentar diferentes nombres de campo del plugin
-    return post.views || 
-           post.post_views || 
-           post.post_views_count || 
-           0;
+    return post.views ||
+      post.post_views ||
+      post.post_views_count ||
+      0;
   }
 
   formatViews(views: number): string {

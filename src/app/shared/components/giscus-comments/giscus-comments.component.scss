@@ -1,0 +1,18 @@
+:host {
+    display: block;
+}
+
+.giscus-wrapper {
+    margin-top: 2rem;
+
+    // Ensure giscus respects our theme
+    ::ng-deep .giscus {
+        width: 100%;
+    }
+
+    // Add some spacing for the comments section
+    ::ng-deep .giscus-frame {
+        border: none;
+        width: 100%;
+    }
+}

@@ -7,16 +7,22 @@ import { PostCardComponent } from '../../shared/components/post-card/post-card.c
 import { TrendingSidebarComponent } from '../../shared/components/trending-sidebar/trending-sidebar.component';
 import { CategoryFilterComponent } from '../../shared/components/category-filter/category-filter.component';
 import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
+import { FeaturedProjectsComponent } from '../../shared/components/featured-projects/featured-projects.component';
+import { PopularTutorialsComponent } from '../../shared/components/popular-tutorials/popular-tutorials.component';
+import { UsefulResourcesComponent } from '../../shared/components/useful-resources/useful-resources.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    CommonModule, 
-    PostCardComponent, 
+    CommonModule,
+    PostCardComponent,
     TrendingSidebarComponent,
     CategoryFilterComponent,
-    SkeletonLoaderComponent
+    SkeletonLoaderComponent,
+    FeaturedProjectsComponent,
+    PopularTutorialsComponent,
+    UsefulResourcesComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -33,13 +39,13 @@ export class HomeComponent implements OnInit {
   loading = signal(true);
   loadingMore = signal(false);
   error = signal<string | null>(null);
-  
+
   // Pagination
   currentPage = signal(1);
   totalPages = signal(1);
   postsPerPage = 6;
   hasMorePosts = signal(true);
-  
+
   // Category filter
   selectedCategoryId = signal<number | null>(null);
 
@@ -56,7 +62,7 @@ export class HomeComponent implements OnInit {
     this.loading.set(true);
     this.error.set(null);
     this.currentPage.set(1); // Reset page when loading new data
-    
+
     const categoryId = this.selectedCategoryId();
 
     // Load featured post (only if no category filter)
@@ -101,13 +107,19 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    // Load trending posts (no filter, always show recent)
-    this.wpApi.getPosts(1, 4).subscribe({
-      next: (response) => {
-        this.trendingPosts.set(response.data);
+    // Load most read posts (sorted by views)
+    this.wpApi.getMostReadPosts(4).subscribe({
+      next: (posts) => {
+        this.trendingPosts.set(posts);
       },
       error: (err) => {
-        console.error('Error loading trending posts:', err);
+        console.error('Error loading most read posts:', err);
+        // Fallback to recent posts if views endpoint fails
+        this.wpApi.getPosts(1, 4).subscribe({
+          next: (response) => {
+            this.trendingPosts.set(response.data);
+          }
+        });
       }
     });
   }

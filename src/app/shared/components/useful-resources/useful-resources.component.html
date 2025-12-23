@@ -1,0 +1,82 @@
+<section class="py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold mb-2" style="color: var(--text-primary);">
+                Recursos Útiles
+            </h2>
+            <p class="text-base" style="color: var(--text-secondary);">
+                Herramientas y plataformas que recomiendo para desarrolladores
+            </p>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+            <button (click)="selectCategory('all')" [class.active]="selectedCategory() === 'all'"
+                class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
+                [style.background-color]="selectedCategory() === 'all' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
+                [style.color]="selectedCategory() === 'all' ? 'white' : 'var(--text-secondary)'">
+                Todos
+            </button>
+            <button (click)="selectCategory('tools')" [class.active]="selectedCategory() === 'tools'"
+                class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
+                [style.background-color]="selectedCategory() === 'tools' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
+                [style.color]="selectedCategory() === 'tools' ? 'white' : 'var(--text-secondary)'">
+                Herramientas
+            </button>
+            <button (click)="selectCategory('learning')" [class.active]="selectedCategory() === 'learning'"
+                class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
+                [style.background-color]="selectedCategory() === 'learning' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
+                [style.color]="selectedCategory() === 'learning' ? 'white' : 'var(--text-secondary)'">
+                Aprendizaje
+            </button>
+            <button (click)="selectCategory('libraries')" [class.active]="selectedCategory() === 'libraries'"
+                class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
+                [style.background-color]="selectedCategory() === 'libraries' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
+                [style.color]="selectedCategory() === 'libraries' ? 'white' : 'var(--text-secondary)'">
+                Librerías
+            </button>
+            <button (click)="selectCategory('design')" [class.active]="selectedCategory() === 'design'"
+                class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
+                [style.background-color]="selectedCategory() === 'design' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
+                [style.color]="selectedCategory() === 'design' ? 'white' : 'var(--text-secondary)'">
+                Diseño
+            </button>
+        </div>
+
+        <!-- Resources Grid -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            @for (resource of filteredResources; track trackByResourceName($index, resource)) {
+            <a [href]="resource.url" target="_blank" rel="noopener noreferrer"
+                class="group p-5 rounded-lg transition-all duration-300 hover:shadow-lg flex items-start gap-3"
+                style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
+                <span class="material-symbols-outlined text-2xl flex-shrink-0" style="color: var(--accent-blue);">
+                    {{ resource.icon }}
+                </span>
+                <div class="flex-1 min-w-0">
+                    <h3 class="text-base font-semibold mb-1 group-hover:underline transition-all"
+                        style="color: var(--text-primary);">
+                        {{ resource.name }}
+                    </h3>
+                    <p class="text-sm" style="color: var(--text-secondary);">
+                        {{ resource.description }}
+                    </p>
+                </div>
+                <span
+                    class="material-symbols-outlined text-base flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                    style="color: var(--accent-blue);">
+                    arrow_outward
+                </span>
+            </a>
+            }
+        </div>
+
+        @if (filteredResources.length === 0) {
+        <div class="text-center py-8">
+            <p style="color: var(--text-secondary);">
+                No hay recursos en esta categoría
+            </p>
+        </div>
+        }
+    </div>
+</section>

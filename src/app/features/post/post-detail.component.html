@@ -1,75 +1,57 @@
 <main class="py-12">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    
+
     @if (loading()) {
-      <app-skeleton-loader type="post-detail"></app-skeleton-loader>
+    <app-skeleton-loader type="post-detail"></app-skeleton-loader>
     }
 
     @if (error()) {
-      <div 
-        class="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded mb-8"
-      >
-        {{ error() }}
-        <div class="mt-4">
-          <a 
-            routerLink="/" 
-            class="text-primary hover:underline"
-          >
-            Volver al inicio
-          </a>
-        </div>
+    <div
+      class="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded mb-8">
+      {{ error() }}
+      <div class="mt-4">
+        <a routerLink="/" class="text-primary hover:underline">
+          Volver al inicio
+        </a>
       </div>
+    </div>
     }
 
     @if (post() && !loading()) {
-      <article class="prose prose-lg max-w-none">
+    <article class="prose prose-lg max-w-none">
       <!-- Breadcrumb -->
       <nav class="mb-8 text-sm">
-        <a 
-          routerLink="/" 
-          class="no-underline hover:underline transition-all"
-          style="color: var(--text-secondary);"
-        >
+        <a routerLink="/" class="no-underline hover:underline transition-all" style="color: var(--text-secondary);">
           Inicio
         </a>
         @if (categories.length > 0) {
-          <span class="mx-2" style="color: var(--text-tertiary);">/</span>
-          @for (category of categories; track category.id; let isLast = $last) {
-            <span style="color: var(--text-tertiary);">
-              {{ category.name }}@if (!isLast) {<span>, </span>}
-            </span>
-          }
+        <span class="mx-2" style="color: var(--text-tertiary);">/</span>
+        @for (category of categories; track category.id; let isLast = $last) {
+        <span style="color: var(--text-tertiary);">
+          {{ category.name }}@if (!isLast) {<span>, </span>}
+        </span>
+        }
         }
       </nav>
 
       <!-- Category Badges -->
       <div class="mb-6 flex flex-wrap gap-2 not-prose">
         @for (category of categories; track category.id) {
-          <a 
-            [routerLink]="['/']"
-            [queryParams]="{ category: category.id }"
-            class="text-xs font-mono uppercase tracking-wider py-1.5 px-4 inline-block rounded hover:opacity-80 transition-opacity cursor-pointer" 
-            style="background-color: var(--accent-blue); color: #ffffff !important; text-decoration: none !important;"
-            [title]="'Ver todos los posts de ' + category.name"
-          >
-            {{ category.name }}
-          </a>
+        <a [routerLink]="['/']" [queryParams]="{ category: category.id }"
+          class="text-xs font-mono uppercase tracking-wider py-1.5 px-4 inline-block rounded hover:opacity-80 transition-opacity cursor-pointer"
+          style="background-color: var(--accent-blue); color: #ffffff !important; text-decoration: none !important;"
+          [title]="'Ver todos los posts de ' + category.name">
+          {{ category.name }}
+        </a>
         }
       </div>
 
       <!-- Title -->
-      <h1 
-        class="text-4xl md:text-5xl font-bold leading-tight mb-6"
-        style="color: var(--text-primary);"
-        [innerHTML]="post()!.title.rendered"
-      ></h1>
+      <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6" style="color: var(--text-primary);"
+        [innerHTML]="post()!.title.rendered"></h1>
 
       <!-- Meta Information -->
       <div class="flex flex-wrap items-center gap-4 mb-10 text-sm not-prose" style="color: var(--text-tertiary);">
-        <span class="flex items-center">
-          <span class="material-symbols-outlined text-base mr-2">person</span>
-          <span>Por {{ authorName }}</span>
-        </span>
         <span class="flex items-center">
           <span class="material-symbols-outlined text-base mr-2">calendar_today</span>
           <time [attr.datetime]="post()!.date">{{ formatDate(post()!.date) }}</time>
@@ -82,48 +64,46 @@
 
       <!-- Featured Image -->
       <div class="mb-10 -mx-4 sm:-mx-6 lg:-mx-8">
-        <img 
-          [src]="featuredImage" 
-          [alt]="post()!.title.rendered" 
-          class="w-full h-auto object-cover"
-          loading="lazy"
-        />
+        <img [src]="featuredImage" [alt]="post()!.title.rendered" class="w-full h-auto object-cover" loading="lazy" />
       </div>
 
       <!-- Content -->
-      <div 
-        class="text-lg leading-relaxed"
-        style="color: var(--text-primary);"
-        [innerHTML]="safeContent()"
-      ></div>
+      <div class="text-lg leading-relaxed" style="color: var(--text-primary);" [innerHTML]="safeContent()"></div>
 
       <!-- Social Share -->
-      <app-social-share
-        [url]="'https://hackeruna.com/post/' + post()!.slug"
-        [title]="post()!.title.rendered"
-        [description]="post()!.excerpt.rendered || ''"
-      ></app-social-share>
+      <app-social-share [url]="'https://hackeruna.com/post/' + post()!.slug" [title]="post()!.title.rendered"
+        [description]="post()!.excerpt.rendered || ''"></app-social-share>
+
+      <!-- Comments Section -->
+      <div class="mt-12 pt-8 not-prose" style="border-top: 1px solid var(--border-color);">
+        <h2 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">
+          💬 Comentarios
+        </h2>
+        <p class="text-sm mb-6" style="color: var(--text-secondary);">
+          Comparte tus ideas, preguntas o sugerencias. Los comentarios se gestionan a través de GitHub Discussions.
+        </p>
+        @defer (on viewport; prefetch on idle) {
+        <app-giscus-comments></app-giscus-comments>
+        } @placeholder {
+        <div class="h-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
+        }
+      </div>
 
       <!-- Back to Home -->
       <div class="mt-12 pt-8 not-prose" style="border-top: 1px solid var(--border-color);">
-        <a 
-          routerLink="/" 
-          class="inline-flex items-center font-semibold hover:underline transition-all"
-          style="color: var(--accent-blue);"
-        >
+        <a routerLink="/" class="inline-flex items-center font-semibold hover:underline transition-all"
+          style="color: var(--accent-blue);">
           <span class="material-symbols-outlined mr-2">arrow_back</span>
           Volver al inicio
         </a>
       </div>
-      </article>
+    </article>
     }
 
     <!-- Related Posts -->
     @if (post() && !loading()) {
-      <app-related-posts 
-        [currentPostId]="post()!.id"
-        [categoryId]="post()?._embedded?.['wp:term']?.[0]?.[0]?.id"
-      ></app-related-posts>
+    <app-related-posts [currentPostId]="post()!.id"
+      [categoryId]="post()?._embedded?.['wp:term']?.[0]?.[0]?.id"></app-related-posts>
     }
   </div>
 </main>

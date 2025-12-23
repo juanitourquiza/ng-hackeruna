@@ -168,4 +168,18 @@ export class WordpressApiService {
   searchPosts(query: string, page: number = 1, perPage: number = 10): Observable<WpApiResponse<WpPost>> {
     return this.getPosts(page, perPage, undefined, query);
   }
+
+  /**
+   * Get most read posts (ordered by views)
+   * Note: Requires Post Views Counter plugin or similar in WordPress
+   */
+  getMostReadPosts(limit: number = 4): Observable<WpPost[]> {
+    const params = new HttpParams()
+      .set('per_page', limit.toString())
+      .set('orderby', 'views')
+      .set('order', 'desc')
+      .set('_embed', 'true');
+
+    return this.http.get<WpPost[]>(`${this.apiUrl}/posts`, { params });
+  }
 }
