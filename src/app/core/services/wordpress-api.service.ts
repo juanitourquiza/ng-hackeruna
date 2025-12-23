@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { 
-  WpPost, 
-  WpAuthor, 
-  WpCategory, 
+import {
+  WpPost,
+  WpAuthor,
+  WpCategory,
   WpTag,
-  WpApiResponse 
+  WpApiResponse
 } from '../models/wordpress.models';
 
 @Injectable({
@@ -16,13 +16,13 @@ import {
 export class WordpressApiService {
   private apiUrl = environment.wordpressApiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    * Get posts with pagination and optional filters
    */
   getPosts(
-    page: number = 1, 
+    page: number = 1,
     perPage: number = 10,
     categoryId?: number,
     search?: string,
@@ -45,9 +45,9 @@ export class WordpressApiService {
       params = params.set('sticky', sticky.toString());
     }
 
-    return this.http.get<WpPost[]>(`${this.apiUrl}/posts`, { 
-      params, 
-      observe: 'response' 
+    return this.http.get<WpPost[]>(`${this.apiUrl}/posts`, {
+      params,
+      observe: 'response'
     }).pipe(
       map(response => ({
         data: response.body || [],
@@ -143,9 +143,9 @@ export class WordpressApiService {
       .set('per_page', perPage.toString())
       .set('_embed', 'true');
 
-    return this.http.get<WpPost[]>(`${this.apiUrl}/posts`, { 
-      params, 
-      observe: 'response' 
+    return this.http.get<WpPost[]>(`${this.apiUrl}/posts`, {
+      params,
+      observe: 'response'
     }).pipe(
       map(response => ({
         data: response.body || [],
@@ -171,15 +171,25 @@ export class WordpressApiService {
 
   /**
    * Get most read posts (ordered by views)
-   * Note: Requires Post Views Counter plugin or similar in WordPress
+   * Note: WordPress REST API doesn't support orderby=views, so we fetch posts and sort client-side
    */
   getMostReadPosts(limit: number = 4): Observable<WpPost[]> {
     const params = new HttpParams()
-      .set('per_page', limit.toString())
-      .set('orderby', 'views')
-      .set('order', 'desc')
+      .set('per_page', '20') // Fetch more posts to ensure we get enough with views
       .set('_embed', 'true');
 
-    return this.http.get<WpPost[]>(`${this.apiUrl}/posts`, { params });
+    return this.http.get<WpPost[]>(`${this.apiUrl}/posts`, { params }).pipe(
+      map(posts => {
+        // Sort by views (checking different field names that plugins might use)
+        const sortedPosts = posts.sort((a, b) => {
+          const viewsA = a.views || a.post_views || a.post_views_count || 0;
+          const viewsB = b.views || b.post_views || b.post_views_count || 0;
+          return viewsB - viewsA; // Descending order
+        });
+
+        // Return only the requested limit
+        return sortedPosts.slice(0, limit);
+      })
+    );
   }
 }
