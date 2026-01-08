@@ -47,8 +47,9 @@
       </div>
 
       <!-- Title -->
-      <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6" style="color: var(--text-primary);"
-        [innerHTML]="post()!.title.rendered"></h1>
+      <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6" style="color: var(--text-primary);">
+        {{ displayTitle() }}
+      </h1>
 
       <!-- Meta Information -->
       <div class="flex flex-wrap items-center gap-4 mb-10 text-sm not-prose" style="color: var(--text-tertiary);">
