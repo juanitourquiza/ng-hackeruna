@@ -58,25 +58,37 @@ class Hackeruna_Translate_Database
     }
 
     /**
-     * Save translation to cache
+     * Save translation to cache (uses REPLACE for race condition handling)
      */
     public static function save_translation($data)
     {
         global $wpdb;
         $table_name = $wpdb->prefix . 'post_translations';
 
-        return $wpdb->insert($table_name, [
-            'post_id' => $data['post_id'],
-            'language' => $data['language'],
-            'title' => $data['title'],
-            'content' => $data['content'],
-            'excerpt' => $data['excerpt'] ?? '',
-            'slug' => $data['slug'] ?? '',
-            'model_used' => $data['model_used'] ?? 'gpt-4o-mini',
-            'tokens_used' => $data['tokens_used'] ?? 0,
-            'cost_usd' => $data['cost_usd'] ?? 0,
-            'translated_at' => current_time('mysql')
-        ]);
+        // Use REPLACE INTO to handle race conditions (concurrent requests)
+        // Suppress errors to prevent HTML from corrupting JSON response
+        $wpdb->suppress_errors(true);
+
+        $sql = $wpdb->prepare(
+            "REPLACE INTO $table_name 
+            (post_id, language, title, content, excerpt, slug, model_used, tokens_used, cost_usd, translated_at) 
+            VALUES (%d, %s, %s, %s, %s, %s, %s, %d, %f, %s)",
+            $data['post_id'],
+            $data['language'],
+            $data['title'],
+            $data['content'],
+            $data['excerpt'] ?? '',
+            $data['slug'] ?? '',
+            $data['model_used'] ?? 'gpt-4o-mini',
+            $data['tokens_used'] ?? 0,
+            $data['cost_usd'] ?? 0,
+            current_time('mysql')
+        );
+
+        $result = $wpdb->query($sql);
+        $wpdb->suppress_errors(false);
+
+        return $result;
     }
 
     /**
