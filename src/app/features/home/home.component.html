@@ -1,134 +1,136 @@
-<main class="py-0">
-  <div class="w-full">
+<ng-container *transloco="let t">
+  <main class="py-0">
+    <div class="w-full">
 
-    <!-- Featured Post -->
-    <div class="relative w-full mb-12">
-      @if (featuredPost()) {
-      <app-post-card [post]="featuredPost()!" [featured]="true"></app-post-card>
+      <!-- Featured Post -->
+      <div class="relative w-full mb-12">
+        @if (featuredPost()) {
+        <app-post-card [post]="featuredPost()!" [featured]="true"></app-post-card>
+        }
+
+        @if (loading() && !featuredPost()) {
+        <app-skeleton-loader type="post-featured"></app-skeleton-loader>
+        }
+      </div>
+
+      <!-- Error Message -->
+      @if (error()) {
+      <div
+        class="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded mb-8">
+        {{ error() }}
+      </div>
       }
 
-      @if (loading() && !featuredPost()) {
-      <app-skeleton-loader type="post-featured"></app-skeleton-loader>
-      }
-    </div>
+      <!-- Main Content Grid -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
 
-    <!-- Error Message -->
-    @if (error()) {
-    <div
-      class="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded mb-8">
-      {{ error() }}
-    </div>
-    }
+          <!-- Recent Posts -->
+          <div class="col-span-1 md:col-span-2 lg:col-span-3">
+            <h2 class="text-sm font-mono uppercase tracking-widest pb-2 mb-8"
+              style="color: var(--text-primary); border-bottom: 2px solid var(--accent-blue);">
+              {{ t('home.recentPosts') }}
+            </h2>
 
-    <!-- Main Content Grid -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <!-- Category Filter -->
+            <app-category-filter (categorySelected)="onCategorySelected($event)"></app-category-filter>
 
-        <!-- Recent Posts -->
-        <div class="col-span-1 md:col-span-2 lg:col-span-3">
-          <h2 class="text-sm font-mono uppercase tracking-widest pb-2 mb-8"
-            style="color: var(--text-primary); border-bottom: 2px solid var(--accent-blue);">
-            Últimas Noticias
-          </h2>
-
-          <!-- Category Filter -->
-          <app-category-filter (categorySelected)="onCategorySelected($event)"></app-category-filter>
-
-          @if (loading()) {
-          <app-skeleton-loader type="post-list"></app-skeleton-loader>
-          }
-
-          @if (!loading()) {
-          <div class="space-y-16">
-            @for (post of recentPosts(); track post.id) {
-            <app-post-card [post]="post"></app-post-card>
-            }
-          </div>
-          }
-
-          @if (!loading() && recentPosts().length === 0) {
-          <div class="text-center py-12" style="color: var(--text-secondary);">
-            No hay artículos disponibles en este momento.
-          </div>
-          }
-
-          <!-- Load More Button -->
-          @if (!loading() && recentPosts().length > 0) {
-          <div class="mt-12 mb-20 text-center">
-            @if (hasMorePosts()) {
-            <button (click)="loadMorePosts()" [disabled]="loadingMore()"
-              class="inline-flex items-center px-8 py-3 text-sm font-medium rounded-full transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-              style="background-color: var(--accent-blue); color: white; box-shadow: 0 4px 12px rgba(0, 119, 255, 0.2);">
-              @if (!loadingMore()) {
-              <span>Cargar Más Artículos</span>
-              }
-              @if (loadingMore()) {
-              <span class="flex items-center">
-                <svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                  </path>
-                </svg>
-                Cargando...
-              </span>
-              }
-            </button>
+            @if (loading()) {
+            <app-skeleton-loader type="post-list"></app-skeleton-loader>
             }
 
-            <!-- Pagination Info -->
-            @if (!hasMorePosts() && recentPosts().length > 0) {
-            <div class="text-sm" style="color: var(--text-tertiary);">
-              Has visto todos los artículos disponibles
+            @if (!loading()) {
+            <div class="space-y-16">
+              @for (post of recentPosts(); track post.id) {
+              <app-post-card [post]="post"></app-post-card>
+              }
+            </div>
+            }
+
+            @if (!loading() && recentPosts().length === 0) {
+            <div class="text-center py-12" style="color: var(--text-secondary);">
+              {{ t('search.noResults') }}
+            </div>
+            }
+
+            <!-- Load More Button -->
+            @if (!loading() && recentPosts().length > 0) {
+            <div class="mt-12 mb-20 text-center">
+              @if (hasMorePosts()) {
+              <button (click)="loadMorePosts()" [disabled]="loadingMore()"
+                class="inline-flex items-center px-8 py-3 text-sm font-medium rounded-full transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                style="background-color: var(--accent-blue); color: white; box-shadow: 0 4px 12px rgba(0, 119, 255, 0.2);">
+                @if (!loadingMore()) {
+                <span>{{ t('home.viewAll') }}</span>
+                }
+                @if (loadingMore()) {
+                <span class="flex items-center">
+                  <svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                  </svg>
+                  {{ t('common.loading') }}
+                </span>
+                }
+              </button>
+              }
+
+              <!-- Pagination Info -->
+              @if (!hasMorePosts() && recentPosts().length > 0) {
+              <div class="text-sm" style="color: var(--text-tertiary);">
+                {{ t('search.noResults') }}
+              </div>
+              }
             </div>
             }
           </div>
-          }
-        </div>
 
-        <!-- Trending Sidebar - Deferred Loading -->
-        <div class="col-span-1 md:col-span-1 lg:col-span-1">
-          @defer (on viewport; prefetch on idle) {
-          <app-trending-sidebar [posts]="trendingPosts()"></app-trending-sidebar>
-          } @placeholder {
-          <div class="space-y-4">
-            <div class="h-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
-            <div class="h-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
-            <div class="h-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
+          <!-- Trending Sidebar - Deferred Loading -->
+          <div class="col-span-1 md:col-span-1 lg:col-span-1">
+            @defer (on viewport; prefetch on idle) {
+            <app-trending-sidebar [posts]="trendingPosts()"></app-trending-sidebar>
+            } @placeholder {
+            <div class="space-y-4">
+              <div class="h-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
+              <div class="h-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
+              <div class="h-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
+            </div>
+            }
           </div>
-          }
         </div>
       </div>
-    </div>
 
-    <!-- Featured Projects Section -->
-    @defer (on viewport; prefetch on idle) {
-    <app-featured-projects></app-featured-projects>
-    } @placeholder {
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="h-64 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg"></div>
-    </div>
-    }
-
-    <!-- Popular Tutorials Section -->
-    @defer (on viewport; prefetch on idle) {
-    <app-popular-tutorials></app-popular-tutorials>
-    } @placeholder {
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="h-48 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg"></div>
+      <!-- Featured Projects Section -->
+      @defer (on viewport; prefetch on idle) {
+      <app-featured-projects></app-featured-projects>
+      } @placeholder {
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="h-64 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg"></div>
       </div>
-    </div>
-    }
+      }
 
-    <!-- Useful Resources Section -->
-    @defer (on viewport; prefetch on idle) {
-    <app-useful-resources></app-useful-resources>
-    } @placeholder {
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="h-64 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg"></div>
+      <!-- Popular Tutorials Section -->
+      @defer (on viewport; prefetch on idle) {
+      <app-popular-tutorials></app-popular-tutorials>
+      } @placeholder {
+      <div class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="h-48 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg"></div>
+        </div>
+      </div>
+      }
+
+      <!-- Useful Resources Section -->
+      @defer (on viewport; prefetch on idle) {
+      <app-useful-resources></app-useful-resources>
+      } @placeholder {
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="h-64 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg"></div>
+      </div>
+      }
     </div>
-    }
-  </div>
-</main>
+  </main>
+</ng-container>

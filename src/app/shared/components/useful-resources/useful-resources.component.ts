@@ -1,5 +1,6 @@
 import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule } from '@jsverse/transloco';
 
 interface Resource {
     name: string;
@@ -12,7 +13,7 @@ interface Resource {
 @Component({
     selector: 'app-useful-resources',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, TranslocoModule],
     templateUrl: './useful-resources.component.html',
     styleUrls: ['./useful-resources.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

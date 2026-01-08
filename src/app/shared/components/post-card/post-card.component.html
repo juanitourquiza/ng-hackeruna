@@ -1,7 +1,7 @@
 <!-- Featured Post Layout -->
 @if (featured) {
 <article class="group">
-  <a [routerLink]="['/post', post.slug]">
+  <a [routerLink]="['/', currentLang, 'post', post.slug]">
     <div class="relative w-full h-[450px] md:h-[550px] overflow-hidden">
       <img [src]="featuredImage" [alt]="stripHtml(post.title.rendered)" class="w-full h-full object-cover"
         fetchpriority="high" />
@@ -24,13 +24,13 @@
 @if (!featured) {
 <article class="group grid grid-cols-1 sm:grid-cols-5 gap-8 pb-12"
   style="border-bottom: 1px solid var(--border-color);">
-  <a [routerLink]="['/post', post.slug]" class="sm:col-span-1">
+  <a [routerLink]="['/', currentLang, 'post', post.slug]" class="sm:col-span-1">
     <img [src]="featuredImage" [alt]="stripHtml(post.title.rendered)" class="w-full h-48 sm:h-40 object-cover"
       loading="lazy" />
   </a>
 
   <div class="sm:col-span-4">
-    <a [routerLink]="['/post', post.slug]">
+    <a [routerLink]="['/', currentLang, 'post', post.slug]">
       <h3 class="text-xl md:text-2xl font-bold leading-tight mb-4 group-hover:underline transition-all"
         style="color: var(--text-primary);" [innerHTML]="post.title.rendered"></h3>
       <p class="text-base leading-relaxed line-clamp-2 mb-4" style="color: var(--text-secondary);"

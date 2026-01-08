@@ -1,0 +1,101 @@
+{
+    "nav": {
+        "home": "Home",
+        "about": "About",
+        "portfolio": "Portfolio",
+        "contact": "Contact",
+        "search": "Search...",
+        "searchPlaceholder": "Search on Hackeruna.com"
+    },
+    "header": {
+        "toggleTheme": "Toggle theme",
+        "switchLanguage": "Cambiar a Español"
+    },
+    "home": {
+        "featuredPost": "Featured Post",
+        "recentPosts": "Recent Posts",
+        "mostRead": "Most Read",
+        "featuredProjects": "Featured Projects",
+        "popularTutorials": "Popular Tutorials",
+        "usefulResources": "Useful Resources",
+        "viewAll": "View all",
+        "viewPortfolio": "View Portfolio"
+    },
+    "post": {
+        "by": "By",
+        "published": "Published",
+        "views": "views",
+        "readMore": "Read more",
+        "comments": "Comments",
+        "commentsDescription": "Share your thoughts, questions, or suggestions. Comments are managed through GitHub Discussions.",
+        "backToHome": "Back to home",
+        "relatedPosts": "Related Posts",
+        "share": "Share",
+        "translatedBy": "Automatically translated",
+        "viewOriginal": "View original in Spanish"
+    },
+    "search": {
+        "title": "Search Results",
+        "resultsFor": "Results for",
+        "noResults": "No results found",
+        "tryAgain": "Try different search terms"
+    },
+    "about": {
+        "title": "About Me",
+        "subtitle": "Full Stack & Blockchain Developer"
+    },
+    "portfolio": {
+        "title": "Portfolio",
+        "subtitle": "Featured projects",
+        "allProjects": "All",
+        "frontend": "Frontend",
+        "backend": "Backend",
+        "fullstack": "Full Stack",
+        "blockchain": "Blockchain",
+        "viewDemo": "View Demo",
+        "viewCode": "View Code"
+    },
+    "contact": {
+        "title": "Contact",
+        "subtitle": "Have a project in mind?",
+        "name": "Name",
+        "email": "Email",
+        "message": "Message",
+        "send": "Send message",
+        "sending": "Sending...",
+        "success": "Message sent successfully!",
+        "error": "Error sending message. Please try again."
+    },
+    "footer": {
+        "copyright": "All rights reserved",
+        "privacy": "Privacy",
+        "terms": "Terms",
+        "madeWith": "Made with",
+        "and": "and"
+    },
+    "common": {
+        "loading": "Loading...",
+        "error": "An error occurred",
+        "retry": "Retry",
+        "close": "Close",
+        "readTime": "min read"
+    },
+    "resources": {
+        "title": "Useful Resources",
+        "subtitle": "Tools and resources for developers",
+        "all": "All",
+        "tools": "Tools",
+        "learning": "Learning",
+        "libraries": "Libraries",
+        "design": "Design",
+        "visit": "Visit"
+    },
+    "tutorials": {
+        "title": "Popular Tutorials",
+        "subtitle": "Learn with step-by-step guides"
+    },
+    "projects": {
+        "title": "Featured Projects",
+        "subtitle": "My latest work"
+    }
+}

@@ -1,156 +1,58 @@
-# Changelog - Hackeruna Frontend
+# Changelog
 
-Todos los cambios notables en este proyecto serán documentados en este archivo.
+Todos los cambios notables de este proyecto se documentarán en este archivo.
 
----
+El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
+y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.2] - 14 de Noviembre, 2025
+## [2.0.0] - 2026-01-08
 
-### ✨ Agregado
+### Added
+- 🌐 **Soporte multiidioma** con Transloco (Español/Inglés)
+- 🔄 **URLs con prefijo de idioma** (`/es/`, `/en/`)
+- 🤖 **Plugin WordPress hackeruna-translate** para traducciones con GPT-4o-mini
+- 💬 **Giscus comments** integrado con GitHub Discussions
+- 📊 **Sección "Más Leídas"** en sidebar
+- 🎨 **Nuevas secciones en home**: Proyectos Destacados, Tutoriales Populares, Recursos Útiles
+- 🔧 **LanguageService** con Angular Signals para gestión de estado
 
-- **Google AdSense**
-  - Creación de archivo `ads.txt`
-  - Configuración de autorización de vendedores
-  - Documentación de setup
+### Changed
+- Actualizado a Angular 19
+- Reestructuradas rutas con soporte de idioma
+- Header con selector de idioma (🇺🇸/🇪🇸)
+- Fechas localizadas según idioma
+- Todos los textos de UI traducibles
 
-- **Optimizaciones de CSP**
-  - Agregar dominios de Google Ad Traffic Quality (`*.adtrafficquality.google`)
-  - Agregar dominios regionales de Google Analytics
-  - Simplificar CSP solo con servicios de Google
+### Removed
+- Autor en tarjetas de post (por solicitud)
+- 52 archivos de documentación obsoletos
 
-### 🔧 Arreglado
+## [1.0.2] - 2024-11-14
 
-- **Estilos de Código Preformateado**
-  - Arreglar visibilidad en light mode
-  - Cambiar colores de `<pre>` para mejor contraste
-  - Fondo: #F5F5F5 (light) / #1E1E1E (dark)
-  - Texto: #1A1A1A (light) / #E8E8E8 (dark)
+### Added
+- Google Analytics 4 integración
+- AdSense preparación
+- Content Security Policy optimizado
 
-- **HTML5 Compliance**
-  - Mover `<noscript>` de Yandex del `<head>` al `<body>`
-  - Cumplir con especificación HTML5 para noscript
-  - Eliminar errores de parsing
+### Fixed
+- YouTube iframes sanitization
+- Category filter styles
+- Post alignment con videos
 
-- **Content Security Policy**
-  - Agregar `frame-src` para Google Ad Traffic Quality
-  - Agregar `child-src` para Mixpanel
-  - Agregar `wss://` para WebSocket de Yandex
+## [1.0.1] - 2024-11-11
 
-### 🗑️ Eliminado
+### Added
+- Social share buttons
+- Post views counter
+- Optimizaciones de rendimiento
 
-- **Yandex Metrika**
-  - Script eliminado del head
-  - Noscript eliminado del body
-  - Dominios eliminados del CSP
-  - DNS prefetch eliminado
-  - Razón: Problemas de compatibilidad
+## [1.0.0] - 2024-11-07
 
-- **Mixpanel Analytics**
-  - Script eliminado del head
-  - Dominios eliminados del CSP
-  - DNS prefetch eliminado
-  - Razón: Problemas de configuración
-
-### 📊 Analytics
-
-- Google Analytics: GA4 con dominios regionales
-- Google Ads: Verificación de calidad de tráfico
-
-### 📝 Documentación
-
-- `MIXPANEL_SETUP.md` - Configuración de Mixpanel
-- `ADSENSE_ADS_TXT_SETUP.md` - Setup de ads.txt
-- `PREFORMATTED_TEXT_FIX.md` - Fix de estilos de código
-- `NOSCRIPT_HTML5_FIX.md` - Fix de HTML5 compliance
-- `CSP_GOOGLE_ANALYTICS_FIX.md` - Fix de CSP para Google
-- `CSP_FINAL_SUMMARY.md` - Resumen completo del CSP
-
----
-
-## [1.0.1] - 13 de Noviembre, 2025
-
-### ✨ Agregado
-
-- **Yandex Metrika**
-  - Script de tracking instalado
-  - Mapa de calor habilitado
-  - Webvisor (session recording) habilitado
-  - Clickmap habilitado
-  - Link tracking habilitado
-
-- **Content Security Policy**
-  - Agregar `https://mc.yandex.ru` a `script-src`
-  - Agregar `wss://mc.yandex.ru` y `wss://*.yandex.ru` a `connect-src`
-  - Agregar `frame-src` para Yandex
-  - Agregar `child-src` para Yandex
-
-- **DNS Prefetch**
-  - Agregar prefetch para `https://mc.yandex.ru`
-
-### 📝 Documentación
-
-- `YANDEX_METRIKA_SETUP.md` - Configuración inicial
-- `YANDEX_METRIKA_CONEXION.md` - Guía de conexión
-- `YANDEX_CSP_FIX.md` - Fix de CSP y WebSocket
-
----
-
-## [1.0.0] - Inicial
-
-### ✨ Agregado
-
-- Proyecto Angular inicial
-- Configuración de Tailwind CSS
-- Setup de componentes base
-- Configuración de routing
-- Integración con backend
-
----
-
-## 📋 Formato de Versión
-
-Este proyecto sigue [Semantic Versioning](https://semver.org/):
-
-- **MAJOR** - Cambios incompatibles
-- **MINOR** - Nuevas características compatibles
-- **PATCH** - Arreglos de bugs
-
----
-
-## 🔄 Próximas Versiones Planeadas
-
-### [1.0.3] - Próximo
-
-- [ ] Optimización de performance
-- [ ] Mejoras en SEO
-- [ ] Más eventos personalizados en Mixpanel
-- [ ] Integración con más servicios
-
-### [1.1.0] - Futuro
-
-- [ ] Nuevas características
-- [ ] Mejoras en UX
-- [ ] Optimizaciones de carga
-
----
-
-## 📊 Estadísticas
-
-| Versión | Fecha | Cambios | Documentos |
-|---------|-------|---------|-----------|
-| 1.0.2 | 14/11/2025 | 8 | 6 |
-| 1.0.1 | 13/11/2025 | 3 | 3 |
-| 1.0.0 | - | - | - |
-
----
-
-## 🔗 Recursos
-
-- [Semantic Versioning](https://semver.org/)
-- [Keep a Changelog](https://keepachangelog.com/)
-- [Conventional Commits](https://www.conventionalcommits.org/)
-
----
-
-**Última Actualización:** 14 de Noviembre, 2025  
-**Versión Actual:** 1.0.2
+### Added
+- Lanzamiento inicial
+- Angular 19 con standalone components
+- WordPress REST API integración
+- Dark/Light mode
+- Responsive design
+- Tailwind CSS 4
+- Vitest testing

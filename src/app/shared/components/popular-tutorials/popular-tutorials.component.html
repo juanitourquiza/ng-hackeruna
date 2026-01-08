@@ -1,47 +1,50 @@
-<section class="py-12" style="background-color: var(--bg-tertiary);">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Header -->
-        <div class="mb-8">
-            <h2 class="text-3xl font-bold mb-2" style="color: var(--text-primary);">
-                Tutoriales Populares
-            </h2>
-            <p class="text-base" style="color: var(--text-secondary);">
-                Aprende con guías paso a paso
-            </p>
-        </div>
+<ng-container *transloco="let t">
+    <section class="py-12" style="background-color: var(--bg-tertiary);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold mb-2" style="color: var(--text-primary);">
+                    {{ t('tutorials.title') }}
+                </h2>
+                <p class="text-base" style="color: var(--text-secondary);">
+                    {{ t('tutorials.subtitle') }}
+                </p>
+            </div>
 
-        @if (loading()) {
-        <div class="grid md:grid-cols-3 gap-6">
-            @for (item of [1,2,3]; track item) {
-            <div class="h-48 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg"></div>
+            @if (loading()) {
+            <div class="grid md:grid-cols-3 gap-6">
+                @for (item of [1,2,3]; track item) {
+                <div class="h-48 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg"></div>
+                }
+            </div>
+            } @else if (tutorials().length > 0) {
+            <!-- Tutorials Grid -->
+            <div class="grid md:grid-cols-3 gap-6">
+                @for (tutorial of tutorials(); track trackByPostId($index, tutorial)) {
+                <article class="group p-6 rounded-lg transition-all duration-300 hover:shadow-lg"
+                    style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
+                    <a [routerLink]="['/', currentLang, 'post', tutorial.slug]" class="block">
+                        <div class="flex items-start gap-3 mb-3">
+                            <span class="material-symbols-outlined text-2xl" style="color: var(--accent-blue);">
+                                school
+                            </span>
+                            <h3 class="text-lg font-semibold line-clamp-2 group-hover:underline transition-all"
+                                style="color: var(--text-primary);" [innerHTML]="stripHtml(tutorial.title.rendered)">
+                            </h3>
+                        </div>
+                        <p class="text-sm line-clamp-3" style="color: var(--text-secondary);"
+                            [innerHTML]="stripHtml(tutorial.excerpt.rendered)"></p>
+                    </a>
+                </article>
+                }
+            </div>
+            } @else {
+            <div class="text-center py-8">
+                <p style="color: var(--text-secondary);">
+                    {{ t('search.noResults') }}
+                </p>
+            </div>
             }
         </div>
-        } @else if (tutorials().length > 0) {
-        <!-- Tutorials Grid -->
-        <div class="grid md:grid-cols-3 gap-6">
-            @for (tutorial of tutorials(); track trackByPostId($index, tutorial)) {
-            <article class="group p-6 rounded-lg transition-all duration-300 hover:shadow-lg"
-                style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
-                <a [routerLink]="['/post', tutorial.slug]" class="block">
-                    <div class="flex items-start gap-3 mb-3">
-                        <span class="material-symbols-outlined text-2xl" style="color: var(--accent-blue);">
-                            school
-                        </span>
-                        <h3 class="text-lg font-semibold line-clamp-2 group-hover:underline transition-all"
-                            style="color: var(--text-primary);" [innerHTML]="stripHtml(tutorial.title.rendered)"></h3>
-                    </div>
-                    <p class="text-sm line-clamp-3" style="color: var(--text-secondary);"
-                        [innerHTML]="stripHtml(tutorial.excerpt.rendered)"></p>
-                </a>
-            </article>
-            }
-        </div>
-        } @else {
-        <div class="text-center py-8">
-            <p style="color: var(--text-secondary);">
-                No hay tutoriales disponibles en este momento
-            </p>
-        </div>
-        }
-    </div>
-</section>
+    </section>
+</ng-container>

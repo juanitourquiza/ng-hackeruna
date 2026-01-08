@@ -1,77 +1,79 @@
-<section class="py-12 lg:py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Header -->
-        <div class="flex items-center justify-between mb-8">
-            <div>
-                <h2 class="text-3xl font-bold mb-2" style="color: var(--text-primary);">
-                    Proyectos Destacados
-                </h2>
-                <p class="text-base" style="color: var(--text-secondary);">
-                    Explora mis trabajos más recientes e innovadores
-                </p>
-            </div>
-            <a routerLink="/portfolio"
-                class="inline-flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all hover:opacity-80"
-                style="background-color: var(--accent-blue); color: white;">
-                Ver todos
-                <span class="material-symbols-outlined text-base">arrow_forward</span>
-            </a>
-        </div>
-
-        <!-- Projects Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            @for (project of featuredProjects(); track trackByProjectId($index, project)) {
-            <article class="group rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg"
-                style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
-                <!-- Project Image -->
-                <div class="aspect-video w-full overflow-hidden bg-gray-200">
-                    <img [src]="project.image" [alt]="project.title"
-                        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        loading="lazy" />
-                </div>
-
-                <!-- Project Info -->
-                <div class="p-4">
-                    <h3 class="text-base font-semibold mb-2 line-clamp-2 group-hover:underline transition-all"
-                        style="color: var(--text-primary);">
-                        {{ project.title }}
-                    </h3>
-                    <p class="text-sm mb-3 line-clamp-2" style="color: var(--text-secondary);">
-                        {{ project.description }}
+<ng-container *transloco="let t">
+    <section class="py-12 lg:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold mb-2" style="color: var(--text-primary);">
+                        {{ t('projects.title') }}
+                    </h2>
+                    <p class="text-base" style="color: var(--text-secondary);">
+                        {{ t('projects.subtitle') }}
                     </p>
-
-                    <!-- Technologies -->
-                    <div class="flex flex-wrap gap-1 mb-3">
-                        @for (tech of project.technologies.slice(0, 3); track tech) {
-                        <span class="inline-block px-2 py-0.5 text-xs font-medium rounded"
-                            style="background-color: var(--accent-blue); color: white; opacity: 0.8;">
-                            {{ tech }}
-                        </span>
-                        }
-                    </div>
-
-                    <!-- Links -->
-                    <div class="flex gap-2">
-                        @if (project.github) {
-                        <a [href]="project.github" target="_blank" rel="noopener noreferrer"
-                            class="inline-flex items-center gap-1 text-xs font-medium hover:underline"
-                            style="color: var(--accent-blue);" title="Ver código en GitHub">
-                            <span class="material-symbols-outlined text-sm">code</span>
-                            Código
-                        </a>
-                        }
-                        @if (project.link) {
-                        <a [href]="project.link" target="_blank" rel="noopener noreferrer"
-                            class="inline-flex items-center gap-1 text-xs font-medium hover:underline"
-                            style="color: var(--accent-blue);" title="Ver proyecto">
-                            <span class="material-symbols-outlined text-sm">open_in_new</span>
-                            Demo
-                        </a>
-                        }
-                    </div>
                 </div>
-            </article>
-            }
+                <a [routerLink]="['/', currentLang, 'portfolio']"
+                    class="inline-flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all hover:opacity-80"
+                    style="background-color: var(--accent-blue); color: white;">
+                    {{ t('home.viewAll') }}
+                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+                </a>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                @for (project of featuredProjects(); track trackByProjectId($index, project)) {
+                <article class="group rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg"
+                    style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
+                    <!-- Project Image -->
+                    <div class="aspect-video w-full overflow-hidden bg-gray-200">
+                        <img [src]="project.image" [alt]="project.title"
+                            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                            loading="lazy" />
+                    </div>
+
+                    <!-- Project Info -->
+                    <div class="p-4">
+                        <h3 class="text-base font-semibold mb-2 line-clamp-2 group-hover:underline transition-all"
+                            style="color: var(--text-primary);">
+                            {{ project.title }}
+                        </h3>
+                        <p class="text-sm mb-3 line-clamp-2" style="color: var(--text-secondary);">
+                            {{ project.description }}
+                        </p>
+
+                        <!-- Technologies -->
+                        <div class="flex flex-wrap gap-1 mb-3">
+                            @for (tech of project.technologies.slice(0, 3); track tech) {
+                            <span class="inline-block px-2 py-0.5 text-xs font-medium rounded"
+                                style="background-color: var(--accent-blue); color: white; opacity: 0.8;">
+                                {{ tech }}
+                            </span>
+                            }
+                        </div>
+
+                        <!-- Links -->
+                        <div class="flex gap-2">
+                            @if (project.github) {
+                            <a [href]="project.github" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center gap-1 text-xs font-medium hover:underline"
+                                style="color: var(--accent-blue);" [title]="t('portfolio.viewCode')">
+                                <span class="material-symbols-outlined text-sm">code</span>
+                                {{ t('portfolio.viewCode') }}
+                            </a>
+                            }
+                            @if (project.link) {
+                            <a [href]="project.link" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center gap-1 text-xs font-medium hover:underline"
+                                style="color: var(--accent-blue);" [title]="t('portfolio.viewDemo')">
+                                <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                {{ t('portfolio.viewDemo') }}
+                            </a>
+                            }
+                        </div>
+                    </div>
+                </article>
+                }
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+</ng-container>

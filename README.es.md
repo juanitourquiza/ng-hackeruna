@@ -4,221 +4,127 @@
 [![Angular](https://img.shields.io/badge/Angular-19-red)](https://angular.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1-38bdf8)](https://tailwindcss.com/)
+[![i18n](https://img.shields.io/badge/i18n-ES%20%7C%20EN-green)](https://hackeruna.com)
 
-> Frontend moderno en Angular 20 para [Hackeruna.com](https://hackeruna.com) - Un blog de tecnología alimentado por WordPress como CMS headless.
+> Frontend moderno en Angular 19 para [Hackeruna.com](https://hackeruna.com) - Un blog de tecnología multiidioma con WordPress como CMS headless.
 
-[🇬🇧 English Version](./README.md)
+**Síguenos:**
+[![Facebook](https://img.shields.io/badge/Facebook-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/hackeruna)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?logo=twitter&logoColor=white)](https://twitter.com/hackeruna)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/juanitourquiza)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/juanitourquiza/ng-hackeruna)
 
-## 🎯 Descripción General
+[🇺🇸 English Version](./README.md)
 
-Este es un frontend **open-source** en Angular que se conecta a WordPress mediante REST API, proporcionando una interfaz moderna, rápida y amigable con SEO para el blog de tecnología Hackeruna.
+## ✨ Novedades en v2.0.0
 
-### Características Principales
+- 🌐 **Soporte multiidioma** (Español e Inglés) con Transloco
+- 🤖 **Traducciones con IA** usando GPT-4o-mini para contenido del blog
+- 🔄 **URLs con idioma** (`/es/post/...`, `/en/post/...`)
+- 💬 **Comentarios Giscus** integrados con GitHub Discussions
+- 📊 **Sección "Más Leídas"** mostrando artículos populares
 
-- ✅ **Angular 20** con componentes standalone
-- ✅ **Tailwind CSS 4** para estilos con sistema de diseño personalizado
-- ✅ Integración con **WordPress REST API**
-- ✅ **Modo oscuro/claro** con detección de preferencia del sistema
-- ✅ **Lazy loading** y división de código
-- ✅ **Diseño responsive** (mobile-first)
-- ✅ **TypeScript modo estricto**
-- ✅ **Vitest** para pruebas
-- ✅ **Arquitectura limpia** con separación de responsabilidades
+## 🎯 Características
 
-## 📁 Estructura del Proyecto
+| Característica | Descripción |
+|----------------|-------------|
+| 🌐 **i18n** | Soporte completo Español/Inglés con Transloco |
+| 🎨 **Modo Oscuro/Claro** | Detecta preferencia del sistema |
+| ⚡ **Rendimiento** | Lazy loading, code splitting, defer blocks |
+| 📱 **Responsivo** | Diseño mobile-first |
+| 💬 **Comentarios** | Giscus (GitHub Discussions) |
+| 🔍 **SEO** | Meta tags, Schema.org, hreflang |
 
-```
-src/
-├── app/
-│   ├── core/               # Funcionalidad principal
-│   │   ├── services/       # API WordPress, servicio de tema
-│   │   ├── models/         # Interfaces TypeScript
-│   │   └── interceptors/   # Interceptores HTTP
-│   ├── shared/             # Componentes reutilizables
-│   │   └── components/     # PostCard, TrendingSidebar, LoadingSpinner
-│   ├── features/           # Módulos de características
-│   │   ├── home/           # Página principal
-│   │   ├── post/           # Detalle de artículo
-│   │   ├── author/         # Página de autor
-│   │   └── search/         # Resultados de búsqueda
-│   ├── layout/             # Componentes de diseño
-│   │   ├── header/         # Encabezado con navegación
-│   │   └── footer/         # Pie de página
-│   └── app.routes.ts       # Configuración de rutas
-├── environments/           # Configuraciones de entorno
-└── styles/                 # Estilos globales
-```
-
-## 🚀 Primeros Pasos
-
-### Prerequisitos
-
-- Node.js 18+
-- npm o yarn
-- Angular CLI 19+
-
-### Instalación
-
-1. **Clonar el repositorio**
+## 🚀 Inicio Rápido
 
 ```bash
+# Clonar repositorio
 git clone https://github.com/juanitourquiza/ng-hackeruna.git
 cd ng-hackeruna
-```
 
-2. **Instalar dependencias**
-
-```bash
+# Instalar dependencias
 npm install
-```
 
-3. **Configurar entorno**
-
-Edita `src/environments/environment.ts` para apuntar a tu API de WordPress:
-
-```typescript
-export const environment = {
-  production: false,
-  wordpressApiUrl: 'https://tu-sitio-wordpress.com/wp-json/wp/v2'
-};
-```
-
-4. **Ejecutar servidor de desarrollo**
-
-```bash
+# Iniciar servidor de desarrollo
 npm start
 ```
 
-Navega a `http://localhost:4200/`. La aplicación se recargará automáticamente si cambias algún archivo fuente.
+Navega a `http://localhost:4200/es` (Español) o `http://localhost:4200/en` (Inglés).
 
-## 🧪 Pruebas
-
-Ejecutar pruebas unitarias con Vitest:
-
-```bash
-npm run test
-```
-
-Ejecutar pruebas con UI:
-
-```bash
-npm run test:ui
-```
-
-## 🏗️ Compilación
-
-Compilar el proyecto para producción:
+## 🏗️ Build
 
 ```bash
 npm run build
 ```
 
-Los artefactos de compilación se almacenarán en el directorio `dist/`.
+Salida: `dist/hackeruna-frontend` (~414 KB inicial)
 
-## 🎨 Sistema de Diseño
+## 📁 Estructura del Proyecto
 
-El proyecto utiliza un sistema de diseño personalizado inspirado en Wired.com:
-
-### Paleta de Colores
-
-- **Primario**: `#0077FF` (Azul de Acento)
-- **Fondo Claro**: `#FFFFFF`
-- **Fondo Oscuro**: `#121212`
-- **Texto Claro**: `#121212`
-- **Texto Oscuro**: `#E0E0E0`
-
-### Tipografía
-
-- **Display/Sans**: Inter
-- **Monospace**: Roboto Mono
-
-## 📡 Integración con WordPress API
-
-### Configuración Requerida en WordPress
-
-El frontend espera los siguientes endpoints de WordPress REST API:
-
-- `GET /wp-json/wp/v2/posts` - Listar artículos
-- `GET /wp-json/wp/v2/posts/{id}` - Artículo individual
-- `GET /wp-json/wp/v2/categories` - Categorías
-- `GET /wp-json/wp/v2/tags` - Etiquetas
-- `GET /wp-json/wp/v2/users` - Autores
-
-### Habilitar CORS (si es necesario)
-
-Agrega a tu `wp-config.php` de WordPress o usa un plugin CORS:
-
-```php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
+```
+src/app/
+├── core/
+│   └── services/
+│       ├── wordpress-api.service.ts  # WordPress REST API
+│       ├── language.service.ts       # Gestión de idioma
+│       └── theme.service.ts          # Modo oscuro/claro
+├── shared/components/
+│   ├── post-card/
+│   ├── trending-sidebar/
+│   ├── giscus-comments/
+│   └── ...
+├── features/
+│   ├── home/
+│   ├── post/
+│   ├── portfolio/
+│   └── ...
+└── assets/i18n/
+    ├── es.json  # Traducciones español
+    └── en.json  # Traducciones inglés
 ```
 
-## 🌐 Rutas
+## 🌐 Plugin de WordPress
 
-- `/` - Página principal
-- `/post/:slug` - Detalle de artículo
-- `/author/:slug` - Perfil de autor
-- `/category/:slug` - Artículos por categoría
-- `/search?q=query` - Resultados de búsqueda
+Para traducciones de contenido con IA, instala el plugin incluido:
+
+```
+wordpress-plugins/hackeruna-translate/
+```
+
+**Configuración:**
+1. Copia a `wp-content/plugins/`
+2. Activa en WordPress Admin
+3. Ve a Ajustes → Hackeruna Translate
+4. Agrega tu OpenAI API Key
+
+**Costo:** ~$0.80 para 500 posts, $0.0016 por artículo nuevo
 
 ## 🛠️ Stack Tecnológico
 
-- **Framework**: Angular 20
-- **Lenguaje**: TypeScript 5.7
-- **Estilos**: Tailwind CSS 4
-- **Gestión de Estado**: Angular Signals
-- **Cliente HTTP**: Angular HttpClient con RxJS
-- **Pruebas**: Vitest
-- **Iconos**: Material Symbols
-- **Fuentes**: Google Fonts (Inter, Roboto Mono)
+- **Framework:** Angular 19 (standalone components, signals)
+- **i18n:** Transloco
+- **Estilos:** Tailwind CSS 4
+- **Comentarios:** Giscus
+- **Backend:** WordPress REST API + Plugin Personalizado
+- **IA:** OpenAI GPT-4o-mini
 
 ## 🤝 Contribuir
 
-¡Las contribuciones son bienvenidas! Por favor sigue estos pasos:
+1. Fork del proyecto
+2. Crear rama feature (`git checkout -b feature/increible`)
+3. Commit cambios (`git commit -m 'feat: agregar feature increíble'`)
+4. Push a la rama (`git push origin feature/increible`)
+5. Abrir Pull Request
 
-1. Haz fork del proyecto
-2. Crea tu rama de característica (`git checkout -b feature/CaracteristicaIncreible`)
-3. Haz commit de tus cambios usando [Conventional Commits](https://www.conventionalcommits.org/)
-4. Push a la rama (`git push origin feature/CaracteristicaIncreible`)
-5. Abre un Pull Request
-
-### Convención de Commits
-
-Usamos Conventional Commits:
-
-- `feat:` - Nueva característica
-- `fix:` - Corrección de error
-- `docs:` - Cambios en documentación
-- `style:` - Cambios de estilo de código (formato, etc.)
-- `refactor:` - Refactorización de código
-- `test:` - Agregar o actualizar pruebas
-- `chore:` - Tareas de mantenimiento
+Ver [CONTRIBUTING.md](./CONTRIBUTING.md) para guías detalladas.
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT - consulta el archivo [LICENSE](LICENSE) para más detalles.
+Licencia MIT - ver archivo [LICENSE](LICENSE).
 
 ## 👤 Autor
 
-**Juan Urquiza**
-
-- Sitio Web: [juanitourquiza.github.io](https://juanitourquiza.github.io)
-- GitHub: [@juanitourquiza](https://github.com/juanitourquiza)
-
-## 🙏 Agradecimientos
-
-- Diseño inspirado en [Wired.com](https://wired.com)
-- WordPress REST API
-- Equipo de Angular
-- Equipo de Tailwind CSS
-
-## 📚 Recursos
-
-- [Documentación de Angular](https://angular.dev)
-- [Manual de WordPress REST API](https://developer.wordpress.org/rest-api/)
-- [Documentación de Tailwind CSS](https://tailwindcss.com/docs)
-- [Documentación de TypeScript](https://www.typescriptlang.org/docs/)
+**Juan Urquiza** - [@juanitourquiza](https://github.com/juanitourquiza)
 
 ---
 

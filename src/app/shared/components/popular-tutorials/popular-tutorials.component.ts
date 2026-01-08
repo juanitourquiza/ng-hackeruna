@@ -1,19 +1,26 @@
 import { Component, OnInit, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import { WordpressApiService } from '../../../core/services/wordpress-api.service';
 import { WpPost } from '../../../core/models/wordpress.models';
+import { LanguageService } from '../../../core/services/language.service';
 
 @Component({
     selector: 'app-popular-tutorials',
     standalone: true,
-    imports: [CommonModule, RouterLink],
+    imports: [CommonModule, RouterLink, TranslocoModule],
     templateUrl: './popular-tutorials.component.html',
     styleUrls: ['./popular-tutorials.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PopularTutorialsComponent implements OnInit {
     private wpApi = inject(WordpressApiService);
+    private languageService = inject(LanguageService);
+
+    get currentLang() {
+        return this.languageService.currentLang();
+    }
 
     tutorials = signal<WpPost[]>([]);
     loading = signal(true);

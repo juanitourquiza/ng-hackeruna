@@ -192,4 +192,116 @@ export class WordpressApiService {
       })
     );
   }
+
+  // ============================================
+  // TRANSLATION API (Hackeruna Translate Plugin)
+  // ============================================
+
+  private get translateApiUrl(): string {
+    // Use the base WordPress URL for custom endpoints
+    return this.apiUrl.replace('/wp/v2', '/hackeruna/v1');
+  }
+
+  /**
+   * Get translated post by ID
+   * @param postId - The original post ID
+   * @param lang - Target language (e.g., 'en', 'es')
+   */
+  getTranslatedPost(postId: number, lang: string): Observable<TranslatedPost> {
+    if (lang === 'es') {
+      // Spanish is the original language, fetch normally
+      return this.getPostById(postId).pipe(
+        map(post => this.mapToTranslatedPost(post, 'es'))
+      );
+    }
+
+    return this.http.get<TranslatedPost>(
+      `${this.translateApiUrl}/post/${postId}/translate/${lang}`
+    );
+  }
+
+  /**
+   * Get translated post by slug
+   * @param slug - The post slug (original or translated)
+   * @param lang - Target language
+   */
+  getTranslatedPostBySlug(slug: string, lang: string): Observable<TranslatedPost> {
+    if (lang === 'es') {
+      // Spanish is the original language
+      return this.getPostBySlug(slug).pipe(
+        map(post => this.mapToTranslatedPost(post, 'es'))
+      );
+    }
+
+    return this.http.get<TranslatedPost>(
+      `${this.translateApiUrl}/post/slug/${slug}/translate/${lang}`
+    );
+  }
+
+  /**
+   * Get translation status for a post
+   * @param postId - The post ID
+   */
+  getTranslationStatus(postId: number): Observable<TranslationStatus> {
+    return this.http.get<TranslationStatus>(
+      `${this.translateApiUrl}/post/${postId}/translations`
+    );
+  }
+
+  /**
+   * Map a regular WpPost to TranslatedPost format
+   */
+  private mapToTranslatedPost(post: WpPost, lang: string): TranslatedPost {
+    return {
+      id: post.id,
+      original_id: post.id,
+      language: lang,
+      title: post.title.rendered,
+      content: post.content.rendered,
+      excerpt: post.excerpt.rendered,
+      slug: post.slug,
+      date: post.date,
+      modified: post.modified,
+      cached: true,
+      translated_at: null,
+      model_used: null,
+      _embedded: post._embedded
+    };
+  }
+}
+
+/**
+ * Interface for translated post response
+ */
+export interface TranslatedPost {
+  id: number;
+  original_id: number;
+  language: string;
+  title: string;
+  content: string;
+  excerpt: string;
+  slug: string;
+  date: string;
+  modified: string;
+  cached: boolean;
+  translated_at: string | null;
+  model_used: string | null;
+  tokens_used?: number;
+  cost_usd?: number;
+  _embedded?: any;
+}
+
+/**
+ * Interface for translation status response
+ */
+export interface TranslationStatus {
+  post_id: number;
+  available_languages: string[];
+  translations: {
+    [lang: string]: {
+      translated_at: string;
+      model_used: string;
+      cached: boolean;
+    };
+  };
 }

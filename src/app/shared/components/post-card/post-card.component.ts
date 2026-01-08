@@ -1,22 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import { WpPost } from '../../../core/models/wordpress.models';
+import { LanguageService } from '../../../core/services/language.service';
 
 @Component({
   selector: 'app-post-card',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, TranslocoModule],
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.scss']
 })
 export class PostCardComponent {
+  private languageService = inject(LanguageService);
+
   @Input({ required: true }) post!: WpPost;
   @Input() featured = false;
 
   get featuredImage(): string {
-    return this.post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 
-           'https://backend.hackeruna.com/wp-content/themes/magazinebook/img/default-bg-img.png';
+    return this.post._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
+      'https://backend.hackeruna.com/wp-content/themes/magazinebook/img/default-bg-img.png';
   }
 
   get authorName(): string {
@@ -28,12 +32,17 @@ export class PostCardComponent {
     return categories?.[0]?.name || 'Uncategorized';
   }
 
+  get currentLang() {
+    return this.languageService.currentLang();
+  }
+
   formatDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleDateString('es-ES', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    const locale = this.currentLang === 'es' ? 'es-ES' : 'en-US';
+    return date.toLocaleDateString(locale, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     });
   }
 
@@ -44,10 +53,10 @@ export class PostCardComponent {
   }
 
   get postViews(): number {
-    return this.post.views || 
-           this.post.post_views || 
-           this.post.post_views_count || 
-           0;
+    return this.post.views ||
+      this.post.post_views ||
+      this.post.post_views_count ||
+      0;
   }
 
   formatViews(views: number): string {

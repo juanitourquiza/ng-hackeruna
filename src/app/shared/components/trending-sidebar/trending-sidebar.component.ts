@@ -1,17 +1,24 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import { WpPost } from '../../../core/models/wordpress.models';
+import { LanguageService } from '../../../core/services/language.service';
 
 @Component({
   selector: 'app-trending-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, TranslocoModule],
   templateUrl: './trending-sidebar.component.html',
   styleUrls: ['./trending-sidebar.component.scss']
 })
 export class TrendingSidebarComponent {
+  private languageService = inject(LanguageService);
   @Input() posts: WpPost[] = [];
+
+  get currentLang() {
+    return this.languageService.currentLang();
+  }
 
   stripHtml(html: string): string {
     const tmp = document.createElement('div');

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [
+// Routes without language prefix (will be wrapped with :lang)
+const contentRoutes: Routes = [
   {
     path: '',
     loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent)
@@ -15,7 +16,7 @@ export const routes: Routes = [
   },
   {
     path: 'category/:slug',
-    loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent) // Reuse home with filter
+    loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent)
   },
   {
     path: 'search',
@@ -40,9 +41,30 @@ export const routes: Routes = [
   {
     path: 'terms',
     loadComponent: () => import('./features/terms/terms.component').then(m => m.TermsComponent)
+  }
+];
+
+export const routes: Routes = [
+  // Redirect root to default language
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'es'
   },
+  // Language-prefixed routes
+  {
+    path: ':lang',
+    children: contentRoutes
+  },
+  // Fallback for old URLs without language prefix (redirect to Spanish)
+  ...contentRoutes.map(route => ({
+    ...route,
+    path: route.path,
+    redirectTo: route.path ? `es/${route.path}` : 'es'
+  })).filter(r => r.path !== ''),
+  // Catch-all redirect
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: 'es'
   }
 ];

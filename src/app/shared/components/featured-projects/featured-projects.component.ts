@@ -1,6 +1,8 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
+import { LanguageService } from '../../../core/services/language.service';
 
 interface FeaturedProject {
     id: number;
@@ -16,12 +18,18 @@ interface FeaturedProject {
 @Component({
     selector: 'app-featured-projects',
     standalone: true,
-    imports: [CommonModule, RouterLink],
+    imports: [CommonModule, RouterLink, TranslocoModule],
     templateUrl: './featured-projects.component.html',
     styleUrls: ['./featured-projects.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FeaturedProjectsComponent {
+    private languageService = inject(LanguageService);
+
+    get currentLang() {
+        return this.languageService.currentLang();
+    }
+
     // Featured projects - showing top 4 most recent/important projects
     featuredProjects = signal<FeaturedProject[]>([
         {

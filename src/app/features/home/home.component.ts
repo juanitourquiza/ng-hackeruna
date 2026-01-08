@@ -1,8 +1,10 @@
 import { Component, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import { WordpressApiService } from '../../core/services/wordpress-api.service';
 import { WpPost } from '../../core/models/wordpress.models';
+import { LanguageService } from '../../core/services/language.service';
 import { PostCardComponent } from '../../shared/components/post-card/post-card.component';
 import { TrendingSidebarComponent } from '../../shared/components/trending-sidebar/trending-sidebar.component';
 import { CategoryFilterComponent } from '../../shared/components/category-filter/category-filter.component';
@@ -16,6 +18,7 @@ import { UsefulResourcesComponent } from '../../shared/components/useful-resourc
   standalone: true,
   imports: [
     CommonModule,
+    TranslocoModule,
     PostCardComponent,
     TrendingSidebarComponent,
     CategoryFilterComponent,
@@ -31,6 +34,11 @@ import { UsefulResourcesComponent } from '../../shared/components/useful-resourc
 export class HomeComponent implements OnInit {
   private wpApi = inject(WordpressApiService);
   private route = inject(ActivatedRoute);
+  readonly languageService = inject(LanguageService);
+
+  get currentLang() {
+    return this.languageService.currentLang();
+  }
 
   // Using signals for reactive state management
   featuredPost = signal<WpPost | null>(null);

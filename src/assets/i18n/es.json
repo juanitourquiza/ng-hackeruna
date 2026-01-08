@@ -1,0 +1,101 @@
+{
+    "nav": {
+        "home": "Inicio",
+        "about": "Sobre Mí",
+        "portfolio": "Portafolio",
+        "contact": "Contacto",
+        "search": "Buscar...",
+        "searchPlaceholder": "Buscar en Hackeruna.com"
+    },
+    "header": {
+        "toggleTheme": "Cambiar tema",
+        "switchLanguage": "Switch to English"
+    },
+    "home": {
+        "featuredPost": "Artículo Destacado",
+        "recentPosts": "Artículos Recientes",
+        "mostRead": "Más Leídas",
+        "featuredProjects": "Proyectos Destacados",
+        "popularTutorials": "Tutoriales Populares",
+        "usefulResources": "Recursos Útiles",
+        "viewAll": "Ver todo",
+        "viewPortfolio": "Ver Portafolio"
+    },
+    "post": {
+        "by": "Por",
+        "published": "Publicado",
+        "views": "vistas",
+        "readMore": "Leer más",
+        "comments": "Comentarios",
+        "commentsDescription": "Comparte tus ideas, preguntas o sugerencias. Los comentarios se gestionan a través de GitHub Discussions.",
+        "backToHome": "Volver al inicio",
+        "relatedPosts": "Artículos Relacionados",
+        "share": "Compartir",
+        "translatedBy": "Traducido automáticamente",
+        "viewOriginal": "Ver original en español"
+    },
+    "search": {
+        "title": "Resultados de búsqueda",
+        "resultsFor": "Resultados para",
+        "noResults": "No se encontraron resultados",
+        "tryAgain": "Intenta con otros términos de búsqueda"
+    },
+    "about": {
+        "title": "Sobre Mí",
+        "subtitle": "Desarrollador Full Stack & Blockchain"
+    },
+    "portfolio": {
+        "title": "Portafolio",
+        "subtitle": "Proyectos destacados",
+        "allProjects": "Todos",
+        "frontend": "Frontend",
+        "backend": "Backend",
+        "fullstack": "Full Stack",
+        "blockchain": "Blockchain",
+        "viewDemo": "Ver Demo",
+        "viewCode": "Ver Código"
+    },
+    "contact": {
+        "title": "Contacto",
+        "subtitle": "¿Tienes un proyecto en mente?",
+        "name": "Nombre",
+        "email": "Email",
+        "message": "Mensaje",
+        "send": "Enviar mensaje",
+        "sending": "Enviando...",
+        "success": "¡Mensaje enviado correctamente!",
+        "error": "Error al enviar el mensaje. Intenta de nuevo."
+    },
+    "footer": {
+        "copyright": "Todos los derechos reservados",
+        "privacy": "Privacidad",
+        "terms": "Términos",
+        "madeWith": "Hecho con",
+        "and": "y"
+    },
+    "common": {
+        "loading": "Cargando...",
+        "error": "Ha ocurrido un error",
+        "retry": "Reintentar",
+        "close": "Cerrar",
+        "readTime": "min de lectura"
+    },
+    "resources": {
+        "title": "Recursos Útiles",
+        "subtitle": "Herramientas y recursos para desarrolladores",
+        "all": "Todos",
+        "tools": "Herramientas",
+        "learning": "Aprendizaje",
+        "libraries": "Librerías",
+        "design": "Diseño",
+        "visit": "Visitar"
+    },
+    "tutorials": {
+        "title": "Tutoriales Populares",
+        "subtitle": "Aprende con guías paso a paso"
+    },
+    "projects": {
+        "title": "Proyectos Destacados",
+        "subtitle": "Mis trabajos más recientes"
+    }
+}
