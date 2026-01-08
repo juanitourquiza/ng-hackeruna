@@ -1,9 +1,10 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, effect } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { WordpressApiService } from '../../core/services/wordpress-api.service';
+import { WordpressApiService, TranslatedPost } from '../../core/services/wordpress-api.service';
+import { LanguageService } from '../../core/services/language.service';
 import { WpPost } from '../../core/models/wordpress.models';
 import { RelatedPostsComponent } from '../../shared/components/related-posts/related-posts.component';
 import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
@@ -27,8 +28,11 @@ export class PostDetailComponent implements OnInit {
   private schemaService = inject(SchemaService);
   private http = inject(HttpClient);
   private sanitizer = inject(DomSanitizer);
+  private languageService = inject(LanguageService);
 
   post = signal<WpPost | null>(null);
+  translatedContent = signal<TranslatedPost | null>(null);
+  isTranslated = signal(false);
   loading = signal(true);
   error = signal<string | null>(null);
 
@@ -44,17 +48,27 @@ export class PostDetailComponent implements OnInit {
   private loadPost(slug: string): void {
     this.loading.set(true);
     this.error.set(null);
+    this.isTranslated.set(false);
+    this.translatedContent.set(null);
 
+    const currentLang = this.languageService.currentLang();
+
+    // First, always fetch the original post for metadata
     this.wpApi.getPostBySlug(slug).subscribe({
       next: (post) => {
         this.post.set(post);
-        this.loading.set(false);
 
-        // Incrementar contador de vistas
+        // Increment view count
         this.incrementViewCount(post.id);
 
-        // Actualizar meta tags para SEO y compartir en redes sociales
-        this.updateMetaTags(post);
+        // If language is English, fetch translation
+        if (currentLang === 'en') {
+          this.loadTranslation(slug, post);
+        } else {
+          // Spanish (original) - no translation needed
+          this.loading.set(false);
+          this.updateMetaTags(post);
+        }
       },
       error: (err) => {
         console.error('Error loading post:', err);
@@ -63,6 +77,26 @@ export class PostDetailComponent implements OnInit {
       }
     });
   }
+
+  private loadTranslation(slug: string, originalPost: WpPost): void {
+    this.wpApi.getTranslatedPostBySlug(slug, 'en').subscribe({
+      next: (translated) => {
+        this.translatedContent.set(translated);
+        this.isTranslated.set(true);
+        this.loading.set(false);
+        console.log('✅ Translation loaded:', translated.title);
+        this.updateMetaTagsTranslated(originalPost, translated);
+      },
+      error: (err) => {
+        console.warn('⚠️ Translation not available, showing original:', err);
+        // Fallback to original content
+        this.isTranslated.set(false);
+        this.loading.set(false);
+        this.updateMetaTags(originalPost);
+      }
+    });
+  }
+
 
   private incrementViewCount(postId: number): void {
     // Llamar al endpoint de WordPress para incrementar el contador
@@ -162,18 +196,85 @@ export class PostDetailComponent implements OnInit {
     ]);
   }
 
+  private updateMetaTagsTranslated(post: WpPost, translated: TranslatedPost): void {
+    const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
+      'https://backend.hackeruna.com/wp-content/themes/magazinebook/img/default-bg-img.png';
+
+    const excerpt = this.stripHtml(translated.excerpt || '');
+    const categories = post._embedded?.['wp:term']?.[0] || [];
+    const tags = categories.map(cat => cat.name);
+    const authorName = post._embedded?.author?.[0]?.name || 'Juan Urquiza';
+    const postUrl = `https://hackeruna.com/en/post/${post.slug}`;
+
+    this.metaTagsService.updateMetaTags({
+      title: `${translated.title} | Hackeruna`,
+      description: excerpt,
+      image: featuredImage,
+      url: postUrl,
+      type: 'article',
+      author: authorName,
+      publishedTime: post.date,
+      modifiedTime: post.modified,
+      tags: tags
+    });
+
+    // AEO: JSON-LD Schema for English content
+    this.schemaService.addMultipleSchemas([
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: translated.title,
+        description: excerpt,
+        image: featuredImage,
+        datePublished: post.date,
+        dateModified: post.modified,
+        author: {
+          '@type': 'Person',
+          name: authorName,
+          url: 'https://hackeruna.com/en/about'
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'Hackeruna',
+          url: 'https://hackeruna.com'
+        },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': postUrl
+        },
+        keywords: tags.join(', '),
+        articleBody: this.stripHtml(translated.content || ''),
+        inLanguage: 'en-US',
+        wordCount: this.stripHtml(translated.content || '').split(/\s+/).length
+      }
+    ]);
+  }
+
   private stripHtml(html: string): string {
     const tmp = document.createElement('div');
     tmp.innerHTML = html;
     return tmp.textContent || tmp.innerText || '';
   }
 
-  // Computed signal para contenido sanitizado (permite iframes)
-  // Usamos bypassSecurityTrustHtml porque el CSP ya controla qué iframes se permiten
+  // Computed signal for sanitized content (allows iframes)
+  // Prefers translated content when available
   safeContent = computed<SafeHtml>(() => {
+    const translated = this.translatedContent();
+    if (translated?.content) {
+      return this.sanitizer.bypassSecurityTrustHtml(translated.content);
+    }
     const post = this.post();
     if (!post?.content?.rendered) return '';
     return this.sanitizer.bypassSecurityTrustHtml(post.content.rendered);
+  });
+
+  // Display title - prefers translated title
+  displayTitle = computed(() => {
+    const translated = this.translatedContent();
+    if (translated?.title) {
+      return translated.title;
+    }
+    return this.stripHtml(this.post()?.title?.rendered || '');
   });
 
   get featuredImage(): string {
