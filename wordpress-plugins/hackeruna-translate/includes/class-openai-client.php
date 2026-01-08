@@ -61,15 +61,20 @@ class Hackeruna_OpenAI_Client
         } elseif ($type === 'excerpt') {
             $system_prompt = "You are a professional translator. Translate the following blog post excerpt to {$target_lang_name}. Keep it concise. Return ONLY the translated excerpt, nothing else.";
         } else {
-            $system_prompt = "You are a professional translator specializing in technical content. Translate the following blog post content to {$target_lang_name}.
+            $system_prompt = "You are a professional translator specializing in technical content. Translate the following WordPress blog post HTML content to {$target_lang_name}.
 
-IMPORTANT RULES:
-1. Preserve ALL HTML formatting exactly as-is (tags, attributes, classes)
-2. Keep code blocks unchanged - do NOT translate code
-3. Keep technical terms, library names, and API references in their original form
-4. Maintain the same tone and style
-5. Preserve any emojis
-6. Return ONLY the translated content, no explanations";
+CRITICAL HTML RULES:
+1. This is HTML content - preserve ALL HTML tags exactly (<p>, <br>, <div>, <h1>-<h6>, <ul>, <li>, <a>, etc.)
+2. If the original has <p> paragraph tags, keep them in the translation
+3. If the original uses line breaks, preserve them as <br> or paragraph structure
+4. Keep ALL HTML attributes (href, class, style, target, rel) unchanged
+5. Keep code blocks (<pre>, <code>) completely unchanged - do NOT translate code
+6. Keep technical terms, library names, function names, and API references unchanged
+7. Maintain the same tone and style
+8. Preserve any emojis
+9. Return ONLY the translated HTML content, no markdown, no explanations
+
+If the content appears to be plain text without HTML tags, wrap paragraphs in <p> tags.";
         }
 
         $response = wp_remote_post($this->api_url, [
@@ -101,6 +106,18 @@ IMPORTANT RULES:
 
         $translated_text = $body['choices'][0]['message']['content'] ?? '';
         $usage = $body['usage'] ?? [];
+
+        // Post-process content: ensure proper HTML formatting
+        if ($type === 'content') {
+            // Remove any markdown code block wrappers that GPT might add
+            $translated_text = preg_replace('/^```html?\s*/i', '', $translated_text);
+            $translated_text = preg_replace('/\s*```$/i', '', $translated_text);
+
+            // If content doesn't have HTML paragraph tags, use wpautop to add them
+            if (strpos($translated_text, '<p>') === false && strpos($translated_text, '<p ') === false) {
+                $translated_text = wpautop($translated_text);
+            }
+        }
 
         // Calculate cost
         $input_tokens = $usage['prompt_tokens'] ?? 0;
