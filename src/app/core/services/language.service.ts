@@ -90,9 +90,16 @@ export class LanguageService {
 
     /**
      * Switch to a different language
+     * @param lang Target language
+     * @param force Force switch even if same (useful for resync)
      */
-    switchLanguage(lang: SupportedLanguage): void {
-        if (!this.isValidLanguage(lang) || lang === this._currentLang()) {
+    switchLanguage(lang: SupportedLanguage, force: boolean = false): void {
+        if (!this.isValidLanguage(lang)) {
+            return;
+        }
+
+        // Skip if same language and not forced
+        if (!force && lang === this._currentLang()) {
             return;
         }
 

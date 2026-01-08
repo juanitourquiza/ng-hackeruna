@@ -38,7 +38,8 @@ export class HeaderComponent {
 
   switchLanguage(): void {
     const newLang = this.alternateLanguage().code;
-    this.languageService.switchLanguage(newLang);
+    // Force=true ensures first click works even if state is out of sync
+    this.languageService.switchLanguage(newLang, true);
     this.translocoService.setActiveLang(newLang);
   }
 

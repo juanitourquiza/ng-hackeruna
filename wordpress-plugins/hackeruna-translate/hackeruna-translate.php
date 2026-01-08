@@ -107,6 +107,17 @@ function hackeruna_translate_admin_page()
         return;
     }
 
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'post_translations';
+
+    // Handle delete translation
+    if (isset($_GET['delete_translation']) && isset($_GET['lang']) && check_admin_referer('delete_translation_' . $_GET['delete_translation'])) {
+        $post_id = intval($_GET['delete_translation']);
+        $lang = sanitize_text_field($_GET['lang']);
+        $wpdb->delete($table_name, ['post_id' => $post_id, 'language' => $lang]);
+        echo '<div class="notice notice-success"><p>Translation deleted successfully!</p></div>';
+    }
+
     // Save settings
     if (isset($_POST['hackeruna_translate_save']) && check_admin_referer('hackeruna_translate_settings')) {
         update_option('hackeruna_openai_api_key', sanitize_text_field($_POST['openai_api_key']));
@@ -118,83 +129,149 @@ function hackeruna_translate_admin_page()
     $model = get_option('hackeruna_openai_model', 'gpt-4o-mini');
 
     // Get translation stats
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'post_translations';
     $stats = $wpdb->get_row("SELECT COUNT(*) as total, SUM(tokens_used) as tokens, SUM(cost_usd) as cost FROM $table_name");
+
+    // Get total published posts
+    $total_posts = wp_count_posts()->publish;
+
+    // Get translated post count (for English)
+    $translated_en = $wpdb->get_var("SELECT COUNT(DISTINCT post_id) FROM $table_name WHERE language = 'en'");
+    $pending_translation = $total_posts - $translated_en;
+
+    // Get existing translations
+    $translations = $wpdb->get_results("
+        SELECT t.*, p.post_title as original_title 
+        FROM $table_name t 
+        LEFT JOIN {$wpdb->posts} p ON t.post_id = p.ID 
+        ORDER BY t.translated_at DESC 
+        LIMIT 50
+    ");
 
 ?>
     <div class="wrap">
-        <h1>Hackeruna Translate</h1>
+        <h1>🌐 Hackeruna Translate</h1>
 
-        <div class="card" style="max-width: 600px; padding: 20px; margin-bottom: 20px;">
-            <h2>📊 Translation Statistics</h2>
-            <p><strong>Total Translations:</strong> <?php echo $stats->total ?? 0; ?></p>
-            <p><strong>Tokens Used:</strong> <?php echo number_format($stats->tokens ?? 0); ?></p>
-            <p><strong>Estimated Cost:</strong> $<?php echo number_format($stats->cost ?? 0, 4); ?></p>
+        <!-- Stats Cards -->
+        <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+            <div class="card" style="flex: 1; min-width: 200px; padding: 20px;">
+                <h3 style="margin-top: 0;">📊 Statistics</h3>
+                <p><strong>Total Translations:</strong> <?php echo $stats->total ?? 0; ?></p>
+                <p><strong>Tokens Used:</strong> <?php echo number_format($stats->tokens ?? 0); ?></p>
+                <p><strong>Estimated Cost:</strong> $<?php echo number_format($stats->cost ?? 0, 4); ?></p>
+            </div>
+
+            <div class="card" style="flex: 1; min-width: 200px; padding: 20px;">
+                <h3 style="margin-top: 0;">📝 Translation Status (English)</h3>
+                <p><strong>Total Posts:</strong> <?php echo $total_posts; ?></p>
+                <p><strong>Translated:</strong> <span style="color: green;"><?php echo $translated_en; ?></span></p>
+                <p><strong>Pending:</strong> <span style="color: <?php echo $pending_translation > 0 ? 'orange' : 'green'; ?>"><?php echo $pending_translation; ?></span></p>
+                <?php if ($pending_translation > 0): ?>
+                    <p style="font-size: 12px; color: #666;">Translations are generated on-demand when users visit the English version.</p>
+                <?php endif; ?>
+            </div>
         </div>
 
-        <form method="post" action="">
-            <?php wp_nonce_field('hackeruna_translate_settings'); ?>
+        <!-- Settings Form -->
+        <div class="card" style="max-width: 600px; padding: 20px; margin-bottom: 20px;">
+            <h2>⚙️ API Settings</h2>
+            <form method="post" action="">
+                <?php wp_nonce_field('hackeruna_translate_settings'); ?>
 
-            <table class="form-table">
-                <tr>
-                    <th scope="row">
-                        <label for="openai_api_key">OpenAI API Key</label>
-                    </th>
-                    <td>
-                        <input type="password"
-                            name="openai_api_key"
-                            id="openai_api_key"
-                            value="<?php echo esc_attr($api_key); ?>"
-                            class="regular-text" />
-                        <p class="description">Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI Dashboard</a></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <label for="openai_model">Model</label>
-                    </th>
-                    <td>
-                        <select name="openai_model" id="openai_model">
-                            <option value="gpt-4o-mini" <?php selected($model, 'gpt-4o-mini'); ?>>GPT-4o-mini (Recommended - $0.15/1M input)</option>
-                            <option value="gpt-4o" <?php selected($model, 'gpt-4o'); ?>>GPT-4o (Premium - $2.50/1M input)</option>
-                            <option value="gpt-3.5-turbo" <?php selected($model, 'gpt-3.5-turbo'); ?>>GPT-3.5-turbo (Legacy - $0.50/1M input)</option>
-                        </select>
-                    </td>
-                </tr>
-            </table>
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">
+                            <label for="openai_api_key">OpenAI API Key</label>
+                        </th>
+                        <td>
+                            <input type="password"
+                                name="openai_api_key"
+                                id="openai_api_key"
+                                value="<?php echo esc_attr($api_key); ?>"
+                                class="regular-text" />
+                            <p class="description">Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI Dashboard</a></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="openai_model">Model</label>
+                        </th>
+                        <td>
+                            <select name="openai_model" id="openai_model">
+                                <option value="gpt-4o-mini" <?php selected($model, 'gpt-4o-mini'); ?>>GPT-4o-mini (Recommended - $0.15/1M input)</option>
+                                <option value="gpt-4o" <?php selected($model, 'gpt-4o'); ?>>GPT-4o (Premium - $2.50/1M input)</option>
+                                <option value="gpt-3.5-turbo" <?php selected($model, 'gpt-3.5-turbo'); ?>>GPT-3.5-turbo (Legacy - $0.50/1M input)</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
 
-            <p class="submit">
-                <input type="submit" name="hackeruna_translate_save" class="button-primary" value="Save Settings" />
-            </p>
-        </form>
+                <p class="submit">
+                    <input type="submit" name="hackeruna_translate_save" class="button-primary" value="Save Settings" />
+                </p>
+            </form>
+        </div>
 
-        <hr />
+        <!-- Translations List -->
+        <div class="card" style="padding: 20px; margin-bottom: 20px;">
+            <h2>� Existing Translations</h2>
+            <p class="description">Delete a translation to regenerate it on next visit. Translations are cached and won't cost tokens if they already exist.</p>
 
-        <h2>📖 API Usage</h2>
-        <p>Use the following endpoint to get translated posts:</p>
-        <code style="background: #f0f0f0; padding: 10px; display: block; margin: 10px 0;">
-            GET /wp-json/hackeruna/v1/post/{post_id}/translate/{lang}
-        </code>
+            <?php if (empty($translations)): ?>
+                <p>No translations yet. Translations are generated when users visit posts in English.</p>
+            <?php else: ?>
+                <table class="wp-list-table widefat fixed striped" style="margin-top: 15px;">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%;">Original Title</th>
+                            <th style="width: 15%;">Language</th>
+                            <th style="width: 15%;">Tokens</th>
+                            <th style="width: 15%;">Cost</th>
+                            <th style="width: 20%;">Date</th>
+                            <th style="width: 10%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($translations as $translation): ?>
+                            <tr>
+                                <td>
+                                    <a href="<?php echo get_permalink($translation->post_id); ?>" target="_blank">
+                                        <?php echo esc_html($translation->original_title ?: 'Post #' . $translation->post_id); ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <span style="background: #e0e0e0; padding: 2px 8px; border-radius: 4px; font-size: 12px;">
+                                        <?php echo strtoupper(esc_html($translation->language)); ?>
+                                    </span>
+                                </td>
+                                <td><?php echo number_format($translation->tokens_used); ?></td>
+                                <td>$<?php echo number_format($translation->cost_usd, 4); ?></td>
+                                <td><?php echo date('M j, Y H:i', strtotime($translation->translated_at)); ?></td>
+                                <td>
+                                    <a href="<?php echo wp_nonce_url(admin_url('options-general.php?page=hackeruna-translate&delete_translation=' . $translation->post_id . '&lang=' . $translation->language), 'delete_translation_' . $translation->post_id); ?>"
+                                        class="button button-small"
+                                        style="color: #dc3232;"
+                                        onclick="return confirm('Delete this translation? It will be regenerated on next visit.');">
+                                        🗑️ Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </div>
 
-        <h3>Example:</h3>
-        <code style="background: #f0f0f0; padding: 10px; display: block; margin: 10px 0;">
-            GET /wp-json/hackeruna/v1/post/123/translate/en
-        </code>
-
-        <h3>Response:</h3>
-        <pre style="background: #f0f0f0; padding: 10px;">
-{
-    "id": 123,
-    "title": "Translated Title",
-    "content": "Translated content...",
-    "excerpt": "Translated excerpt...",
-    "slug": "translated-slug",
-    "cached": true,
-    "translated_at": "2025-01-07 12:00:00",
-    "model_used": "gpt-4o-mini"
-}
-        </pre>
+        <!-- API Usage -->
+        <div class="card" style="padding: 20px;">
+            <h2>📖 API Usage</h2>
+            <p>Endpoint to get translated posts:</p>
+            <code style="background: #f0f0f0; padding: 10px; display: block; margin: 10px 0;">
+                GET /wp-json/hackeruna/v1/post/{post_id}/translate/{lang}
+            </code>
+            <code style="background: #f0f0f0; padding: 10px; display: block; margin: 10px 0;">
+                GET /wp-json/hackeruna/v1/post/slug/{slug}/translate/{lang}
+            </code>
+        </div>
     </div>
 <?php
 }
