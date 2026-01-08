@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: Hackeruna Translate
  * Plugin URI: https://github.com/juanitourquiza/ng-hackeruna
@@ -26,15 +27,55 @@ require_once HACKERUNA_TRANSLATE_PLUGIN_DIR . 'includes/class-rest-api.php';
 /**
  * Activation hook - create database table
  */
-function hackeruna_translate_activate() {
+function hackeruna_translate_activate()
+{
     Hackeruna_Translate_Database::create_table();
 }
 register_activation_hook(__FILE__, 'hackeruna_translate_activate');
 
 /**
+ * Add CORS headers for translation API
+ * This runs early to handle preflight OPTIONS requests
+ */
+function hackeruna_translate_cors_headers()
+{
+    // Only add headers for REST API requests to our endpoints
+    if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/hackeruna/v1/') !== false) {
+        // Allow requests from any origin (you can restrict this to specific domains)
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+        header('Access-Control-Allow-Credentials: true');
+        header('Access-Control-Max-Age: 86400'); // Cache preflight for 24 hours
+
+        // Handle preflight OPTIONS request
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            status_header(200);
+            exit();
+        }
+    }
+}
+add_action('init', 'hackeruna_translate_cors_headers', 1);
+
+/**
+ * Also add CORS headers via REST API filter
+ */
+function hackeruna_translate_rest_cors($response)
+{
+    if ($response instanceof WP_REST_Response) {
+        $response->header('Access-Control-Allow-Origin', '*');
+        $response->header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE');
+        $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+    }
+    return $response;
+}
+add_filter('rest_post_dispatch', 'hackeruna_translate_rest_cors');
+
+/**
  * Initialize the plugin
  */
-function hackeruna_translate_init() {
+function hackeruna_translate_init()
+{
     // Register REST API endpoints
     $rest_api = new Hackeruna_Translate_REST_API();
     $rest_api->register_routes();
@@ -44,7 +85,8 @@ add_action('rest_api_init', 'hackeruna_translate_init');
 /**
  * Add admin menu
  */
-function hackeruna_translate_admin_menu() {
+function hackeruna_translate_admin_menu()
+{
     add_options_page(
         'Hackeruna Translate',
         'Hackeruna Translate',
@@ -58,53 +100,53 @@ add_action('admin_menu', 'hackeruna_translate_admin_menu');
 /**
  * Admin page callback
  */
-function hackeruna_translate_admin_page() {
+function hackeruna_translate_admin_page()
+{
     // Check permissions
     if (!current_user_can('manage_options')) {
         return;
     }
-    
+
     // Save settings
     if (isset($_POST['hackeruna_translate_save']) && check_admin_referer('hackeruna_translate_settings')) {
         update_option('hackeruna_openai_api_key', sanitize_text_field($_POST['openai_api_key']));
         update_option('hackeruna_openai_model', sanitize_text_field($_POST['openai_model']));
         echo '<div class="notice notice-success"><p>Settings saved!</p></div>';
     }
-    
+
     $api_key = get_option('hackeruna_openai_api_key', '');
     $model = get_option('hackeruna_openai_model', 'gpt-4o-mini');
-    
+
     // Get translation stats
     global $wpdb;
     $table_name = $wpdb->prefix . 'post_translations';
     $stats = $wpdb->get_row("SELECT COUNT(*) as total, SUM(tokens_used) as tokens, SUM(cost_usd) as cost FROM $table_name");
-    
-    ?>
+
+?>
     <div class="wrap">
         <h1>Hackeruna Translate</h1>
-        
+
         <div class="card" style="max-width: 600px; padding: 20px; margin-bottom: 20px;">
             <h2>📊 Translation Statistics</h2>
             <p><strong>Total Translations:</strong> <?php echo $stats->total ?? 0; ?></p>
             <p><strong>Tokens Used:</strong> <?php echo number_format($stats->tokens ?? 0); ?></p>
             <p><strong>Estimated Cost:</strong> $<?php echo number_format($stats->cost ?? 0, 4); ?></p>
         </div>
-        
+
         <form method="post" action="">
             <?php wp_nonce_field('hackeruna_translate_settings'); ?>
-            
+
             <table class="form-table">
                 <tr>
                     <th scope="row">
                         <label for="openai_api_key">OpenAI API Key</label>
                     </th>
                     <td>
-                        <input type="password" 
-                               name="openai_api_key" 
-                               id="openai_api_key" 
-                               value="<?php echo esc_attr($api_key); ?>" 
-                               class="regular-text"
-                        />
+                        <input type="password"
+                            name="openai_api_key"
+                            id="openai_api_key"
+                            value="<?php echo esc_attr($api_key); ?>"
+                            class="regular-text" />
                         <p class="description">Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI Dashboard</a></p>
                     </td>
                 </tr>
@@ -121,25 +163,25 @@ function hackeruna_translate_admin_page() {
                     </td>
                 </tr>
             </table>
-            
+
             <p class="submit">
                 <input type="submit" name="hackeruna_translate_save" class="button-primary" value="Save Settings" />
             </p>
         </form>
-        
+
         <hr />
-        
+
         <h2>📖 API Usage</h2>
         <p>Use the following endpoint to get translated posts:</p>
         <code style="background: #f0f0f0; padding: 10px; display: block; margin: 10px 0;">
             GET /wp-json/hackeruna/v1/post/{post_id}/translate/{lang}
         </code>
-        
+
         <h3>Example:</h3>
         <code style="background: #f0f0f0; padding: 10px; display: block; margin: 10px 0;">
             GET /wp-json/hackeruna/v1/post/123/translate/en
         </code>
-        
+
         <h3>Response:</h3>
         <pre style="background: #f0f0f0; padding: 10px;">
 {
@@ -154,5 +196,5 @@ function hackeruna_translate_admin_page() {
 }
         </pre>
     </div>
-    <?php
+<?php
 }
