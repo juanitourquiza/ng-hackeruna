@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { LanguageService, SupportedLanguage } from '../../core/services/language
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, TranslocoModule],
+  imports: [RouterLink, FormsModule, TranslocoModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })

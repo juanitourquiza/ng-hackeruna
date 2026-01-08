@@ -1,5 +1,5 @@
 import { Component, OnInit, signal, inject, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { WordpressApiService } from '../../../core/services/wordpress-api.service';
@@ -9,7 +9,7 @@ import { LanguageService } from '../../../core/services/language.service';
 @Component({
     selector: 'app-popular-tutorials',
     standalone: true,
-    imports: [CommonModule, RouterLink, TranslocoModule],
+    imports: [RouterLink, TranslocoModule],
     templateUrl: './popular-tutorials.component.html',
     styleUrls: ['./popular-tutorials.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

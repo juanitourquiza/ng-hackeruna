@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal, output, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { WordpressApiService } from '../../../core/services/wordpress-api.service';
 
 interface Category {
@@ -12,7 +12,7 @@ interface Category {
 @Component({
   selector: 'app-category-filter',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="mb-8">
@@ -23,23 +23,24 @@ interface Category {
           class="category-btn px-4 py-2 text-sm font-medium rounded-full transition-all duration-200"
           [style.background-color]="!selectedCategoryId() ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
           [style.color]="!selectedCategoryId() ? 'white' : 'var(--text-secondary)'"
-        >
+          >
           Todos
         </button>
-        
-        <button
-          *ngFor="let category of categories(); trackBy: trackByCategoryId"
-          (click)="selectCategory(category.id)"
-          [class.active]="selectedCategoryId() === category.id"
-          class="category-btn px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:scale-105"
-          [style.background-color]="selectedCategoryId() === category.id ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
-          [style.color]="selectedCategoryId() === category.id ? 'white' : 'var(--text-secondary)'"
-        >
-          {{ category.name }} <span class="ml-1 text-xs opacity-75">({{ category.count }})</span>
-        </button>
+    
+        @for (category of categories(); track trackByCategoryId($index, category)) {
+          <button
+            (click)="selectCategory(category.id)"
+            [class.active]="selectedCategoryId() === category.id"
+            class="category-btn px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:scale-105"
+            [style.background-color]="selectedCategoryId() === category.id ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
+            [style.color]="selectedCategoryId() === category.id ? 'white' : 'var(--text-secondary)'"
+            >
+            {{ category.name }} <span class="ml-1 text-xs opacity-75">({{ category.count }})</span>
+          </button>
+        }
       </div>
     </div>
-  `,
+    `,
   styles: [`
     .category-btn {
       cursor: pointer;

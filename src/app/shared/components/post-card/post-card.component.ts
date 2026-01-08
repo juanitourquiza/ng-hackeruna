@@ -1,5 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { WpPost } from '../../../core/models/wordpress.models';
@@ -8,7 +8,7 @@ import { LanguageService } from '../../../core/services/language.service';
 @Component({
   selector: 'app-post-card',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslocoModule],
+  imports: [RouterLink, TranslocoModule],
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.scss']
 })

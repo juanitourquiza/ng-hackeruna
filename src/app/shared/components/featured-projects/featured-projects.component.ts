@@ -1,5 +1,5 @@
 import { Component, signal, ChangeDetectionStrategy, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { LanguageService } from '../../../core/services/language.service';
@@ -18,7 +18,7 @@ interface FeaturedProject {
 @Component({
     selector: 'app-featured-projects',
     standalone: true,
-    imports: [CommonModule, RouterLink, TranslocoModule],
+    imports: [RouterLink, TranslocoModule],
     templateUrl: './featured-projects.component.html',
     styleUrls: ['./featured-projects.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

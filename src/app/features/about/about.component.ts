@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { SchemaService } from '../../core/services/schema.service';
 import { MetaTagsService } from '../../core/services/meta-tags.service';
@@ -7,7 +7,7 @@ import { MetaTagsService } from '../../core/services/meta-tags.service';
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   template: `
     <main class="py-12 lg:py-16">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

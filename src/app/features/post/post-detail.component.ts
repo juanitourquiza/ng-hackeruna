@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -16,7 +16,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-post-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, RelatedPostsComponent, SkeletonLoaderComponent, SocialShareComponent, GiscusCommentsComponent],
+  imports: [RouterLink, RelatedPostsComponent, SkeletonLoaderComponent, SocialShareComponent, GiscusCommentsComponent],
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss']
 })

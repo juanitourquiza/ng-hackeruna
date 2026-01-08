@@ -1,11 +1,11 @@
 import { Component, Input, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { GoogleAnalyticsService } from '../../../core/services/google-analytics.service';
 
 @Component({
   selector: 'app-social-share',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div class="social-share">
       <h3 class="share-title">Compartir artículo</h3>

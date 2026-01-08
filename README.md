@@ -1,12 +1,12 @@
 # Hackeruna Frontend
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Angular](https://img.shields.io/badge/Angular-19-red)](https://angular.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1-38bdf8)](https://tailwindcss.com/)
+[![Angular](https://img.shields.io/badge/Angular-21-red)](https://angular.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8)](https://tailwindcss.com/)
 [![i18n](https://img.shields.io/badge/i18n-ES%20%7C%20EN-green)](https://hackeruna.com)
 
-> Modern Angular 19 frontend for [Hackeruna.com](https://hackeruna.com) - A multi-language technology blog powered by WordPress as a headless CMS.
+> Modern Angular 21 frontend for [Hackeruna.com](https://hackeruna.com) - A multi-language technology blog powered by WordPress as a headless CMS.
 
 **Follow us:**
 [![Facebook](https://img.shields.io/badge/Facebook-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/hackeruna)
@@ -16,13 +16,14 @@
 
 [🇪🇸 Versión en Español](./README.es.md)
 
-## ✨ What's New in v2.0.0
+## ✨ What's New in v2.1.0
 
+- 🚀 **Angular 21** - Latest stable version
+- 📝 **TypeScript 5.9.3** - Latest features
 - 🌐 **Multi-language support** (Spanish & English) with Transloco
 - 🤖 **AI-powered translations** using GPT-4o-mini for blog content
 - 🔄 **Language-aware URLs** (`/es/post/...`, `/en/post/...`)
 - 💬 **Giscus comments** powered by GitHub Discussions
-- 📊 **"Most Read" section** showing popular articles
 
 ## 🎯 Features
 
@@ -101,9 +102,10 @@ wordpress-plugins/hackeruna-translate/
 
 ## 🛠️ Tech Stack
 
-- **Framework:** Angular 19 (standalone components, signals)
+- **Framework:** Angular 21 (standalone components, signals)
+- **TypeScript:** 5.9.3
 - **i18n:** Transloco
-- **Styling:** Tailwind CSS 4
+- **Styling:** Tailwind CSS 3.4
 - **Comments:** Giscus
 - **Backend:** WordPress REST API + Custom Plugin
 - **AI:** OpenAI GPT-4o-mini

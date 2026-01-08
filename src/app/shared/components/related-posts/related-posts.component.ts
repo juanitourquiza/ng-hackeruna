@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { WordpressApiService } from '../../../core/services/wordpress-api.service';
 import { WpPost } from '../../../core/models/wordpress.models';
@@ -7,43 +7,46 @@ import { WpPost } from '../../../core/models/wordpress.models';
 @Component({
   selector: 'app-related-posts',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section *ngIf="relatedPosts().length > 0" class="mt-16 pt-12" style="border-top: 1px solid var(--border-color);">
-      <h2 class="text-2xl font-bold mb-8" style="color: var(--text-primary);">
-        Artículos Relacionados
-      </h2>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <article *ngFor="let post of relatedPosts(); trackBy: trackByPostId" class="group">
-          <a [routerLink]="['/post', post.slug]">
-            <div class="mb-4 overflow-hidden rounded-lg">
-              <img 
-                [src]="getPostImage(post)" 
-                [alt]="stripHtml(post.title.rendered)" 
-                class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
-                loading="lazy"
-              />
-            </div>
-            <h3 
-              class="text-lg font-semibold leading-snug mb-2 group-hover:underline"
-              style="color: var(--text-primary);"
-              [innerHTML]="post.title.rendered"
-            ></h3>
-            <p class="text-sm mb-2" style="color: var(--text-tertiary);">
-              {{ formatDate(post.date) }}
-            </p>
-            <div 
-              class="text-sm line-clamp-2"
-              style="color: var(--text-secondary);"
-              [innerHTML]="post.excerpt.rendered"
-            ></div>
-          </a>
-        </article>
-      </div>
-    </section>
-  `,
+    @if (relatedPosts().length > 0) {
+      <section class="mt-16 pt-12" style="border-top: 1px solid var(--border-color);">
+        <h2 class="text-2xl font-bold mb-8" style="color: var(--text-primary);">
+          Artículos Relacionados
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          @for (post of relatedPosts(); track trackByPostId($index, post)) {
+            <article class="group">
+              <a [routerLink]="['/post', post.slug]">
+                <div class="mb-4 overflow-hidden rounded-lg">
+                  <img
+                    [src]="getPostImage(post)"
+                    [alt]="stripHtml(post.title.rendered)"
+                    class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                    loading="lazy"
+                    />
+                </div>
+                <h3
+                  class="text-lg font-semibold leading-snug mb-2 group-hover:underline"
+                  style="color: var(--text-primary);"
+                  [innerHTML]="post.title.rendered"
+                ></h3>
+                <p class="text-sm mb-2" style="color: var(--text-tertiary);">
+                  {{ formatDate(post.date) }}
+                </p>
+                <div
+                  class="text-sm line-clamp-2"
+                  style="color: var(--text-secondary);"
+                  [innerHTML]="post.excerpt.rendered"
+                ></div>
+              </a>
+            </article>
+          }
+        </div>
+      </section>
+    }
+    `,
   styles: [`
     .line-clamp-2 {
       display: -webkit-box;

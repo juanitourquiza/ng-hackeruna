@@ -5,10 +5,19 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] - 2026-01-08
+## [2.1.0] - 2026-01-08
 
 ### Added
-- 🌐 **Soporte multiidioma** con Transloco (Español/Inglés)
+- 🚀 **Angular 21.0.7** - Última versión estable
+- 📝 **TypeScript 5.9.3** - Nuevas características
+
+### Changed
+- 20 componentes migrados a block control flow (ng-template → @if/@for)
+- DOCUMENT import movido de @angular/common a @angular/core
+- @angular/build reemplaza @angular-devkit/build-angular
+
+## [2.0.0] - 2026-01-08
+
 - 🔄 **URLs con prefijo de idioma** (`/es/`, `/en/`)
 - 🤖 **Plugin WordPress hackeruna-translate** para traducciones con GPT-4o-mini
 - 💬 **Giscus comments** integrado con GitHub Discussions

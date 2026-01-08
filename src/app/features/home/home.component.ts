@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { WordpressApiService } from '../../core/services/wordpress-api.service';
@@ -17,7 +17,6 @@ import { UsefulResourcesComponent } from '../../shared/components/useful-resourc
   selector: 'app-home',
   standalone: true,
   imports: [
-    CommonModule,
     TranslocoModule,
     PostCardComponent,
     TrendingSidebarComponent,
@@ -26,7 +25,7 @@ import { UsefulResourcesComponent } from '../../shared/components/useful-resourc
     FeaturedProjectsComponent,
     PopularTutorialsComponent,
     UsefulResourcesComponent
-  ],
+],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

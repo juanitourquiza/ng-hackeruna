@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-author',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <main class="py-8 lg:py-12">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
