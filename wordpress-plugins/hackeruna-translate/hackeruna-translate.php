@@ -34,18 +34,21 @@ function hackeruna_translate_activate()
 register_activation_hook(__FILE__, 'hackeruna_translate_activate');
 
 /**
- * CORS Headers - Multiple injection points for maximum compatibility
+ * Add CORS headers for translation API
+ * This runs early to handle preflight OPTIONS requests
  */
-
-// Method 1: Very early hook
 function hackeruna_translate_cors_headers()
 {
+    // Only add headers for REST API requests to our endpoints
     if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/hackeruna/v1/') !== false) {
+        // Allow requests from any origin (you can restrict this to specific domains)
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE');
         header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-        header('Access-Control-Max-Age: 86400');
+        header('Access-Control-Allow-Credentials: true');
+        header('Access-Control-Max-Age: 86400'); // Cache preflight for 24 hours
 
+        // Handle preflight OPTIONS request
         if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
             status_header(200);
             exit();
@@ -54,30 +57,9 @@ function hackeruna_translate_cors_headers()
 }
 add_action('init', 'hackeruna_translate_cors_headers', 1);
 
-// Method 2: WordPress send_headers hook (runs before any output)
-function hackeruna_translate_send_cors_headers()
-{
-    if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/hackeruna/v1/') !== false) {
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE');
-        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-    }
-}
-add_action('send_headers', 'hackeruna_translate_send_cors_headers');
-
-// Method 3: REST API pre-serve request (most reliable for REST)
-function hackeruna_translate_rest_pre_serve($served, $result, $request, $server)
-{
-    if (strpos($request->get_route(), '/hackeruna/v1/') !== false) {
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE');
-        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-    }
-    return $served;
-}
-add_filter('rest_pre_serve_request', 'hackeruna_translate_rest_pre_serve', 10, 4);
-
-// Method 4: Modify REST response headers
+/**
+ * Also add CORS headers via REST API filter
+ */
 function hackeruna_translate_rest_cors($response)
 {
     if ($response instanceof WP_REST_Response) {

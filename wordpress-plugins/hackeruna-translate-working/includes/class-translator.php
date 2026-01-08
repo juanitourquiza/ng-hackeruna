@@ -81,16 +81,12 @@ class Hackeruna_Translator
             $total_cost += $excerpt_result['cost_usd'];
         }
 
-        // Process content - convert newlines to HTML paragraphs
-        // wpautop() converts double line breaks to <p> tags and single line breaks to <br>
-        $processed_content = $this->process_translated_content($content_result['text']);
-
         // Save to cache
         $translation_data = [
             'post_id' => $post_id,
             'language' => $target_language,
             'title' => $title_result['text'],
-            'content' => $processed_content,
+            'content' => $content_result['text'],
             'excerpt' => $excerpt,
             'slug' => $slug,
             'model_used' => $title_result['model'],
@@ -218,23 +214,5 @@ class Hackeruna_Translator
     public function invalidate_cache($post_id, $language = null)
     {
         return Hackeruna_Translate_Database::delete_translation($post_id, $language);
-    }
-
-    /**
-     * Process translated content to ensure proper HTML formatting
-     * Converts newlines to paragraphs while preserving existing HTML
-     */
-    private function process_translated_content($content)
-    {
-        // If content already has proper HTML structure, return as-is
-        if (strpos($content, '<p>') !== false || strpos($content, '<div>') !== false) {
-            return $content;
-        }
-
-        // Use WordPress wpautop() to convert double line breaks to paragraphs
-        // and single line breaks to <br> tags
-        $processed = wpautop($content, true);
-
-        return $processed;
     }
 }
