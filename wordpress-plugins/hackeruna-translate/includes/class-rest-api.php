@@ -175,7 +175,10 @@ class Hackeruna_Translate_REST_API
         $response->header('Access-Control-Allow-Origin', '*');
         $response->header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE');
         $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-        $response->header('Cache-Control', 'public, max-age=3600');
+        // Disable caching to prevent CDN/browser from caching old responses without CORS
+        $response->header('Cache-Control', 'no-cache, no-store, must-revalidate');
+        $response->header('Pragma', 'no-cache');
+        $response->header('Expires', '0');
         return $response;
     }
 
