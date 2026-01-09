@@ -103,19 +103,14 @@ class Hackeruna_Translate_REST_API
         $result = $translator->translate_post($post_id, $lang);
 
         if (is_wp_error($result)) {
-            return new WP_REST_Response([
+            return $this->create_cors_response([
                 'error' => true,
                 'message' => $result->get_error_message(),
                 'code' => $result->get_error_code()
             ], 400);
         }
 
-        // Add CORS headers
-        $response = new WP_REST_Response($result);
-        $response->header('Access-Control-Allow-Origin', '*');
-        $response->header('Cache-Control', 'public, max-age=3600');
-
-        return $response;
+        return $this->create_cors_response($result, 200);
     }
 
     /**
@@ -147,7 +142,7 @@ class Hackeruna_Translate_REST_API
             if ($cached) {
                 $post_id = $cached->post_id;
             } else {
-                return new WP_REST_Response([
+                return $this->create_cors_response([
                     'error' => true,
                     'message' => 'Post not found',
                     'code' => 'not_found'
@@ -161,17 +156,26 @@ class Hackeruna_Translate_REST_API
         $result = $translator->translate_post($post_id, $lang);
 
         if (is_wp_error($result)) {
-            return new WP_REST_Response([
+            return $this->create_cors_response([
                 'error' => true,
                 'message' => $result->get_error_message(),
                 'code' => $result->get_error_code()
             ], 400);
         }
 
-        $response = new WP_REST_Response($result);
-        $response->header('Access-Control-Allow-Origin', '*');
-        $response->header('Cache-Control', 'public, max-age=3600');
+        return $this->create_cors_response($result, 200);
+    }
 
+    /**
+     * Create REST response with CORS headers
+     */
+    private function create_cors_response($data, $status = 200)
+    {
+        $response = new WP_REST_Response($data, $status);
+        $response->header('Access-Control-Allow-Origin', '*');
+        $response->header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE');
+        $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+        $response->header('Cache-Control', 'public, max-age=3600');
         return $response;
     }
 
