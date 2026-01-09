@@ -1,6 +1,7 @@
 import { Injectable, signal, computed, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 export type SupportedLanguage = 'es' | 'en';
 
@@ -38,6 +39,38 @@ export class LanguageService {
 
     readonly isSpanish = computed(() => this._currentLang() === 'es');
     readonly isEnglish = computed(() => this._currentLang() === 'en');
+
+    constructor() {
+        // Sync language from URL on navigation
+        if (isPlatformBrowser(this.platformId)) {
+            this.router.events.pipe(
+                filter(event => event instanceof NavigationEnd)
+            ).subscribe((event: NavigationEnd) => {
+                this.syncLanguageFromUrl(event.urlAfterRedirects || event.url);
+            });
+
+            // Also sync localStorage with URL language on initial load
+            const urlLang = this.getLanguageFromPath();
+            if (urlLang) {
+                localStorage.setItem('hackeruna_lang', urlLang);
+            }
+        }
+    }
+
+    /**
+     * Sync language signal with URL (called on navigation)
+     */
+    private syncLanguageFromUrl(url: string): void {
+        const pathSegments = url.split('/').filter(Boolean);
+        const firstSegment = pathSegments[0] as SupportedLanguage;
+
+        if (this.isValidLanguage(firstSegment) && firstSegment !== this._currentLang()) {
+            this._currentLang.set(firstSegment);
+            if (isPlatformBrowser(this.platformId)) {
+                localStorage.setItem('hackeruna_lang', firstSegment);
+            }
+        }
+    }
 
     /**
      * Get initial language from URL, localStorage, or browser preference
