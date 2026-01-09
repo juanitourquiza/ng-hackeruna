@@ -73,7 +73,7 @@ IMPORTANT RULES:
         }
 
         $response = wp_remote_post($this->api_url, [
-            'timeout' => 120,
+            'timeout' => 180, // Increased timeout for longer translations
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->api_key,
                 'Content-Type' => 'application/json'
@@ -85,7 +85,7 @@ IMPORTANT RULES:
                     ['role' => 'user', 'content' => $text]
                 ],
                 'temperature' => 0.3,
-                'max_tokens' => 4096
+                'max_tokens' => 16384 // Increased from 4096 for long posts
             ])
         ]);
 
