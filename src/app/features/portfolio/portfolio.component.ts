@@ -1,5 +1,5 @@
 import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
-
+import { TranslocoModule } from '@jsverse/transloco';
 
 interface Project {
   id: number;
@@ -16,7 +16,7 @@ interface Project {
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [],
+  imports: [TranslocoModule],
   templateUrl: './portfolio.component.html',
   styleUrls: ['./portfolio.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

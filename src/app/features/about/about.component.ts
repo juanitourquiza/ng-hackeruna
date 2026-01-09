@@ -1,24 +1,26 @@
 import { Component, OnInit, inject } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import { SchemaService } from '../../core/services/schema.service';
 import { MetaTagsService } from '../../core/services/meta-tags.service';
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslocoModule],
   template: `
-    <main class="py-12 lg:py-16">
+    <main class="py-12 lg:py-16" *transloco="let t">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Header -->
         <div class="text-center mb-12">
           <h1 class="text-4xl lg:text-5xl font-bold mb-4" style="color: var(--text-primary);">
-            Sobre Mí
+            {{ t('about.title') }}
           </h1>
           <p class="text-xl" style="color: var(--text-secondary);">
-            Juan Urquiza - Desarrollador Full Stack & Blockchain
+            Juan Urquiza - {{ t('about.subtitle') }}
           </p>
         </div>
 
@@ -34,8 +36,7 @@ import { MetaTagsService } from '../../core/services/meta-tags.service';
               <div class="flex-1 text-center md:text-left">
                 <h2 class="text-3xl font-bold mb-4">Juan Urquiza</h2>
                 <p class="text-lg mb-4 opacity-90">
-                  Desarrollador apasionado por la tecnología blockchain, el desarrollo web moderno 
-                  y la creación de soluciones innovadoras que transforman ideas en realidad.
+                  {{ t('about.profileDescription') }}
                 </p>
                 <div class="flex flex-wrap gap-3 justify-center md:justify-start">
                   <a 
@@ -67,7 +68,7 @@ import { MetaTagsService } from '../../core/services/meta-tags.service';
                     class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
                   >
                     <span class="material-symbols-outlined text-xl">language</span>
-                    Portafolio
+                    {{ t('about.portfolio') }}
                   </a>
                   <a 
                     href="mailto:j@hackeruna.com"
@@ -85,7 +86,7 @@ import { MetaTagsService } from '../../core/services/meta-tags.service';
         <!-- Experience Section -->
         <div class="mb-16">
           <h2 class="text-3xl font-bold mb-8" style="color: var(--text-primary);">
-            Experiencia y Especialización
+            {{ t('about.experience.title') }}
           </h2>
           <div class="grid md:grid-cols-2 gap-6">
             <div class="p-6 rounded-xl" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
@@ -94,12 +95,11 @@ import { MetaTagsService } from '../../core/services/meta-tags.service';
                   code
                 </span>
                 <h3 class="text-xl font-bold" style="color: var(--text-primary);">
-                  Desarrollo Web
+                  {{ t('about.experience.webDev.title') }}
                 </h3>
               </div>
               <p style="color: var(--text-secondary);">
-                Experto en Angular, React, Node.js, y tecnologías modernas de frontend y backend. 
-                Especializado en Single Page Applications (SPA) y arquitecturas escalables.
+                {{ t('about.experience.webDev.description') }}
               </p>
             </div>
 
@@ -109,12 +109,11 @@ import { MetaTagsService } from '../../core/services/meta-tags.service';
                   account_balance
                 </span>
                 <h3 class="text-xl font-bold" style="color: var(--text-primary);">
-                  Blockchain
+                  {{ t('about.experience.blockchain.title') }}
                 </h3>
               </div>
               <p style="color: var(--text-secondary);">
-                Desarrollo de smart contracts, dApps, y soluciones Web3. Experiencia con Ethereum, 
-                Solidity, y tecnologías de criptografía avanzada.
+                {{ t('about.experience.blockchain.description') }}
               </p>
             </div>
 
@@ -124,12 +123,11 @@ import { MetaTagsService } from '../../core/services/meta-tags.service';
                   security
                 </span>
                 <h3 class="text-xl font-bold" style="color: var(--text-primary);">
-                  ZK-Proofs
+                  {{ t('about.experience.zkProofs.title') }}
                 </h3>
               </div>
               <p style="color: var(--text-secondary);">
-                Implementación de Zero-Knowledge Proofs para privacidad y escalabilidad. 
-                Conocimiento en zkSNARKs, zkSTARKs y protocolos de consenso.
+                {{ t('about.experience.zkProofs.description') }}
               </p>
             </div>
 
@@ -139,12 +137,11 @@ import { MetaTagsService } from '../../core/services/meta-tags.service';
                   psychology
                 </span>
                 <h3 class="text-xl font-bold" style="color: var(--text-primary);">
-                  IA & Machine Learning
+                  {{ t('about.experience.ai.title') }}
                 </h3>
               </div>
               <p style="color: var(--text-secondary);">
-                Integración de modelos de IA en aplicaciones web, automatización con GPT, 
-                y desarrollo de soluciones inteligentes.
+                {{ t('about.experience.ai.description') }}
               </p>
             </div>
           </div>
@@ -153,50 +150,40 @@ import { MetaTagsService } from '../../core/services/meta-tags.service';
         <!-- About Blog Section -->
         <div class="mb-16">
           <h2 class="text-3xl font-bold mb-6" style="color: var(--text-primary);">
-            Sobre Hackeruna
+            {{ t('about.blog.title') }}
           </h2>
           <div class="p-8 rounded-xl" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
             <p class="text-lg mb-4" style="color: var(--text-secondary);">
-              Hackeruna es mi espacio personal para compartir conocimiento sobre tecnología, programación, 
-              blockchain y desarrollo web. Aquí encontrarás:
+              {{ t('about.blog.intro') }}
             </p>
             <ul class="space-y-3 mb-6">
               <li class="flex items-start gap-3">
                 <span class="material-symbols-outlined mt-1" style="color: var(--accent-blue);">
                   check_circle
                 </span>
-                <span style="color: var(--text-secondary);">
-                  <strong>Tutoriales prácticos</strong> con código real y ejemplos funcionales
-                </span>
+                <span style="color: var(--text-secondary);" [innerHTML]="t('about.blog.items.tutorials')"></span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="material-symbols-outlined mt-1" style="color: var(--accent-blue);">
                   check_circle
                 </span>
-                <span style="color: var(--text-secondary);">
-                  <strong>Análisis profundos</strong> de tecnologías emergentes y tendencias
-                </span>
+                <span style="color: var(--text-secondary);" [innerHTML]="t('about.blog.items.analysis')"></span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="material-symbols-outlined mt-1" style="color: var(--accent-blue);">
                   check_circle
                 </span>
-                <span style="color: var(--text-secondary);">
-                  <strong>Proyectos open source</strong> y código que puedes usar en tus aplicaciones
-                </span>
+                <span style="color: var(--text-secondary);" [innerHTML]="t('about.blog.items.opensource')"></span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="material-symbols-outlined mt-1" style="color: var(--accent-blue);">
                   check_circle
                 </span>
-                <span style="color: var(--text-secondary);">
-                  <strong>Guías de desarrollo</strong> para principiantes y avanzados
-                </span>
+                <span style="color: var(--text-secondary);" [innerHTML]="t('about.blog.items.guides')"></span>
               </li>
             </ul>
             <p class="text-lg" style="color: var(--text-secondary);">
-              Mi objetivo es hacer que la tecnología compleja sea accesible para todos, compartiendo 
-              mi experiencia y aprendizaje continuo en el mundo del desarrollo.
+              {{ t('about.blog.goal') }}
             </p>
           </div>
         </div>
@@ -204,109 +191,31 @@ import { MetaTagsService } from '../../core/services/meta-tags.service';
         <!-- Tech Stack -->
         <div class="mb-16">
           <h2 class="text-3xl font-bold mb-6" style="color: var(--text-primary);">
-            Stack Tecnológico
+            {{ t('about.techStack') }}
           </h2>
           <div class="flex flex-wrap gap-3">
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              Angular
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              React
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              TypeScript
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              Node.js
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              Solidity
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              Ethereum
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              Web3
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              Python
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              Docker
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              AWS
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              MongoDB
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              PostgreSQL
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              TailwindCSS
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              Bootstrap
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              Git
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              PHP
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              Laravel
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              Symfony
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              Vue.js
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              AI / Machine Learning
-            </span>
-            <span class="px-4 py-2 rounded-full text-sm font-medium" 
-                  style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
-              Windsurf
-            </span>
+            @for (tech of technologies; track tech) {
+              <span class="px-4 py-2 rounded-full text-sm font-medium" 
+                    style="background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color);">
+                {{ tech }}
+              </span>
+            }
           </div>
         </div>
 
         <!-- Contact CTA -->
         <div class="text-center p-8 rounded-xl" style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: white;">
           <h2 class="text-2xl lg:text-3xl font-bold mb-4">
-            ¿Quieres colaborar o tienes un proyecto en mente?
+            {{ t('about.cta.title') }}
           </h2>
           <p class="text-lg mb-6 opacity-90">
-            Estoy siempre abierto a nuevas oportunidades y colaboraciones interesantes.
+            {{ t('about.cta.subtitle') }}
           </p>
           <a 
-            routerLink="/contact"
+            [routerLink]="['/', currentLang, 'contact']"
             class="inline-block px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-opacity-90 transition-all"
           >
-            Contáctame
+            {{ t('about.cta.button') }}
           </a>
         </div>
 
@@ -322,6 +231,18 @@ import { MetaTagsService } from '../../core/services/meta-tags.service';
 export class AboutComponent implements OnInit {
   private schemaService = inject(SchemaService);
   private metaTagsService = inject(MetaTagsService);
+  private languageService = inject(LanguageService);
+
+  technologies = [
+    'Angular', 'React', 'TypeScript', 'Node.js', 'Solidity', 'Ethereum',
+    'Web3', 'Python', 'Docker', 'AWS', 'MongoDB', 'PostgreSQL',
+    'TailwindCSS', 'Bootstrap', 'Git', 'PHP', 'Laravel', 'Symfony',
+    'Vue.js', 'AI / Machine Learning', 'Windsurf'
+  ];
+
+  get currentLang() {
+    return this.languageService.currentLang();
+  }
 
   ngOnInit(): void {
     // Meta Tags

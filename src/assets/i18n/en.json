@@ -42,29 +42,77 @@
     },
     "about": {
         "title": "About Me",
-        "subtitle": "Full Stack & Blockchain Developer"
+        "subtitle": "Full Stack & Blockchain Developer",
+        "profileDescription": "Developer passionate about blockchain technology, modern web development and creating innovative solutions that transform ideas into reality.",
+        "portfolio": "Portfolio",
+        "experience": {
+            "title": "Experience and Specialization",
+            "webDev": {
+                "title": "Web Development",
+                "description": "Expert in Angular, React, Node.js, and modern frontend and backend technologies. Specialized in Single Page Applications (SPA) and scalable architectures."
+            },
+            "blockchain": {
+                "title": "Blockchain",
+                "description": "Development of smart contracts, dApps, and Web3 solutions. Experience with Ethereum, Solidity, and advanced cryptography technologies."
+            },
+            "zkProofs": {
+                "title": "ZK-Proofs",
+                "description": "Implementation of Zero-Knowledge Proofs for privacy and scalability. Knowledge in zkSNARKs, zkSTARKs and consensus protocols."
+            },
+            "ai": {
+                "title": "AI & Machine Learning",
+                "description": "Integration of AI models in web applications, automation with GPT, and development of intelligent solutions."
+            }
+        },
+        "blog": {
+            "title": "About Hackeruna",
+            "intro": "Hackeruna is my personal space to share knowledge about technology, programming, blockchain and web development. Here you will find:",
+            "items": {
+                "tutorials": "<strong>Practical tutorials</strong> with real code and working examples",
+                "analysis": "<strong>Deep analysis</strong> of emerging technologies and trends",
+                "opensource": "<strong>Open source projects</strong> and code you can use in your applications",
+                "guides": "<strong>Development guides</strong> for beginners and advanced users"
+            },
+            "goal": "My goal is to make complex technology accessible to everyone, sharing my experience and continuous learning in the development world."
+        },
+        "techStack": "Tech Stack",
+        "cta": {
+            "title": "Want to collaborate or have a project in mind?",
+            "subtitle": "I am always open to new opportunities and interesting collaborations.",
+            "button": "Contact Me"
+        }
     },
     "portfolio": {
-        "title": "Portfolio",
-        "subtitle": "Featured projects",
+        "title": "Project Portfolio",
+        "subtitle": "Here you can find a selection of my most outstanding work, from web development and blockchain to PWA applications. Explore each project to learn more about my experience and the technologies I use.",
         "allProjects": "All",
-        "frontend": "Frontend",
-        "backend": "Backend",
+        "webDev": "Web Development",
         "fullstack": "Full Stack",
         "blockchain": "Blockchain",
+        "pwa": "PWA",
+        "viewProject": "View project",
+        "noProjects": "No projects in this category",
         "viewDemo": "View Demo",
         "viewCode": "View Code"
     },
     "contact": {
-        "title": "Contact",
-        "subtitle": "Have a project in mind?",
+        "title": "Let's Talk",
+        "subtitle": "I'm open to questions, suggestions, or collaboration proposals. Don't hesitate to send me a message.",
+        "formTitle": "Send us a message",
         "name": "Name",
+        "namePlaceholder": "Your full name",
         "email": "Email",
+        "emailPlaceholder": "your.email@example.com",
+        "subject": "Subject",
+        "subjectPlaceholder": "Message subject",
         "message": "Message",
-        "send": "Send message",
+        "messagePlaceholder": "Write your message here...",
+        "send": "Send Message",
         "sending": "Sending...",
         "success": "Message sent successfully!",
-        "error": "Error sending message. Please try again."
+        "error": "Error sending message. Please try again.",
+        "otherWays": "Other ways to contact",
+        "followUs": "Follow us on social media"
     },
     "footer": {
         "copyright": "All rights reserved",

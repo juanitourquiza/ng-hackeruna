@@ -2,6 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslocoModule } from '@jsverse/transloco';
 import { environment } from '../../../environments/environment';
 import { GoogleAnalyticsService } from '../../core/services/google-analytics.service';
 
@@ -15,7 +16,7 @@ interface ContactForm {
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [FormsModule, HttpClientModule],
+  imports: [FormsModule, HttpClientModule, TranslocoModule],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
@@ -35,7 +36,7 @@ export class ContactComponent {
   // Endpoint personalizado de Hackeruna
   private CF7_ENDPOINT = 'https://backend.hackeruna.com/wp-json/hackeruna/v1/contact';
   private recaptchaSiteKey = environment.recaptchaV3SiteKey;
-  
+
   private http = inject(HttpClient);
   private analytics = inject(GoogleAnalyticsService);
 
@@ -111,12 +112,12 @@ export class ContactComponent {
           if (response.status === 'mail_sent') {
             this.successMessage.set('¡Mensaje enviado correctamente! Te contactaremos pronto.');
             this.resetForm();
-            
+
             // Track envío exitoso en Google Analytics
             this.analytics.trackContactFormSubmit(true);
           } else {
             this.errorMessage.set(response.message || 'Hubo un error al enviar el mensaje. Por favor intenta nuevamente.');
-            
+
             // Track error en envío
             this.analytics.trackContactFormSubmit(false);
           }
@@ -125,7 +126,7 @@ export class ContactComponent {
           console.error('Error sending message:', err);
           this.loading.set(false);
           this.errorMessage.set(err.error?.message || 'Error al enviar el mensaje. Por favor intenta más tarde.');
-          
+
           // Track error en Google Analytics
           this.analytics.trackContactFormSubmit(false);
           this.analytics.trackError(

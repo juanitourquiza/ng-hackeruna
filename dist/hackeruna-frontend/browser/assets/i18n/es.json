@@ -42,29 +42,77 @@
     },
     "about": {
         "title": "Sobre Mí",
-        "subtitle": "Desarrollador Full Stack & Blockchain"
+        "subtitle": "Desarrollador Full Stack & Blockchain",
+        "profileDescription": "Desarrollador apasionado por la tecnología blockchain, el desarrollo web moderno y la creación de soluciones innovadoras que transforman ideas en realidad.",
+        "portfolio": "Portafolio",
+        "experience": {
+            "title": "Experiencia y Especialización",
+            "webDev": {
+                "title": "Desarrollo Web",
+                "description": "Experto en Angular, React, Node.js, y tecnologías modernas de frontend y backend. Especializado en Single Page Applications (SPA) y arquitecturas escalables."
+            },
+            "blockchain": {
+                "title": "Blockchain",
+                "description": "Desarrollo de smart contracts, dApps, y soluciones Web3. Experiencia con Ethereum, Solidity, y tecnologías de criptografía avanzada."
+            },
+            "zkProofs": {
+                "title": "ZK-Proofs",
+                "description": "Implementación de Zero-Knowledge Proofs para privacidad y escalabilidad. Conocimiento en zkSNARKs, zkSTARKs y protocolos de consenso."
+            },
+            "ai": {
+                "title": "IA & Machine Learning",
+                "description": "Integración de modelos de IA en aplicaciones web, automatización con GPT, y desarrollo de soluciones inteligentes."
+            }
+        },
+        "blog": {
+            "title": "Sobre Hackeruna",
+            "intro": "Hackeruna es mi espacio personal para compartir conocimiento sobre tecnología, programación, blockchain y desarrollo web. Aquí encontrarás:",
+            "items": {
+                "tutorials": "<strong>Tutoriales prácticos</strong> con código real y ejemplos funcionales",
+                "analysis": "<strong>Análisis profundos</strong> de tecnologías emergentes y tendencias",
+                "opensource": "<strong>Proyectos open source</strong> y código que puedes usar en tus aplicaciones",
+                "guides": "<strong>Guías de desarrollo</strong> para principiantes y avanzados"
+            },
+            "goal": "Mi objetivo es hacer que la tecnología compleja sea accesible para todos, compartiendo mi experiencia y aprendizaje continuo en el mundo del desarrollo."
+        },
+        "techStack": "Stack Tecnológico",
+        "cta": {
+            "title": "¿Quieres colaborar o tienes un proyecto en mente?",
+            "subtitle": "Estoy siempre abierto a nuevas oportunidades y colaboraciones interesantes.",
+            "button": "Contáctame"
+        }
     },
     "portfolio": {
-        "title": "Portafolio",
-        "subtitle": "Proyectos destacados",
+        "title": "Portafolio de Proyectos",
+        "subtitle": "Aquí puedes encontrar una selección de mis trabajos más destacados, desde desarrollo web y blockchain hasta aplicaciones PWA. Explora cada proyecto para conocer más sobre mi experiencia y las tecnologías que utilizo.",
         "allProjects": "Todos",
-        "frontend": "Frontend",
-        "backend": "Backend",
-        "fullstack": "Full Stack",
+        "webDev": "Desarrollo Web",
+        "fullstack": "Fullstack",
         "blockchain": "Blockchain",
+        "pwa": "PWA",
+        "viewProject": "Ver proyecto",
+        "noProjects": "No hay proyectos en esta categoría",
         "viewDemo": "Ver Demo",
         "viewCode": "Ver Código"
     },
     "contact": {
-        "title": "Contacto",
-        "subtitle": "¿Tienes un proyecto en mente?",
+        "title": "Hablemos",
+        "subtitle": "Estoy abierto a preguntas, sugerencias o propuestas de colaboración. No dudes en enviarme un mensaje.",
+        "formTitle": "Envíanos un mensaje",
         "name": "Nombre",
-        "email": "Email",
+        "namePlaceholder": "Tu nombre completo",
+        "email": "Correo Electrónico",
+        "emailPlaceholder": "tu.correo@ejemplo.com",
+        "subject": "Asunto",
+        "subjectPlaceholder": "Asunto del mensaje",
         "message": "Mensaje",
-        "send": "Enviar mensaje",
+        "messagePlaceholder": "Escribe tu mensaje aquí...",
+        "send": "Enviar Mensaje",
         "sending": "Enviando...",
         "success": "¡Mensaje enviado correctamente!",
-        "error": "Error al enviar el mensaje. Intenta de nuevo."
+        "error": "Error al enviar el mensaje. Intenta de nuevo.",
+        "otherWays": "Otras formas de contactar",
+        "followUs": "Síguenos en redes"
     },
     "footer": {
         "copyright": "Todos los derechos reservados",
