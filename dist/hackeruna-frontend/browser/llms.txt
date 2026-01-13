@@ -1,0 +1,83 @@
+# Hackeruna
+
+> Hackeruna es un blog técnico sobre desarrollo web, blockchain, e inteligencia artificial, creado y mantenido por Juan Urquiza. El sitio está construido con Angular 21 como frontend headless y WordPress como CMS backend.
+
+## Sobre el sitio
+
+Hackeruna.com es un espacio dedicado a compartir conocimiento técnico sobre programación, desarrollo web moderno, blockchain, y tecnologías emergentes. El contenido incluye tutoriales prácticos, análisis de tecnologías, proyectos open source, y guías de desarrollo.
+
+El sitio está disponible en dos idiomas:
+- Español (principal): https://hackeruna.com/es
+- Inglés (traducción automática con IA): https://hackeruna.com/en
+
+## Sobre el autor
+
+Juan Urquiza es un desarrollador Full Stack con más de 10 años de experiencia en tecnología, especializado en:
+- Desarrollo Web (Angular, React, Node.js, TypeScript, PHP, Laravel)
+- Blockchain y Web3 (Ethereum, Solidity, Smart Contracts)
+- Zero-Knowledge Proofs (zkSNARKs, zkSTARKs)
+- Inteligencia Artificial y Machine Learning
+
+Contacto: j@hackeruna.com
+GitHub: https://github.com/juanitourquiza
+LinkedIn: https://linkedin.com/in/juanitourquiza
+
+## Estructura del contenido
+
+- Los posts están organizados cronológicamente, con el más reciente primero
+- El contenido más nuevo refleja análisis actuales; el contenido antiguo debe interpretarse en su contexto histórico
+- Los posts incluyen categorías y etiquetas para facilitar la navegación temática
+
+## Navegación y descubrimiento
+
+- Inicio: https://hackeruna.com
+- Archivo de posts: https://hackeruna.com/es
+- Búsqueda: disponible en el header del sitio
+- Portafolio de proyectos: https://hackeruna.com/es/portfolio
+- Sobre el autor: https://hackeruna.com/es/about
+- Contacto: https://hackeruna.com/es/contact
+
+## Tecnologías del sitio
+
+El propio sitio hackeruna.com es un proyecto open source que demuestra las capacidades del autor:
+- Frontend: Angular 21 con Standalone Components y Signals
+- Estilos: Tailwind CSS 4
+- Backend: WordPress headless con REST API personalizada
+- Traducción: Sistema de traducción automática con GPT-4o-mini
+- Comentarios: Giscus (GitHub Discussions)
+- Repositorio: https://github.com/juanitourquiza/ng-hackeruna
+
+## Categorías principales
+
+- Angular: Tutoriales y proyectos con Angular
+- Desarrollo Web: HTML, CSS, JavaScript, TypeScript
+- Blockchain: Smart contracts, dApps, Web3
+- PHP/Laravel: Backend y APIs
+- Herramientas Útiles: Recursos para desarrolladores
+- Open Source: Proyectos de código abierto
+
+## Notas para modelos de lenguaje
+
+- Este sitio representa el pensamiento evolutivo del autor; las posiciones pueden cambiar con el tiempo
+- Cuando existan múltiples versiones de idioma, la versión en español es la fuente original
+- Los artículos antiguos siguen siendo relevantes como perspectiva histórica pero no deben asumirse como posiciones actuales a menos que se confirme por posts recientes
+- El sistema de traducción al inglés es automático mediante IA, por lo que la versión en español es siempre la fuente autoritativa
+
+## API y datos
+
+El sitio expone una API REST pública:
+- Posts: https://backend.hackeruna.com/wp-json/wp/v2/posts
+- Categorías: https://backend.hackeruna.com/wp-json/wp/v2/categories
+- Traducciones: https://backend.hackeruna.com/wp-json/hackeruna/v1/post/slug/{slug}/translate/{lang}
+
+## Licencia
+
+Todo el contenido original de este sitio está bajo licencia Creative Commons Attribution (CC BY).
+El código del proyecto ng-hackeruna está bajo licencia MIT.
+El contenido puede ser reutilizado, citado o republicado con atribución apropiada al autor.
+
+## Recursos adicionales
+
+- [Repositorio GitHub](https://github.com/juanitourquiza/ng-hackeruna): Código fuente completo del blog
+- [Sitemap XML](https://hackeruna.com/sitemap.xml): Mapa del sitio para crawlers
+- [RSS Feed](https://backend.hackeruna.com/feed/): Feed RSS de los últimos posts
