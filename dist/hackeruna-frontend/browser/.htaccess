@@ -19,6 +19,12 @@ RewriteRule ^[0-9]{4}/[0-9]{2}/[0-9]{2}/(.+)/?$ /post/$1 [R=301,L]
 # ============================================
 # Angular SPA Routing
 # ============================================
+# Servir archivos estáticos directamente (no pasar a Angular)
+RewriteRule ^llms\.txt$ - [L]
+RewriteRule ^robots\.txt$ - [L]
+RewriteRule ^sitemap\.xml$ - [L]
+RewriteRule ^ads\.txt$ - [L]
+
 # Redirigir todas las rutas a index.html para que Angular maneje el routing
 RewriteRule ^index\.html$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
