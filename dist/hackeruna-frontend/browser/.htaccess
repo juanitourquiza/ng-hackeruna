@@ -16,6 +16,10 @@ RewriteRule ^(.*)$ https://hackeruna.com/$1 [R=301,L]
 # Patrón: /YYYY/MM/DD/slug/ → /post/slug
 RewriteRule ^[0-9]{4}/[0-9]{2}/[0-9]{2}/(.+)/?$ /post/$1 [R=301,L]
 
+# Redirect RSS Feed to WordPress backend
+RewriteRule ^feed/?$ https://backend.hackeruna.com/feed/ [R=301,L]
+RewriteRule ^feed/(.+)/?$ https://backend.hackeruna.com/feed/$1 [R=301,L]
+
 # ============================================
 # Angular SPA Routing
 # ============================================
