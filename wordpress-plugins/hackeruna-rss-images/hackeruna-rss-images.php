@@ -49,12 +49,24 @@ function hackeruna_add_media_thumbnail_to_feed()
         $width = isset($metadata['width']) ? $metadata['width'] : '';
         $height = isset($metadata['height']) ? $metadata['height'] : '';
 
+        // Get actual file size for enclosure
+        $file_path = get_attached_file($thumbnail_id);
+        $file_size = $file_path && file_exists($file_path) ? filesize($file_path) : 0;
+
+        // media:content - standard RSS media tag
         echo '<media:content url="' . esc_url($thumbnail_url) . '" medium="image" type="' . esc_attr($mime_type) . '"';
         if ($width) echo ' width="' . esc_attr($width) . '"';
         if ($height) echo ' height="' . esc_attr($height) . '"';
         echo ' />' . "\n";
 
-        echo '<enclosure url="' . esc_url($thumbnail_url) . '" type="' . esc_attr($mime_type) . '" length="0" />' . "\n";
+        // media:thumbnail - specifically used by Feedly for thumbnails
+        echo '<media:thumbnail url="' . esc_url($thumbnail_url) . '"';
+        if ($width) echo ' width="' . esc_attr($width) . '"';
+        if ($height) echo ' height="' . esc_attr($height) . '"';
+        echo ' />' . "\n";
+
+        // enclosure with actual file size
+        echo '<enclosure url="' . esc_url($thumbnail_url) . '" type="' . esc_attr($mime_type) . '" length="' . $file_size . '" />' . "\n";
     }
 }
 add_action('rss2_item', 'hackeruna_add_media_thumbnail_to_feed');
