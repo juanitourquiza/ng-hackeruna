@@ -73,7 +73,7 @@ IMPORTANT RULES:
         }
 
         $response = wp_remote_post($this->api_url, [
-            'timeout' => 180, // Increased timeout for longer translations
+            'timeout' => 300, // 5 minutes for large translations
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->api_key,
                 'Content-Type' => 'application/json'

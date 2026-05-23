@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {
@@ -207,6 +207,8 @@ export class WordpressApiService {
    * @param postId - The original post ID
    * @param lang - Target language (e.g., 'en', 'es')
    */
+  private noCacheHeaders = new HttpHeaders({ 'Cache-Control': 'no-cache' });
+
   getTranslatedPost(postId: number, lang: string): Observable<TranslatedPost> {
     if (lang === 'es') {
       // Spanish is the original language, fetch normally
@@ -216,7 +218,8 @@ export class WordpressApiService {
     }
 
     return this.http.get<TranslatedPost>(
-      `${this.translateApiUrl}/post/${postId}/translate/${lang}`
+      `${this.translateApiUrl}/post/${postId}/translate/${lang}`,
+      { headers: this.noCacheHeaders }
     );
   }
 
@@ -234,7 +237,8 @@ export class WordpressApiService {
     }
 
     return this.http.get<TranslatedPost>(
-      `${this.translateApiUrl}/post/slug/${slug}/translate/${lang}`
+      `${this.translateApiUrl}/post/slug/${slug}/translate/${lang}`,
+      { headers: this.noCacheHeaders }
     );
   }
 
@@ -244,7 +248,8 @@ export class WordpressApiService {
    */
   getTranslationStatus(postId: number): Observable<TranslationStatus> {
     return this.http.get<TranslationStatus>(
-      `${this.translateApiUrl}/post/${postId}/translations`
+      `${this.translateApiUrl}/post/${postId}/translations`,
+      { headers: this.noCacheHeaders }
     );
   }
 
