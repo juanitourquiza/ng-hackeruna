@@ -26,20 +26,28 @@ export class PopularTutorialsComponent implements OnInit {
     loading = signal(true);
 
     ngOnInit(): void {
-        // Fetch recent posts and filter for tutorials
-        // You can adjust this to filter by a specific category ID if you have a "Tutoriales" category
-        this.wpApi.getPosts(1, 10).subscribe({
+        const LIMIT = 4;
+        // Trae bastantes posts recientes, prioriza los que parecen tutoriales/guías
+        // y rellena con recientes para que la sección siempre se vea completa.
+        this.wpApi.getPosts(1, 20).subscribe({
             next: (response) => {
-                // Filter posts that contain "tutorial" or relevant keywords in title or content
-                const tutorialPosts = response.data
-                    .filter(post =>
-                        post.title.rendered.toLowerCase().includes('tutorial') ||
-                        post.title.rendered.toLowerCase().includes('guía') ||
-                        post.title.rendered.toLowerCase().includes('cómo')
-                    )
-                    .slice(0, 3); // Take only top 3
+                const posts = response.data ?? [];
+                const isTutorial = (p: WpPost) => {
+                    const title = p.title.rendered.toLowerCase();
+                    return ['tutorial', 'guía', 'guia', 'cómo', 'como', 'aprende', 'paso a paso', 'introducción']
+                        .some(k => title.includes(k));
+                };
 
-                this.tutorials.set(tutorialPosts);
+                const preferred = posts.filter(isTutorial);
+                const rest = posts.filter(p => !isTutorial(p));
+                const selected: WpPost[] = [];
+                const seen = new Set<number>();
+                for (const p of [...preferred, ...rest]) {
+                    if (selected.length >= LIMIT) break;
+                    if (!seen.has(p.id)) { seen.add(p.id); selected.push(p); }
+                }
+
+                this.tutorials.set(selected);
                 this.loading.set(false);
             },
             error: (err) => {

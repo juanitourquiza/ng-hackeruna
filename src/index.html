@@ -3,31 +3,41 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Hackeruna - Blog de Tecnología</title>
+  <title>Hackeruna — Juan Urquiza | Desarrollo AI-Native, Web y Blockchain</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-    content="Blog de tecnología, programación, desarrollo web, blockchain y tutoriales. Aprende sobre Angular, Laravel, React, Node.js y más.">
-  <meta name="author" content="Hackeruna">
+    content="Blog y portafolio de Juan Urquiza: desarrollo AI-native (MCP, LLM), web full-stack (Angular, Laravel, Symfony), blockchain y ciberseguridad. Tutoriales, proyectos y análisis técnicos.">
+  <meta name="author" content="Juan Urquiza">
+  <meta name="keywords"
+    content="Juan Urquiza, Hackeruna, desarrollo AI-native, MCP, Model Context Protocol, Angular, Laravel, Symfony, blockchain, Solidity, ciberseguridad, pentesting, Pulsai, desarrollo web, Ecuador">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://hackeruna.com/">
+
+  <!-- Alternates de idioma -->
+  <link rel="alternate" hreflang="es" href="https://hackeruna.com/es">
+  <link rel="alternate" hreflang="en" href="https://hackeruna.com/en">
+  <link rel="alternate" hreflang="x-default" href="https://hackeruna.com/">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hackeruna.com/">
-  <meta property="og:title" content="Hackeruna - Blog de Tecnología">
-  <meta property="og:description" content="Blog de tecnología, programación, desarrollo web, blockchain y tutoriales.">
+  <meta property="og:title" content="Hackeruna — Juan Urquiza | Desarrollo AI-Native, Web y Blockchain">
+  <meta property="og:description" content="Blog y portafolio de Juan Urquiza: desarrollo AI-native (MCP, LLM), web full-stack, blockchain y ciberseguridad.">
   <meta property="og:image" content="https://hackeruna.com/assets/hackeruna.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Hackeruna">
   <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_US">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@hackeruna">
   <meta name="twitter:creator" content="@hackeruna">
   <meta name="twitter:url" content="https://hackeruna.com/">
-  <meta name="twitter:title" content="Hackeruna - Blog de Tecnología">
-  <meta name="twitter:description" content="Blog de tecnología, programación, desarrollo web, blockchain y tutoriales.">
+  <meta name="twitter:title" content="Hackeruna — Juan Urquiza | Desarrollo AI-Native, Web y Blockchain">
+  <meta name="twitter:description" content="Blog y portafolio de Juan Urquiza: desarrollo AI-native (MCP, LLM), web full-stack, blockchain y ciberseguridad.">
   <meta name="twitter:image" content="https://hackeruna.com/assets/hackeruna.png">
 
   <!-- Google Analytics 4 -->
@@ -49,10 +59,10 @@
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     img-src 'self' data: https: http:;
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giscus.app https://pagead2.googlesyndication.com https://www.googletagmanager.com https://*.google-analytics.com https://adservice.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.youtube.com https://s.ytimg.com https://*.adtrafficquality.google https://region1.google-analytics.com https://region1.analytics.google.com https://fundingchoicesmessages.google.com https://*.google.com;
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giscus.app https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.googleadservices.com https://*.googletagservices.com https://*.doubleclick.net https://www.googletagmanager.com https://*.google-analytics.com https://adservice.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.youtube.com https://s.ytimg.com https://*.adtrafficquality.google https://region1.google-analytics.com https://region1.analytics.google.com https://fundingchoicesmessages.google.com https://*.google.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://adservice.google.com https://giscus.app;
     font-src 'self' https://fonts.gstatic.com;
-    connect-src 'self' https://giscus.app https://backend.hackeruna.com https://*.google-analytics.com https://*.analytics.google.com https://pagead2.googlesyndication.com https://*.googletagmanager.com https://www.youtube.com https://*.adtrafficquality.google https://region1.google-analytics.com https://region1.analytics.google.com;
+    connect-src 'self' https://giscus.app https://backend.hackeruna.com https://*.google-analytics.com https://*.analytics.google.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.googleadservices.com https://*.googletagservices.com https://csi.gstatic.com https://*.doubleclick.net https://*.g.doubleclick.net https://*.googletagmanager.com https://www.youtube.com https://*.adtrafficquality.google https://region1.google-analytics.com https://region1.analytics.google.com https://api.github.com https://avatars.githubusercontent.com wss://giscus.app;
     frame-src 'self' https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://www.dailymotion.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.adtrafficquality.google https://www.google.com;
     media-src 'self' https: data: blob:;
     child-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://*.adtrafficquality.google https://www.google.com;
@@ -99,6 +109,60 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7207443809240873"
     crossorigin="anonymous"></script>
+
+  <!-- Theme color (dark-tech) -->
+  <meta name="theme-color" content="#0a0e14" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+
+  <!-- JSON-LD estructurado (SEO / AEO / GEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://hackeruna.com/#website",
+        "url": "https://hackeruna.com/",
+        "name": "Hackeruna",
+        "description": "Blog y portafolio de Juan Urquiza sobre desarrollo AI-native, web full-stack, blockchain y ciberseguridad.",
+        "inLanguage": ["es", "en"],
+        "publisher": { "@id": "https://hackeruna.com/#person" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": { "@type": "EntryPoint", "urlTemplate": "https://hackeruna.com/es/search?q={search_term_string}" },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://hackeruna.com/#person",
+        "name": "Juan Urquiza",
+        "alternateName": "Juan Carlos Urquiza Suárez",
+        "url": "https://hackeruna.com/",
+        "image": "https://hackeruna.com/assets/hackeruna.png",
+        "jobTitle": "Software Engineer · AI-Native Developer",
+        "email": "j@hackeruna.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Quito", "addressCountry": "EC" },
+        "knowsAbout": ["AI-Native Development", "Model Context Protocol (MCP)", "Angular", "Laravel", "Symfony", "C#/.NET", "Blockchain", "Solidity", "Zero-Knowledge Proofs", "Cybersecurity"],
+        "sameAs": [
+          "https://www.linkedin.com/in/juanitourquiza",
+          "https://github.com/juanitourquiza",
+          "https://juanitourquiza.github.io",
+          "https://leanpub.com/u/juanitourquiza"
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://hackeruna.com/#organization",
+        "name": "Hackeruna",
+        "url": "https://hackeruna.com/",
+        "logo": "https://hackeruna.com/assets/hackeruna.png",
+        "founder": { "@id": "https://hackeruna.com/#person" },
+        "sameAs": ["https://github.com/juanitourquiza", "https://www.linkedin.com/in/juanitourquiza"]
+      }
+    ]
+  }
+  </script>
 
 </head>
 

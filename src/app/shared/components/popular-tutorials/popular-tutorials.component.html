@@ -3,6 +3,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header -->
             <div class="mb-8">
+                <p class="text-xs font-mono uppercase tracking-widest mb-2" style="color: var(--accent-blue);">
+                    // tutorials
+                </p>
                 <h2 class="text-3xl font-bold mb-2" style="color: var(--text-primary);">
                     {{ t('tutorials.title') }}
                 </h2>
@@ -12,14 +15,14 @@
             </div>
 
             @if (loading()) {
-            <div class="grid md:grid-cols-3 gap-6">
-                @for (item of [1,2,3]; track item) {
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @for (item of [1,2,3,4]; track item) {
                 <div class="h-48 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg"></div>
                 }
             </div>
             } @else if (tutorials().length > 0) {
             <!-- Tutorials Grid -->
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @for (tutorial of tutorials(); track trackByPostId($index, tutorial)) {
                 <article class="group p-6 rounded-lg transition-all duration-300 hover:shadow-lg"
                     style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">

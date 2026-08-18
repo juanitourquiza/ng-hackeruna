@@ -2,6 +2,9 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Header Section -->
     <div class="flex flex-col items-center text-center mb-12">
+      <p class="text-xs font-mono uppercase tracking-widest mb-3" style="color: var(--accent-blue);">
+        // proyectos
+      </p>
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6" style="color: var(--text-primary);">
         {{ t('portfolio.title') }}
       </h1>
@@ -12,85 +15,78 @@
 
     <!-- Category Filter -->
     <div class="flex flex-wrap justify-center gap-3 mb-12">
-      <button (click)="selectCategory('all')" [class.active]="selectedCategory() === 'all'"
-        class="px-6 py-2 rounded-full text-sm font-medium transition-all duration-200"
-        [style.background-color]="selectedCategory() === 'all' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
-        [style.color]="selectedCategory() === 'all' ? 'white' : 'var(--text-secondary)'">
-        {{ t('portfolio.allProjects') }}
+      @for (f of filters; track f.key) {
+      <button (click)="selectCategory(f.key)"
+        class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
+        [style.background-color]="selectedCategory() === f.key ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
+        [style.color]="selectedCategory() === f.key ? 'white' : 'var(--text-secondary)'"
+        [style.border]="'1px solid ' + (selectedCategory() === f.key ? 'var(--accent-blue)' : 'var(--border-color)')">
+        {{ t(f.labelKey) }}
       </button>
-      <button (click)="selectCategory('web')" [class.active]="selectedCategory() === 'web'"
-        class="px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
-        [style.background-color]="selectedCategory() === 'web' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
-        [style.color]="selectedCategory() === 'web' ? 'white' : 'var(--text-secondary)'">
-        {{ t('portfolio.webDev') }}
-      </button>
-      <button (click)="selectCategory('fullstack')" [class.active]="selectedCategory() === 'fullstack'"
-        class="px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
-        [style.background-color]="selectedCategory() === 'fullstack' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
-        [style.color]="selectedCategory() === 'fullstack' ? 'white' : 'var(--text-secondary)'">
-        {{ t('portfolio.fullstack') }}
-      </button>
-      <button (click)="selectCategory('blockchain')" [class.active]="selectedCategory() === 'blockchain'"
-        class="px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
-        [style.background-color]="selectedCategory() === 'blockchain' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
-        [style.color]="selectedCategory() === 'blockchain' ? 'white' : 'var(--text-secondary)'">
-        {{ t('portfolio.blockchain') }}
-      </button>
-      <button (click)="selectCategory('pwa')" [class.active]="selectedCategory() === 'pwa'"
-        class="px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105"
-        [style.background-color]="selectedCategory() === 'pwa' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'"
-        [style.color]="selectedCategory() === 'pwa' ? 'white' : 'var(--text-secondary)'">
-        {{ t('portfolio.pwa') }}
-      </button>
+      }
     </div>
 
     <!-- Projects Grid -->
-    @defer (on viewport; prefetch on idle) {
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      @for (project of filteredProjects; track project.id) {
-      <article class="group overflow-hidden rounded-lg transition-all duration-300 hover:shadow-lg cursor-pointer"
+      @for (project of filteredProjects; track trackByProjectId($index, project)) {
+      <article
+        class="group overflow-hidden rounded-xl transition-all duration-300 hover:-translate-y-1 flex flex-col"
         style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
-        <!-- Project Image -->
-        <div class="aspect-video w-full overflow-hidden bg-gray-200">
-          <img [src]="project.image" [alt]="project.title"
-            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" />
+        <!-- Banner branded (color de acento + icono, sin imagen) -->
+        <div class="relative h-32 overflow-hidden"
+          [style.background]="'radial-gradient(120% 120% at 15% 20%, ' + project.accent + '33 0%, transparent 60%), linear-gradient(135deg, ' + project.accent + '22, transparent 70%)'">
+          <span class="material-symbols-outlined absolute -right-3 -bottom-4 text-[8rem] leading-none opacity-20 transition-transform duration-500 group-hover:scale-110"
+            [style.color]="project.accent">
+            {{ project.icon }}
+          </span>
+          <span class="material-symbols-outlined absolute left-5 top-5 text-4xl"
+            [style.color]="project.accent">
+            {{ project.icon }}
+          </span>
+          @if (project.badge) {
+          <span class="absolute right-4 top-4 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm"
+            [style.background]="project.accent + '22'" [style.color]="project.accent"
+            [style.border]="'1px solid ' + project.accent + '55'">
+            {{ project.badge }}
+          </span>
+          }
         </div>
 
         <!-- Project Info -->
-        <div class="p-6">
-          <h3 class="text-lg font-semibold mb-2 group-hover:underline transition-all"
-            style="color: var(--text-primary);">
-            {{ project.title }}
-          </h3>
-          <p class="text-sm leading-relaxed mb-4" style="color: var(--text-secondary);">
-            {{ project.description }}
-          </p>
-
-          <!-- Period -->
+        <div class="p-6 flex flex-col flex-1">
+          <div class="flex items-center gap-2 mb-2">
+            <h3 class="text-lg font-semibold" style="color: var(--text-primary);">
+              {{ project.title }}
+            </h3>
+          </div>
           @if (project.period) {
-          <p class="text-xs font-medium mb-3" style="color: var(--text-tertiary);">
-            📅 {{ project.period }}
+          <p class="text-xs font-mono mb-3 inline-flex items-center gap-1" style="color: var(--text-tertiary);">
+            <span class="material-symbols-outlined text-sm">calendar_today</span>{{ project.period }}
           </p>
           }
+          <p class="text-sm leading-relaxed mb-4 flex-1" style="color: var(--text-secondary);">
+            {{ project.description }}
+          </p>
 
           <!-- Technologies -->
           <div class="flex flex-wrap gap-2 mb-4">
             @for (tech of project.technologies; track tech) {
-            <span class="inline-block px-3 py-1 text-xs font-medium rounded-full"
-              style="background-color: var(--accent-blue); color: white; opacity: 0.8;">
+            <span class="inline-block px-2.5 py-1 text-xs font-mono rounded"
+              style="background-color: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border-color);">
               {{ tech }}
             </span>
             }
           </div>
 
           <!-- Links -->
-          <div class="flex gap-3 mt-4">
+          @if (project.github || project.link) {
+          <div class="flex gap-4 mt-auto pt-4" style="border-top: 1px solid var(--border-color);">
             @if (project.github) {
             <a [href]="project.github" target="_blank" rel="noopener noreferrer"
               class="inline-flex items-center gap-1 text-sm font-medium hover:underline"
               style="color: var(--accent-blue);">
               <span class="material-symbols-outlined text-base">code</span>
-              GitHub
+              {{ t('portfolio.viewCode') }}
             </a>
             }
             @if (project.link) {
@@ -102,17 +98,11 @@
             </a>
             }
           </div>
+          }
         </div>
       </article>
       }
     </div>
-    } @placeholder {
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="h-64 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
-      <div class="h-64 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
-      <div class="h-64 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
-    </div>
-    }
 
     <!-- Empty State -->
     @if (filteredProjects.length === 0) {

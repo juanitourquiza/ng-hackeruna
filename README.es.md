@@ -1,12 +1,13 @@
 # Hackeruna Frontend
 
 [![Licencia: MIT](https://img.shields.io/badge/Licencia-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Angular](https://img.shields.io/badge/Angular-21-red)](https://angular.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)](https://www.typescriptlang.org/)
+[![Angular](https://img.shields.io/badge/Angular-22-red)](https://angular.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8)](https://tailwindcss.com/)
 [![i18n](https://img.shields.io/badge/i18n-ES%20%7C%20EN-green)](https://hackeruna.com)
+[![Versión](https://img.shields.io/badge/versión-2.2.0-blueviolet)](https://github.com/juanitourquiza/ng-hackeruna/tags)
 
-> Frontend moderno en Angular 21 para [Hackeruna.com](https://hackeruna.com) - Un blog de tecnología multiidioma con WordPress como CMS headless.
+> Frontend moderno en Angular 22 para [Hackeruna.com](https://hackeruna.com) — el blog de tecnología **y portafolio** de Juan Urquiza, con WordPress como CMS headless. Sistema de diseño dark-tech y optimización SEO/AEO/GEO.
 
 **Síguenos:**
 [![Facebook](https://img.shields.io/badge/Facebook-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/hackeruna)
@@ -16,37 +17,36 @@
 
 [🇺🇸 English Version](./README.md)
 
-## ✨ Novedades en v2.1.0
+## ✨ Novedades en v2.2.0
 
-- 🚀 **Angular 21** - Última versión estable
-- 📝 **TypeScript 5.9.3** - Últimas características
-- 🌐 **Soporte multiidioma** (Español e Inglés) con Transloco
-- 🤖 **Traducciones con IA** usando GPT-4o-mini para contenido del blog
-- 🔄 **URLs con idioma** (`/es/post/...`, `/en/post/...`)
+- 🚀 **Angular 22** + **TypeScript 6.0** — core actualizado
+- 🎨 **Sistema de diseño dark-tech** — nuevo look tipo terminal (claro/oscuro), tarjetas de proyecto *branded*, sección "Mi Stack", footer fijo (sticky) rediseñado
+- 🧩 **Portafolio renovado** — fuente única de datos de proyectos (Pulsai, ShipFrame, Kupyo, GreenWay/Herald, medicProof, KipuBank…), categoría **AI**, sin imágenes repetidas
+- 👤 **Página About** reescrita desde el CV — perfil, métricas, línea de tiempo profesional, libro, Schema.org enriquecido (Person + Book)
+- 🔎 **SEO / AEO / GEO** — grafo JSON-LD (WebSite + Person + Organization), canonical + hreflang, `robots.txt` (crawlers de IA), `sitemap.xml`, `llms.txt`
+- 🌐 **Multiidioma** (Español e Inglés) con Transloco + traducciones con IA (GPT-4o-mini)
 - 💬 **Comentarios Giscus** integrados con GitHub Discussions
+
+> ℹ️ **Requisito de Node:** Angular 22 requiere Node.js `^20.19`, `^22.12` o `^24`. Node 26 **no** está soportado aún — usa Node 22 o 24 (`nvm use 22`).
 
 ## 🎯 Características
 
 | Característica | Descripción |
 |----------------|-------------|
 | 🌐 **i18n** | Soporte completo Español/Inglés con Transloco |
-| 🎨 **Modo Oscuro/Claro** | Detecta preferencia del sistema |
-| ⚡ **Rendimiento** | Lazy loading, code splitting, defer blocks |
-| 📱 **Responsivo** | Diseño mobile-first |
+| 🎨 **Dark-tech / Modo Oscuro-Claro** | Variables CSS + detección de preferencia del sistema |
+| ⚡ **Rendimiento** | Lazy loading, code splitting, bloques `@defer`, OnPush |
+| 📱 **Responsivo** | Diseño mobile-first, sticky footer |
 | 💬 **Comentarios** | Giscus (GitHub Discussions) |
-| 🔍 **SEO** | Meta tags, Schema.org, hreflang |
+| 🔍 **SEO/AEO/GEO** | Meta tags, JSON-LD, hreflang, robots.txt, sitemap.xml, llms.txt |
 
 ## 🚀 Inicio Rápido
 
 ```bash
-# Clonar repositorio
 git clone https://github.com/juanitourquiza/ng-hackeruna.git
 cd ng-hackeruna
-
-# Instalar dependencias
+nvm use 22          # Node 22 o 24 (requisito de Angular 22)
 npm install
-
-# Iniciar servidor de desarrollo
 npm start
 ```
 
@@ -55,34 +55,57 @@ Navega a `http://localhost:4200/es` (Español) o `http://localhost:4200/en` (Ing
 ## 🏗️ Build
 
 ```bash
-npm run build
+nvm use 22
+npm run build:prod   # genera dist/hackeruna-frontend/browser + .htaccess
 ```
-
-Salida: `dist/hackeruna-frontend` (~414 KB inicial)
 
 ## 📁 Estructura del Proyecto
 
 ```
 src/app/
 ├── core/
+│   ├── data/
+│   │   └── projects.data.ts          # Fuente única de datos del portafolio
 │   └── services/
-│       ├── wordpress-api.service.ts  # WordPress REST API
-│       ├── language.service.ts       # Gestión de idioma
-│       └── theme.service.ts          # Modo oscuro/claro
+│       ├── wordpress-api.service.ts  # WordPress REST API (headless)
+│       ├── language.service.ts       # Gestión de idioma (Transloco)
+│       ├── theme.service.ts          # Modo oscuro/claro
+│       ├── meta-tags.service.ts      # Meta tags por ruta (SEO)
+│       └── schema.service.ts         # JSON-LD Schema.org (AEO/GEO)
+├── layout/
+│   ├── header/                       # Cabecera + navegación + toggle de tema
+│   └── footer/                       # Footer dark-tech (sticky, versión)
 ├── shared/components/
-│   ├── post-card/
-│   ├── trending-sidebar/
-│   ├── giscus-comments/
-│   └── ...
+│   ├── post-card/                    # Tarjeta de artículo
+│   ├── featured-projects/            # Proyectos destacados (home)
+│   ├── tech-stack/                   # Sección "Mi Stack"
+│   ├── popular-tutorials/            # Tutoriales populares
+│   ├── trending-sidebar/             # Más leídas
+│   ├── category-filter/ · related-posts/ · social-share/
+│   ├── skeleton-loader/ · loading-spinner/ · giscus-comments/
 ├── features/
-│   ├── home/
-│   ├── post/
-│   ├── portfolio/
-│   └── ...
+│   ├── home/ · post/ · portfolio/ · about/
+│   ├── contact/ · search/ · author/ · privacy/ · terms/
 └── assets/i18n/
     ├── es.json  # Traducciones español
     └── en.json  # Traducciones inglés
 ```
+
+## 🧩 Componentes y Librerías
+
+| Área | Librerías / versión |
+|------|---------------------|
+| **Framework** | Angular 22 (standalone components, signals, `@defer`, control flow `@if/@for`) |
+| **Lenguaje** | TypeScript 6.0 |
+| **Estilos** | Tailwind CSS 3.4 + `@tailwindcss/forms` · `@tailwindcss/typography` + sistema de variables CSS dark-tech |
+| **i18n** | `@jsverse/transloco` 8.4 (ES/EN) |
+| **Reactividad** | RxJS 7.8 · Angular Signals |
+| **Build/Tooling** | `@angular/build` 22 (esbuild) · `@analogjs/vite-plugin-angular` 2.7 · zone.js 0.16 |
+| **Testing** | Vitest 4 · happy-dom / jsdom |
+| **Comentarios** | Giscus (GitHub Discussions) |
+| **Backend** | WordPress REST API + plugin personalizado (CMS headless) |
+| **IA** | OpenAI GPT-4o-mini (traducción de contenido) |
+| **Analytics/Ads** | Google Analytics 4 · Google AdSense |
 
 ## 🌐 Plugin de WordPress
 
@@ -92,33 +115,21 @@ Para traducciones de contenido con IA, instala el plugin incluido:
 wordpress-plugins/hackeruna-translate/
 ```
 
-**Configuración:**
-1. Copia a `wp-content/plugins/`
-2. Activa en WordPress Admin
-3. Ve a Ajustes → Hackeruna Translate
-4. Agrega tu OpenAI API Key
+**Configuración:** copia a `wp-content/plugins/`, actívalo, ve a Ajustes → Hackeruna Translate y agrega tu OpenAI API Key.
+**Costo:** ~$0.80 para 500 posts, $0.0016 por artículo nuevo.
 
-**Costo:** ~$0.80 para 500 posts, $0.0016 por artículo nuevo
+## 🚢 Deploy
 
-## 🛠️ Stack Tecnológico
+El sitio es un build estático servido por HTTP (Cloudways, `public_html/dist/hackeruna-frontend/browser`).
 
-- **Framework:** Angular 21 (standalone components, signals)
-- **TypeScript:** 5.9.3
-- **i18n:** Transloco
-- **Estilos:** Tailwind CSS 3.4
-- **Comentarios:** Giscus
-- **Backend:** WordPress REST API + Plugin Personalizado
-- **IA:** OpenAI GPT-4o-mini
+```bash
+nvm use 22
+npm ci
+npm run build:prod
+# sincronizar dist/hackeruna-frontend/browser/ al web root (o deploy vía GIT en Cloudways, branch main)
+```
 
-## 🤝 Contribuir
-
-1. Fork del proyecto
-2. Crear rama feature (`git checkout -b feature/increible`)
-3. Commit cambios (`git commit -m 'feat: agregar feature increíble'`)
-4. Push a la rama (`git push origin feature/increible`)
-5. Abrir Pull Request
-
-Ver [CONTRIBUTING.md](./CONTRIBUTING.md) para guías detalladas.
+Ver `deploy.sh` para el deploy automatizado por rsync.
 
 ## 📄 Licencia
 
@@ -126,8 +137,8 @@ Licencia MIT - ver archivo [LICENSE](LICENSE).
 
 ## 👤 Autor
 
-**Juan Urquiza** - [@juanitourquiza](https://github.com/juanitourquiza)
+**Juan Urquiza** — Ingeniero de Software · AI-Native · Ciberseguridad — [@juanitourquiza](https://github.com/juanitourquiza)
 
 ---
 
-**Hecho con ❤️ y Angular**
+**Hecho con ❤️ y Angular 22**

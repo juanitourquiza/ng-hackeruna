@@ -1,6 +1,6 @@
 {
   "name": "hackeruna-frontend",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -14,23 +14,23 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "^21.0.7",
-    "@angular/compiler": "^21.0.7",
-    "@angular/core": "^21.0.7",
-    "@angular/forms": "^21.0.7",
-    "@angular/platform-browser": "^21.0.7",
-    "@angular/platform-browser-dynamic": "^21.0.7",
-    "@angular/router": "^21.0.7",
-    "@jsverse/transloco": "^8.2.0",
+    "@angular/common": "^22.1.2",
+    "@angular/compiler": "^22.1.2",
+    "@angular/core": "^22.1.2",
+    "@angular/forms": "^22.1.2",
+    "@angular/platform-browser": "^22.1.2",
+    "@angular/platform-browser-dynamic": "^22.1.2",
+    "@angular/router": "^22.1.2",
+    "@jsverse/transloco": "^8.4.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.16.0"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^2.0.3",
-    "@angular/build": "^21.0.5",
-    "@angular/cli": "^21.0.5",
-    "@angular/compiler-cli": "^21.0.7",
+    "@analogjs/vite-plugin-angular": "^2.7.0",
+    "@angular/build": "^22.1.4",
+    "@angular/cli": "^22.1.4",
+    "@angular/compiler-cli": "^22.1.2",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.19",
     "@types/jasmine": "~5.1.0",
@@ -46,7 +46,15 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.18",
-    "typescript": "~5.9.3",
+    "typescript": "~6.0.3",
     "vitest": "^4.0.8"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "esbuild@0.25.9": true,
+    "lmdb@3.5.6": true,
+    "msgpackr-extract@3.0.4": true,
+    "fsevents@2.3.3": true,
+    "@parcel/watcher@2.6.0": true
   }
 }

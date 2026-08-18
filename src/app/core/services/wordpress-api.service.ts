@@ -207,7 +207,7 @@ export class WordpressApiService {
    * @param postId - The original post ID
    * @param lang - Target language (e.g., 'en', 'es')
    */
-  private noCacheHeaders = new HttpHeaders({ 'Cache-Control': 'no-cache' });
+  private noCacheParams = { _t: Date.now().toString() };
 
   getTranslatedPost(postId: number, lang: string): Observable<TranslatedPost> {
     if (lang === 'es') {
@@ -219,7 +219,7 @@ export class WordpressApiService {
 
     return this.http.get<TranslatedPost>(
       `${this.translateApiUrl}/post/${postId}/translate/${lang}`,
-      { headers: this.noCacheHeaders }
+      { params: { ...this.noCacheParams, lang } }
     );
   }
 
@@ -238,18 +238,17 @@ export class WordpressApiService {
 
     return this.http.get<TranslatedPost>(
       `${this.translateApiUrl}/post/slug/${slug}/translate/${lang}`,
-      { headers: this.noCacheHeaders }
+      { params: { ...this.noCacheParams, lang } }
     );
   }
 
   /**
    * Get translation status for a post
-   * @param postId - The post ID
    */
   getTranslationStatus(postId: number): Observable<TranslationStatus> {
     return this.http.get<TranslationStatus>(
       `${this.translateApiUrl}/post/${postId}/translations`,
-      { headers: this.noCacheHeaders }
+      { params: this.noCacheParams }
     );
   }
 

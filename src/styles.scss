@@ -1,47 +1,79 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles — Hackeruna dark-tech / terminal design system */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Modo Claro (Default) */
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #FAFAFA;
-  --bg-tertiary: #F5F5F5;
-  --text-primary: #1A1A1A;
-  --text-secondary: #666666;
-  --text-tertiary: #999999;
-  --border-color: #E5E5E5;
-  --accent-blue: #0077FF;
+  /* ===== Modo Claro (default) — editorial limpio con acento cyan ===== */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f7f9fb;
+  --bg-tertiary: #eef2f6;
+  --text-primary: #0a0e14;
+  --text-secondary: #4a5568;
+  --text-tertiary: #8a97a8;
+  --border-color: #e2e8f0;
+  --accent-blue: #0891b2;   /* cyan-600 — contraste sobre blanco */
+  --accent-cyan: #06b6d4;
+  --accent-purple: #7c3aed;
+  --glow: rgba(8, 145, 178, 0.15);
 }
 
 html.dark {
-  /* Modo Oscuro - Mayor contraste */
-  --bg-primary: #000000;
-  --bg-secondary: #0A0A0A;
-  --bg-tertiary: #1A1A1A;
-  --text-primary: #FFFFFF;
-  --text-secondary: #CCCCCC;
-  --text-tertiary: #999999;
-  --border-color: #2A2A2A;
+  /* ===== Modo Oscuro — dark-tech / terminal (aesthetic principal) ===== */
+  --bg-primary: #0a0e14;
+  --bg-secondary: #0f1621;
+  --bg-tertiary: #16202e;
+  --text-primary: #e6edf3;
+  --text-secondary: #9fb0c3;
+  --text-tertiary: #6b7c91;
+  --border-color: #1e2a3a;
+  --accent-blue: #22d3ee;   /* cyan neón */
+  --accent-cyan: #22d3ee;
+  --accent-purple: #a855f7;
+  --glow: rgba(34, 211, 238, 0.22);
 }
 
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
 }
 
-.group:hover .group-hover\:text-primary {
-  color: var(--accent-blue);
+/* Selección con acento */
+::selection {
+  background: var(--glow);
+  color: var(--text-primary);
 }
 
-.group:hover .group-hover\:underline {
-  text-decoration: underline;
+/* Scrollbar sutil dark-tech */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 6px;
+  border: 2px solid var(--bg-primary);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+
+/* Glow de foco accesible */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
-/* Estilos para contenido HTML de WordPress */
+.group:hover .group-hover\:text-primary { color: var(--accent-blue); }
+.group:hover .group-hover\:underline { text-decoration: underline; }
+
+/* Borde con glow sutil para tarjetas destacadas */
+.glow-border {
+  box-shadow: 0 0 0 1px var(--border-color), 0 8px 30px -12px var(--glow);
+}
+
+/* ===== Contenido HTML de WordPress (prose) ===== */
 .prose img,
 article img {
   max-width: 100% !important;
@@ -52,7 +84,6 @@ article img {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Asegurar que imágenes externas se carguen */
 img[src*="imgur.com"],
 img[src*="stack.imgur.com"],
 img[src*="i.stack.imgur.com"] {
@@ -62,13 +93,11 @@ img[src*="i.stack.imgur.com"] {
   margin: 1rem auto;
 }
 
-/* Fix para imágenes rotas */
 img {
   image-rendering: auto;
   -webkit-user-drag: auto;
 }
 
-/* Placeholder para imágenes que están cargando */
 img:not([src]),
 img[src=""] {
   display: none;

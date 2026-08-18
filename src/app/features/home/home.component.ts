@@ -11,7 +11,7 @@ import { CategoryFilterComponent } from '../../shared/components/category-filter
 import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
 import { FeaturedProjectsComponent } from '../../shared/components/featured-projects/featured-projects.component';
 import { PopularTutorialsComponent } from '../../shared/components/popular-tutorials/popular-tutorials.component';
-import { UsefulResourcesComponent } from '../../shared/components/useful-resources/useful-resources.component';
+import { TechStackComponent } from '../../shared/components/tech-stack/tech-stack.component';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +24,7 @@ import { UsefulResourcesComponent } from '../../shared/components/useful-resourc
     SkeletonLoaderComponent,
     FeaturedProjectsComponent,
     PopularTutorialsComponent,
-    UsefulResourcesComponent
+    TechStackComponent
 ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],

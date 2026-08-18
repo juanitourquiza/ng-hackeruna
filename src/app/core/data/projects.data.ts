@@ -1,0 +1,266 @@
+/**
+ * Fuente única de datos de proyectos del portafolio.
+ *
+ * Reemplaza los arrays duplicados que vivían en featured-projects y portfolio,
+ * y elimina la imagen repetida (todos usaban `assets/hackeruna.png`): ahora cada
+ * proyecto se representa con una tarjeta "branded" mediante un color de acento
+ * (`accent`) y un icono de Material Symbols (`icon`), sin depender de screenshots.
+ */
+
+export type ProjectCategory =
+  | 'ai'
+  | 'web'
+  | 'blockchain'
+  | 'fullstack'
+  | 'pwa';
+
+export interface Project {
+  id: number;
+  slug: string;
+  title: string;
+  /** Descripción corta para tarjetas (home / grid). */
+  summary: string;
+  /** Descripción extensa para la vista de portafolio. */
+  description: string;
+  category: ProjectCategory;
+  technologies: string[];
+  /** Color de acento (hex) para el banner de la tarjeta. */
+  accent: string;
+  /** Icono Material Symbols mostrado en el banner. */
+  icon: string;
+  link?: string;
+  github?: string;
+  period?: string;
+  /** Etiqueta de estado opcional (ej: "100+ usuarios", "En producción"). */
+  badge?: string;
+  featured?: boolean;
+}
+
+export const PROJECTS: Project[] = [
+  {
+    id: 1,
+    slug: 'pulsai',
+    title: 'Pulsai — Tu entrenador de IA conectado a Garmin',
+    summary:
+      'SaaS AI-native que expone tus datos de Garmin y Apple Health a Claude, ChatGPT y Gemini vía un servidor MCP hosteado.',
+    description:
+      'Plataforma AI-native que convierte los datos de Garmin Connect y Apple Health en un servidor MCP (Model Context Protocol) multi-tenant y hosteado. El atleta vincula su cuenta una sola vez y luego consulta en lenguaje natural su sueño, HRV, carga, recuperación y entrenamientos desde su asistente de IA — e incluso escribe entrenamientos estructurados de vuelta al calendario de Garmin. Incluye 130+ herramientas, coach semanal proactivo (PRO), demo público y panel de administración. Backend Laravel 12 + servidor MCP en Python (FastMCP), desplegado con Docker/nginx.',
+    category: 'ai',
+    technologies: ['Angular', 'Laravel 12', 'Python', 'MCP', 'FastMCP', 'Docker', 'MySQL'],
+    accent: '#22d3ee',
+    icon: 'monitor_heart',
+    link: 'https://pulsai.me/',
+    period: '2026',
+    badge: '100+ usuarios activos',
+    featured: true,
+  },
+  {
+    id: 2,
+    slug: 'shipframe',
+    title: 'ShipFrame — Framework de entrega con IA',
+    summary:
+      'Framework y plugin para Claude Code que orquesta agentes especializados para planificar, implementar, revisar y desplegar software.',
+    description:
+      'Framework de desarrollo asistido por IA construido sobre Claude Code. Orquesta agentes especializados (discovery, planning, implementación, code review, QA, release) con integración a ClickUp para tickets, Playwright para testing y flujos de PR en GitHub. Automatiza el ciclo completo DEFINE → PLAN → BUILD → VERIFY → REVIEW → SHIP para equipos que quieren entregar más rápido con calidad.',
+    category: 'ai',
+    technologies: ['Claude Code', 'MCP', 'TypeScript', 'ClickUp', 'Playwright'],
+    accent: '#a855f7',
+    icon: 'rocket_launch',
+    link: 'https://shipframe.hackeruna.com/',
+    period: '2026',
+    badge: 'Nuevo',
+    featured: true,
+  },
+  {
+    id: 3,
+    slug: 'herald-greenway',
+    title: 'GreenWay Platform — ERP/CRM empresarial',
+    summary:
+      'Plataforma corporativa (ERP + CRM + intranet) con frontend Angular y backend .NET 8 en arquitectura limpia (CQRS).',
+    description:
+      'Sistema empresarial de gestión que centraliza ventas, operaciones, finanzas, RRHH, proyectos, inventario y colaboración interna en una sola aplicación. Frontend Angular con Angular Material y una suite de librerías internas; backend en .NET 8 / C# con Clean Architecture, CQRS (MediatR), Entity Framework Core sobre SQL Server, autenticación Azure AD y generación de reportes PDF/Excel. Trabajo profesional para cliente (repositorios privados).',
+    category: 'fullstack',
+    technologies: ['Angular', 'Angular Material', '.NET 8', 'C#', 'CQRS', 'SQL Server', 'Azure AD'],
+    accent: '#6366f1',
+    icon: 'business_center',
+    link: 'https://www.heraldgreenway.com/',
+    period: '2024 – 2026',
+    badge: 'Enterprise',
+    featured: true,
+  },
+  {
+    id: 4,
+    slug: 'kupyo',
+    title: 'Kupyo — Marketplace (API · Landing · Admin)',
+    summary:
+      'Plataforma e-commerce/marketplace en producción (iOS y Android): API Laravel 12, landing Angular SSR y panel admin.',
+    description:
+      'Plataforma de e-commerce/marketplace en producción, con apps nativas iOS y Android sobre una API compartida. Tres aplicaciones coordinadas: API REST en Laravel 12 + PostgreSQL con pagos Stripe, OAuth/2FA, chat con IA y notificaciones bilingües; landing pública en Angular con SSR (Express); y panel de administración en Angular con Angular Material. Desplegado en Google Cloud App Engine y Firebase Hosting.',
+    category: 'fullstack',
+    technologies: ['Laravel 12', 'PostgreSQL', 'Angular', 'Stripe', 'GCP', 'Firebase'],
+    accent: '#f59e0b',
+    icon: 'storefront',
+    link: 'https://kupyo.com',
+    period: '2024 – 2026',
+    badge: 'En producción',
+    featured: true,
+  },
+  {
+    id: 5,
+    slug: 'prislash',
+    title: 'PrisLash — Beauty Studio Platform',
+    summary:
+      'Plataforma completa para salón de belleza: Sistema VIP con QR, tienda online, reserva de citas e integración de pagos.',
+    description:
+      'Plataforma completa para salón de belleza: Sistema VIP con tarjeta de lealtad QR, tienda online con carrito persistente, reserva de citas e integración PayPhone. Frontend Angular 19 con Bootstrap 5.3, backend Laravel 11 con Pusher para actualizaciones en tiempo real.',
+    category: 'fullstack',
+    technologies: ['Angular 19', 'Laravel 11', 'Bootstrap 5.3', 'Pusher', 'MySQL', 'PayPhone'],
+    accent: '#ec4899',
+    icon: 'spa',
+    github: 'https://github.com/juanitourquiza/ng-pris',
+    link: 'https://prislash.com/',
+    period: '2025',
+    featured: true,
+  },
+  {
+    id: 6,
+    slug: 'medicproof',
+    title: 'medicProof MVP',
+    summary:
+      'Sistema Zero-Knowledge Proof para verificar compras de medicamentos usando facturas electrónicas del SRI.',
+    description:
+      'Sistema Zero-Knowledge Proof para verificación de compras de medicamentos usando facturas electrónicas del SRI Ecuador. Implementa circuitos ZK con Noir para demostrar hechos sin exponer información personal.',
+    category: 'blockchain',
+    technologies: ['Laravel 11', 'Angular 20', 'Noir', 'ZK-Proofs', 'MySQL'],
+    accent: '#10b981',
+    icon: 'verified_user',
+    github: 'https://github.com/juanitourquiza/medicProof',
+    link: 'https://github.com/juanitourquiza/medicProof',
+    period: '2025',
+    featured: true,
+  },
+  {
+    id: 7,
+    slug: 'kipubank',
+    title: 'KipuBank — Smart Contract',
+    summary:
+      'Contrato inteligente descentralizado como bóveda de ahorros personal en Ethereum, con patrón anti-reentrancy.',
+    description:
+      'Contrato inteligente descentralizado que funciona como bóveda de ahorros personal en Ethereum. Implementa patrón anti-reentrancy, límites de retiro y documentación NatSpec completa.',
+    category: 'blockchain',
+    technologies: ['Solidity ^0.8.29', 'Ethereum', 'Sepolia', 'Remix IDE'],
+    accent: '#8b5cf6',
+    icon: 'account_balance',
+    github: 'https://github.com/juanitourquiza/kipu-bank',
+    link: 'https://sepolia.etherscan.io/address/0x3aCA094C70D5198541BE52C828703A84D66deE94',
+    period: '2024',
+  },
+  {
+    id: 8,
+    slug: 'financial-products',
+    title: 'Financial Products App',
+    summary:
+      'Gestión de productos financieros con arquitectura SOLID, CRUD completo y 74% de cobertura de tests.',
+    description:
+      'Aplicación web moderna para gestión de productos financieros con arquitectura SOLID. CRUD completo, búsqueda avanzada, paginación dinámica y cobertura de tests del 74.11%. Optimizada con OnPush change detection.',
+    category: 'web',
+    technologies: ['Angular 20', 'TypeScript', 'Jest', 'Reactive Forms', 'SOLID'],
+    accent: '#0ea5e9',
+    icon: 'payments',
+    github: 'https://github.com/juanitourquiza/ng-bank',
+    link: 'https://github.com/juanitourquiza/ng-bank',
+    period: '2024',
+  },
+  {
+    id: 9,
+    slug: 'ficha-catastral',
+    title: 'Ficha Catastral (PWA)',
+    summary:
+      'Aplicación web progresiva para gestión catastral y trabajo en campo, con frontend Angular y backend Java.',
+    description:
+      'Aplicación web progresiva (PWA) para gestión catastral diseñada para trabajo en campo. Frontend en Angular con interfaz dinámica y responsive, backend en Java para manejo eficiente y seguro de datos.',
+    category: 'pwa',
+    technologies: ['PWA', 'Angular', 'REST APIs', 'Java', 'Git'],
+    accent: '#14b8a6',
+    icon: 'map',
+    period: 'feb. 2025 – mar. 2025',
+  },
+  {
+    id: 10,
+    slug: 'facturacion-electronica',
+    title: 'Facturación Electrónica',
+    summary:
+      'Sistema de facturación electrónica (Angular + Laravel) conforme a las normativas vigentes del SRI.',
+    description:
+      'Sistema de facturación electrónica con frontend Angular ofreciendo una interfaz ágil e intuitiva, y backend Laravel garantizando seguridad y eficiencia. Cumple con las normativas vigentes del SRI para emisión, validación y almacenamiento.',
+    category: 'fullstack',
+    technologies: ['Angular', 'Laravel', 'PostgreSQL', 'PHP'],
+    accent: '#f97316',
+    icon: 'receipt_long',
+    period: 'ago. 2024 – ene. 2025',
+  },
+  {
+    id: 11,
+    slug: 'tots-reservas',
+    title: 'TOTS — Sistema de Reservas',
+    summary:
+      'Plataforma de gestión de reservas de espacios con Angular 19 y backend Symfony 6.4 con JWT.',
+    description:
+      'Plataforma completa para gestión de reservas de espacios. Frontend en Angular 19 con Material Design, backend RESTful en Symfony 6.4 con autenticación JWT y panel de administración.',
+    category: 'fullstack',
+    technologies: ['Angular 19', 'Symfony 6.4', 'JWT', 'MySQL', 'Material Design'],
+    accent: '#3b82f6',
+    icon: 'event_available',
+    github: 'https://github.com/juanitourquiza/ng-tots',
+    period: '2024',
+  },
+  {
+    id: 12,
+    slug: 'declaracion-juramentada',
+    title: 'Declaración Juramentada — Control Cuarentenario',
+    summary:
+      'Automatización de la Declaración Jurada de Mercancías para el control cuarentenario en aeropuertos.',
+    description:
+      'Sistema que automatiza la Declaración Jurada de Mercancías para el control cuarentenario en aeropuertos (Agencia de Bioseguridad de Galápagos). Agiliza los controles, mejora la trazabilidad y reduce los tiempos de espera.',
+    category: 'fullstack',
+    technologies: ['Angular', 'Laravel', 'PHP', 'TypeScript', 'MySQL'],
+    accent: '#84cc16',
+    icon: 'flight_takeoff',
+    link: 'https://declaracion.abgalapagos.gob.ec/',
+    period: '2024',
+  },
+  {
+    id: 13,
+    slug: 'siic',
+    title: 'SIIC — Sistema de Inspección y Cuarentena',
+    summary:
+      'Automatización de la inspección y control cuarentenario de carga marítima Guayaquil → Galápagos.',
+    description:
+      'Software para automatizar la inspección y el control cuarentenario de carga marítima desde Guayaquil hacia Galápagos, para la Agencia de Regulación y Control de la Bioseguridad y Cuarentena (ABG).',
+    category: 'fullstack',
+    technologies: ['Angular', 'MySQL', 'PostgreSQL', 'Laravel', 'REST APIs'],
+    accent: '#06b6d4',
+    icon: 'directions_boat',
+    link: 'https://siic.abgalapagos.gob.ec/',
+    period: '2021',
+  },
+  {
+    id: 14,
+    slug: 'hackeruna-blog',
+    title: 'Hackeruna — Blog Tech',
+    summary:
+      'Blog personal de tecnología construido con Angular 22, WordPress API headless y Tailwind CSS.',
+    description:
+      'Blog personal sobre tecnología y programación construido con Angular 22, WordPress como CMS headless (API REST) y Tailwind CSS. Multilingüe (Transloco), SEO/AEO/GEO optimizado, RSS y comentarios con Giscus.',
+    category: 'web',
+    technologies: ['Angular 22', 'TypeScript', 'Tailwind CSS', 'WordPress API', 'Transloco'],
+    accent: '#0077ff',
+    icon: 'rss_feed',
+    link: 'https://hackeruna.com',
+    github: 'https://github.com/juanitourquiza/ng-hackeruna',
+    period: '2025 – 2026',
+  },
+];
+
+/** Proyectos destacados para el home, en orden de aparición. */
+export const FEATURED_PROJECTS: Project[] = PROJECTS.filter((p) => p.featured);
