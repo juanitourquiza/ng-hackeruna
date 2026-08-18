@@ -1,6 +1,6 @@
 # Hackeruna
 
-> Hackeruna es un blog técnico sobre desarrollo web, blockchain, e inteligencia artificial, creado y mantenido por Juan Urquiza. El sitio está construido con Angular 21 como frontend headless y WordPress como CMS backend.
+> Hackeruna es un blog técnico y portafolio sobre desarrollo web, desarrollo AI-native (MCP), blockchain y ciberseguridad, creado y mantenido por Juan Urquiza. El sitio está construido con Angular 22 como frontend headless y WordPress como CMS backend.
 
 ## Sobre el sitio
 
@@ -12,15 +12,26 @@ El sitio está disponible en dos idiomas:
 
 ## Sobre el autor
 
-Juan Urquiza es un desarrollador Full Stack con más de 10 años de experiencia en tecnología, especializado en:
-- Desarrollo Web (Angular, React, Node.js, TypeScript, PHP, Laravel)
-- Blockchain y Web3 (Ethereum, Solidity, Smart Contracts)
-- Zero-Knowledge Proofs (zkSNARKs, zkSTARKs)
-- Inteligencia Artificial y Machine Learning
+Juan Urquiza (Juan Carlos Urquiza Suárez) es Ingeniero de Software Full-Stack e Ingeniero de Sistemas con Maestría en Redes de Comunicación y más de 15 años de experiencia. Fundador de hackeruna.com, creador de Pulsai y autor del libro "Programar con IA, Programar para la IA". Especializado en:
+- Desarrollo AI-native: servidores Model Context Protocol (MCP), integración de LLM (Claude, ChatGPT, Gemini), OAuth
+- Desarrollo Web Full-Stack (Angular, React, Vue.js, TypeScript, PHP, Symfony, Laravel, C#/.NET, Java)
+- Blockchain y Web3 (Ethereum, Solidity, Smart Contracts, Zero-Knowledge Proofs con Noir)
+- Ciberseguridad (Kali Linux, OWASP, pentesting, seguridad web y wireless)
 
+Ubicación: Quito, Ecuador
 Contacto: j@hackeruna.com
 GitHub: https://github.com/juanitourquiza
 LinkedIn: https://linkedin.com/in/juanitourquiza
+Libros: https://leanpub.com/u/juanitourquiza
+
+## Proyectos destacados
+
+- Pulsai (https://pulsai.me): SaaS AI-native que expone datos de Garmin y Apple Health a asistentes de IA (Claude, ChatGPT, Gemini) mediante un servidor MCP hosteado. 100+ usuarios activos. Stack: Angular, Laravel 12, Python (FastMCP), Docker.
+- ShipFrame (https://shipframe.hackeruna.com): Framework de entrega de software asistido por IA sobre Claude Code, con agentes orquestados e integración a ClickUp, Playwright y GitHub.
+- GreenWay Platform (Herald): ERP/CRM empresarial. Frontend Angular + backend .NET 8 / C# con Clean Architecture y CQRS.
+- medicProof: Zero-Knowledge Proofs (Noir) para verificar compras de medicamentos sin exponer datos personales.
+- KipuBank: Smart contract de bóveda de ahorros en Ethereum con patrón anti-reentrancy.
+- Kupyo: Plataforma con API REST, landing y panel de administración.
 
 ## Estructura del contenido
 
@@ -40,8 +51,8 @@ LinkedIn: https://linkedin.com/in/juanitourquiza
 ## Tecnologías del sitio
 
 El propio sitio hackeruna.com es un proyecto open source que demuestra las capacidades del autor:
-- Frontend: Angular 21 con Standalone Components y Signals
-- Estilos: Tailwind CSS 4
+- Frontend: Angular 22 con Standalone Components y Signals
+- Estilos: Tailwind CSS con sistema de diseño dark-tech (modo claro/oscuro)
 - Backend: WordPress headless con REST API personalizada
 - Traducción: Sistema de traducción automática con GPT-4o-mini
 - Comentarios: Giscus (GitHub Discussions)

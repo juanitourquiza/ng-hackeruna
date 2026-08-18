@@ -1,149 +1,182 @@
 {
-    "nav": {
-        "home": "Inicio",
-        "about": "Sobre Mí",
-        "portfolio": "Portafolio",
-        "contact": "Contacto",
-        "search": "Buscar...",
-        "searchPlaceholder": "Buscar en Hackeruna.com"
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre Mí",
+    "portfolio": "Portafolio",
+    "contact": "Contacto",
+    "search": "Buscar...",
+    "searchPlaceholder": "Buscar en Hackeruna.com"
+  },
+  "header": {
+    "toggleTheme": "Cambiar tema",
+    "switchLanguage": "Switch to English"
+  },
+  "home": {
+    "featuredPost": "Artículo Destacado",
+    "recentPosts": "Artículos Recientes",
+    "mostRead": "Más Leídas",
+    "featuredProjects": "Proyectos Destacados",
+    "popularTutorials": "Tutoriales Populares",
+    "usefulResources": "Recursos Útiles",
+    "viewAll": "Ver todo",
+    "viewPortfolio": "Ver Portafolio"
+  },
+  "post": {
+    "by": "Por",
+    "published": "Publicado",
+    "views": "vistas",
+    "readMore": "Leer más",
+    "comments": "Comentarios",
+    "commentsDescription": "Comparte tus ideas, preguntas o sugerencias. Los comentarios se gestionan a través de GitHub Discussions.",
+    "backToHome": "Volver al inicio",
+    "relatedPosts": "Artículos Relacionados",
+    "share": "Compartir",
+    "translatedBy": "Traducido automáticamente",
+    "viewOriginal": "Ver original en español"
+  },
+  "search": {
+    "title": "Resultados de búsqueda",
+    "resultsFor": "Resultados para",
+    "noResults": "No se encontraron resultados",
+    "tryAgain": "Intenta con otros términos de búsqueda"
+  },
+  "about": {
+    "title": "Sobre Mí",
+    "subtitle": "Ingeniero de Software · AI-Native · Ciberseguridad",
+    "profileDescription": "Ingeniero de Software Full-Stack e Ingeniero de Sistemas con Maestría en Redes de Comunicación y más de 15 años construyendo soluciones web, móviles y AI-native para banca, gobierno, telecomunicaciones e inmobiliario. Fundador de hackeruna.com y creador de Pulsai. Autor del libro \"Programar con IA, Programar para la IA\".",
+    "portfolio": "Portafolio",
+    "experience": {
+      "title": "Experiencia y Especialización",
+      "webDev": {
+        "title": "Full-Stack Web",
+        "description": "Angular, React, Vue.js en frontend; Symfony, Laravel y API Platform en backend. Arquitecturas escalables, SPA, PWA y APIs REST para banca y gobierno."
+      },
+      "blockchain": {
+        "title": "Blockchain & Web3",
+        "description": "Smart contracts en Solidity sobre Ethereum, dApps y Zero-Knowledge Proofs con Noir para privacidad verificable."
+      },
+      "zkProofs": {
+        "title": "ZK-Proofs",
+        "description": "Implementación de Zero-Knowledge Proofs para privacidad y escalabilidad. Conocimiento en zkSNARKs, zkSTARKs y protocolos de consenso."
+      },
+      "ai": {
+        "title": "AI-Native & MCP",
+        "description": "Servidores Model Context Protocol (MCP), integración de LLM (Claude, ChatGPT, Gemini), OAuth y prompt engineering. Desarrollo de productos donde la IA es el núcleo."
+      },
+      "security": {
+        "title": "Ciberseguridad",
+        "description": "Pentesting con Kali Linux, OWASP, Metasploit, escaneo de vulnerabilidades y seguridad de aplicaciones web y wireless."
+      }
     },
-    "header": {
-        "toggleTheme": "Cambiar tema",
-        "switchLanguage": "Switch to English"
+    "blog": {
+      "title": "Sobre Hackeruna",
+      "intro": "Hackeruna es mi espacio personal para compartir conocimiento sobre tecnología, programación, blockchain y desarrollo web. Aquí encontrarás:",
+      "items": {
+        "tutorials": "<strong>Tutoriales prácticos</strong> con código real y ejemplos funcionales",
+        "analysis": "<strong>Análisis profundos</strong> de tecnologías emergentes y tendencias",
+        "opensource": "<strong>Proyectos open source</strong> y código que puedes usar en tus aplicaciones",
+        "guides": "<strong>Guías de desarrollo</strong> para principiantes y avanzados"
+      },
+      "goal": "Mi objetivo es hacer que la tecnología compleja sea accesible para todos, compartiendo mi experiencia y aprendizaje continuo en el mundo del desarrollo."
     },
-    "home": {
-        "featuredPost": "Artículo Destacado",
-        "recentPosts": "Artículos Recientes",
-        "mostRead": "Más Leídas",
-        "featuredProjects": "Proyectos Destacados",
-        "popularTutorials": "Tutoriales Populares",
-        "usefulResources": "Recursos Útiles",
-        "viewAll": "Ver todo",
-        "viewPortfolio": "Ver Portafolio"
+    "techStack": "Stack Tecnológico",
+    "cta": {
+      "title": "¿Quieres colaborar o tienes un proyecto en mente?",
+      "subtitle": "Estoy siempre abierto a nuevas oportunidades y colaboraciones interesantes.",
+      "button": "Contáctame"
     },
-    "post": {
-        "by": "Por",
-        "published": "Publicado",
-        "views": "vistas",
-        "readMore": "Leer más",
-        "comments": "Comentarios",
-        "commentsDescription": "Comparte tus ideas, preguntas o sugerencias. Los comentarios se gestionan a través de GitHub Discussions.",
-        "backToHome": "Volver al inicio",
-        "relatedPosts": "Artículos Relacionados",
-        "share": "Compartir",
-        "translatedBy": "Traducido automáticamente",
-        "viewOriginal": "Ver original en español"
+    "roleLine": "Fundador de hackeruna.com · Creador de Pulsai · Autor",
+    "experienceTimeline": "Trayectoria Profesional",
+    "present": "Actualidad",
+    "stats": {
+      "years": "Años de experiencia",
+      "projects": "Proyectos entregados",
+      "users": "Usuarios en Pulsai",
+      "book": "Libro publicado"
     },
-    "search": {
-        "title": "Resultados de búsqueda",
-        "resultsFor": "Resultados para",
-        "noResults": "No se encontraron resultados",
-        "tryAgain": "Intenta con otros términos de búsqueda"
-    },
-    "about": {
-        "title": "Sobre Mí",
-        "subtitle": "Desarrollador Full Stack & Blockchain",
-        "profileDescription": "Desarrollador apasionado por la tecnología blockchain, el desarrollo web moderno y la creación de soluciones innovadoras que transforman ideas en realidad.",
-        "portfolio": "Portafolio",
-        "experience": {
-            "title": "Experiencia y Especialización",
-            "webDev": {
-                "title": "Desarrollo Web",
-                "description": "Experto en Angular, React, Node.js, y tecnologías modernas de frontend y backend. Especializado en Single Page Applications (SPA) y arquitecturas escalables."
-            },
-            "blockchain": {
-                "title": "Blockchain",
-                "description": "Desarrollo de smart contracts, dApps, y soluciones Web3. Experiencia con Ethereum, Solidity, y tecnologías de criptografía avanzada."
-            },
-            "zkProofs": {
-                "title": "ZK-Proofs",
-                "description": "Implementación de Zero-Knowledge Proofs para privacidad y escalabilidad. Conocimiento en zkSNARKs, zkSTARKs y protocolos de consenso."
-            },
-            "ai": {
-                "title": "IA & Machine Learning",
-                "description": "Integración de modelos de IA en aplicaciones web, automatización con GPT, y desarrollo de soluciones inteligentes."
-            }
-        },
-        "blog": {
-            "title": "Sobre Hackeruna",
-            "intro": "Hackeruna es mi espacio personal para compartir conocimiento sobre tecnología, programación, blockchain y desarrollo web. Aquí encontrarás:",
-            "items": {
-                "tutorials": "<strong>Tutoriales prácticos</strong> con código real y ejemplos funcionales",
-                "analysis": "<strong>Análisis profundos</strong> de tecnologías emergentes y tendencias",
-                "opensource": "<strong>Proyectos open source</strong> y código que puedes usar en tus aplicaciones",
-                "guides": "<strong>Guías de desarrollo</strong> para principiantes y avanzados"
-            },
-            "goal": "Mi objetivo es hacer que la tecnología compleja sea accesible para todos, compartiendo mi experiencia y aprendizaje continuo en el mundo del desarrollo."
-        },
-        "techStack": "Stack Tecnológico",
-        "cta": {
-            "title": "¿Quieres colaborar o tienes un proyecto en mente?",
-            "subtitle": "Estoy siempre abierto a nuevas oportunidades y colaboraciones interesantes.",
-            "button": "Contáctame"
-        }
-    },
-    "portfolio": {
-        "title": "Portafolio de Proyectos",
-        "subtitle": "Aquí puedes encontrar una selección de mis trabajos más destacados, desde desarrollo web y blockchain hasta aplicaciones PWA. Explora cada proyecto para conocer más sobre mi experiencia y las tecnologías que utilizo.",
-        "allProjects": "Todos",
-        "webDev": "Desarrollo Web",
-        "fullstack": "Fullstack",
-        "blockchain": "Blockchain",
-        "pwa": "PWA",
-        "viewProject": "Ver proyecto",
-        "noProjects": "No hay proyectos en esta categoría",
-        "viewDemo": "Ver Demo",
-        "viewCode": "Ver Código"
-    },
-    "contact": {
-        "title": "Hablemos",
-        "subtitle": "Estoy abierto a preguntas, sugerencias o propuestas de colaboración. No dudes en enviarme un mensaje.",
-        "formTitle": "Envíanos un mensaje",
-        "name": "Nombre",
-        "namePlaceholder": "Tu nombre completo",
-        "email": "Correo Electrónico",
-        "emailPlaceholder": "tu.correo@ejemplo.com",
-        "subject": "Asunto",
-        "subjectPlaceholder": "Asunto del mensaje",
-        "message": "Mensaje",
-        "messagePlaceholder": "Escribe tu mensaje aquí...",
-        "send": "Enviar Mensaje",
-        "sending": "Enviando...",
-        "success": "¡Mensaje enviado correctamente!",
-        "error": "Error al enviar el mensaje. Intenta de nuevo.",
-        "otherWays": "Otras formas de contactar",
-        "followUs": "Síguenos en redes"
-    },
-    "footer": {
-        "copyright": "Todos los derechos reservados",
-        "privacy": "Privacidad",
-        "terms": "Términos",
-        "madeWith": "Hecho con",
-        "and": "y"
-    },
-    "common": {
-        "loading": "Cargando...",
-        "error": "Ha ocurrido un error",
-        "retry": "Reintentar",
-        "close": "Cerrar",
-        "readTime": "min de lectura"
-    },
-    "resources": {
-        "title": "Recursos Útiles",
-        "subtitle": "Herramientas y recursos para desarrolladores",
-        "all": "Todos",
-        "tools": "Herramientas",
-        "learning": "Aprendizaje",
-        "libraries": "Librerías",
-        "design": "Diseño",
-        "visit": "Visitar"
-    },
-    "tutorials": {
-        "title": "Tutoriales Populares",
-        "subtitle": "Aprende con guías paso a paso"
-    },
-    "projects": {
-        "title": "Proyectos Destacados",
-        "subtitle": "Mis trabajos más recientes"
+    "book": {
+      "label": "Autor",
+      "title": "Programar con IA, Programar para la IA",
+      "description": "Guía para construir desde cero una aplicación AI-native completa: un servidor MCP que conecta datos reales a Claude, ChatGPT o Gemini con OAuth, integración de LLM y resúmenes proactivos.",
+      "cta": "Ver mis libros"
     }
+  },
+  "portfolio": {
+    "title": "Portafolio de Proyectos",
+    "subtitle": "Una selección de mis trabajos: plataformas AI-native, sistemas empresariales, dApps blockchain y aplicaciones web/PWA. Explora cada proyecto para conocer la experiencia y las tecnologías que utilizo.",
+    "allProjects": "Todos",
+    "webDev": "Desarrollo Web",
+    "fullstack": "Fullstack",
+    "blockchain": "Blockchain",
+    "pwa": "PWA",
+    "viewProject": "Ver proyecto",
+    "noProjects": "No hay proyectos en esta categoría",
+    "viewDemo": "Ver Demo",
+    "viewCode": "Ver Código",
+    "ai": "IA / AI-Native"
+  },
+  "contact": {
+    "title": "Hablemos",
+    "subtitle": "Estoy abierto a preguntas, sugerencias o propuestas de colaboración. No dudes en enviarme un mensaje.",
+    "formTitle": "Envíanos un mensaje",
+    "name": "Nombre",
+    "namePlaceholder": "Tu nombre completo",
+    "email": "Correo Electrónico",
+    "emailPlaceholder": "tu.correo@ejemplo.com",
+    "subject": "Asunto",
+    "subjectPlaceholder": "Asunto del mensaje",
+    "message": "Mensaje",
+    "messagePlaceholder": "Escribe tu mensaje aquí...",
+    "send": "Enviar Mensaje",
+    "sending": "Enviando...",
+    "success": "¡Mensaje enviado correctamente!",
+    "error": "Error al enviar el mensaje. Intenta de nuevo.",
+    "otherWays": "Otras formas de contactar",
+    "followUs": "Síguenos en redes"
+  },
+  "footer": {
+    "copyright": "Todos los derechos reservados",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "madeWith": "Hecho con",
+    "and": "y"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ha ocurrido un error",
+    "retry": "Reintentar",
+    "close": "Cerrar",
+    "readTime": "min de lectura"
+  },
+  "resources": {
+    "title": "Recursos Útiles",
+    "subtitle": "Herramientas y recursos para desarrolladores",
+    "all": "Todos",
+    "tools": "Herramientas",
+    "learning": "Aprendizaje",
+    "libraries": "Librerías",
+    "design": "Diseño",
+    "visit": "Visitar"
+  },
+  "tutorials": {
+    "title": "Tutoriales Populares",
+    "subtitle": "Aprende con guías paso a paso"
+  },
+  "projects": {
+    "title": "Proyectos Destacados",
+    "subtitle": "Mis trabajos más recientes"
+  },
+  "stack": {
+    "title": "Mi Stack",
+    "subtitle": "Tecnologías que domino y uso en producción",
+    "categories": {
+      "backend": "Backend & APIs",
+      "frontend": "Frontend",
+      "ai": "IA & LLMs",
+      "web3": "Web3 & Blockchain",
+      "security": "Ciberseguridad",
+      "devops": "DevOps & Cloud",
+      "databases": "Bases de datos"
+    }
+  }
 }
