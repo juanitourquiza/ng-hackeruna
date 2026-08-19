@@ -6,13 +6,6 @@ import { SchemaService } from '../../core/services/schema.service';
 import { MetaTagsService } from '../../core/services/meta-tags.service';
 import { LanguageService } from '../../core/services/language.service';
 
-interface TimelineEntry {
-  period: string;
-  role: string;
-  org: string;
-  detail: string;
-}
-
 @Component({
   selector: 'app-about',
   standalone: true,
@@ -119,7 +112,7 @@ interface TimelineEntry {
             {{ t('about.experienceTimeline') }}
           </h2>
           <ol class="relative border-s-2 ms-3" style="border-color: var(--border-color);">
-            @for (e of timeline; track e.period) {
+            @for (e of t('about.timeline'); track e.period) {
             <li class="mb-8 ms-6">
               <span class="absolute -start-2.5 flex items-center justify-center w-5 h-5 rounded-full"
                     style="background-color: var(--accent-blue);"></span>
@@ -200,15 +193,6 @@ export class AboutComponent implements OnInit {
     { key: 'webDev', icon: 'code', accent: '#22d3ee' },
     { key: 'blockchain', icon: 'currency_bitcoin', accent: '#8b5cf6' },
     { key: 'security', icon: 'security', accent: '#f43f5e' },
-  ];
-
-  timeline: TimelineEntry[] = [
-    { period: '2007 – Actualidad', role: 'Fundador & CEO', org: 'hackeruna.com', detail: 'Empresa y blog de tecnología enfocados en ciberseguridad, tecnologías emergentes y desarrollo. Productos web, móviles y AI-native para banca, gobierno y sector privado.' },
-    { period: '2020 – Actualidad', role: 'Líder de Desarrollo Web', org: 'PMV (E-channel)', detail: 'Lidero un equipo de 5 desarrolladores para banca, inmobiliario y agencias (Suzuki, Álvarez Bravo, Fideval). Stack: WordPress, Laravel, Angular, HubSpot, Shopify.' },
-    { period: '2020 – 2024', role: 'Desarrollador Full-Stack', org: 'Avalith', detail: 'Banco BBVA (transferencias y fidelización con Angular/Symfony), app móvil LLevox (React Native + Laravel), e-commerce MercadoShops (ReactJS) y API DynamicTours (Symfony).' },
-    { period: '2017 – 2020', role: 'Jefe de Tecnología', org: 'Dream (Agencia)', detail: 'Lideré los sitios de la Corporación Nacional de Telecomunicaciones (cnt.gob.ec) y proyectos para Metropolitan Touring.' },
-    { period: '2016 – 2017', role: 'Experto Nacional en QA', org: 'SRI', detail: 'Gestión de QA del proyecto CIAT: planes de calidad y pruebas, checklists, metodologías de migración y seguridad informática.' },
-    { period: '2007 – 2009', role: 'Director de Desarrollo Web', org: 'OIM', detail: 'Lideré el desarrollo de consuladovirtual.gov.ec y proyectos web para el Ministerio de Relaciones Exteriores del Ecuador.' },
   ];
 
   technologies = [

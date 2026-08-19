@@ -88,6 +88,14 @@
     "roleLine": "Fundador de hackeruna.com · Creador de Pulsai · Autor",
     "experienceTimeline": "Trayectoria Profesional",
     "present": "Actualidad",
+    "timeline": [
+      { "period": "2007 – Actualidad", "role": "Fundador & CEO", "org": "hackeruna.com", "detail": "Empresa y blog de tecnología enfocados en ciberseguridad, tecnologías emergentes y desarrollo. Productos web, móviles y AI-native para banca, gobierno y sector privado." },
+      { "period": "2020 – Actualidad", "role": "Líder de Desarrollo Web", "org": "PMV (E-channel)", "detail": "Lidero un equipo de 5 desarrolladores para banca, inmobiliario y agencias (Suzuki, Álvarez Bravo, Fideval). Stack: WordPress, Laravel, Angular, HubSpot, Shopify." },
+      { "period": "2020 – 2024", "role": "Desarrollador Full-Stack", "org": "Avalith", "detail": "Banco BBVA (transferencias y fidelización con Angular/Symfony), app móvil LLevox (React Native + Laravel), e-commerce MercadoShops (ReactJS) y API DynamicTours (Symfony)." },
+      { "period": "2017 – 2020", "role": "Jefe de Tecnología", "org": "Dream (Agencia)", "detail": "Lideré los sitios de la Corporación Nacional de Telecomunicaciones (cnt.gob.ec) y proyectos para Metropolitan Touring." },
+      { "period": "2016 – 2017", "role": "Experto Nacional en QA", "org": "SRI", "detail": "Gestión de QA del proyecto CIAT: planes de calidad y pruebas, checklists, metodologías de migración y seguridad informática." },
+      { "period": "2007 – 2009", "role": "Director de Desarrollo Web", "org": "OIM", "detail": "Lideré el desarrollo de consuladovirtual.gov.ec y proyectos web para el Ministerio de Relaciones Exteriores del Ecuador." }
+    ],
     "stats": {
       "years": "Años de experiencia",
       "projects": "Proyectos entregados",

@@ -88,6 +88,14 @@
     "roleLine": "Founder of hackeruna.com · Creator of Pulsai · Author",
     "experienceTimeline": "Professional Journey",
     "present": "Present",
+    "timeline": [
+      { "period": "2007 – Present", "role": "Founder & CEO", "org": "hackeruna.com", "detail": "Technology company and blog focused on cybersecurity, emerging technologies and development. Web, mobile and AI-native products for banking, government and the private sector." },
+      { "period": "2020 – Present", "role": "Web Development Lead", "org": "PMV (E-channel)", "detail": "I lead a team of 5 developers for banking, real estate and agencies (Suzuki, Álvarez Bravo, Fideval). Stack: WordPress, Laravel, Angular, HubSpot, Shopify." },
+      { "period": "2020 – 2024", "role": "Full-Stack Developer", "org": "Avalith", "detail": "BBVA Bank (transfers and loyalty with Angular/Symfony), LLevox mobile app (React Native + Laravel), MercadoShops e-commerce (ReactJS) and DynamicTours API (Symfony)." },
+      { "period": "2017 – 2020", "role": "Head of Technology", "org": "Dream (Agency)", "detail": "Led the sites of the National Telecommunications Corporation (cnt.gob.ec) and projects for Metropolitan Touring." },
+      { "period": "2016 – 2017", "role": "National QA Expert", "org": "SRI", "detail": "QA management of the CIAT project: quality and testing plans, checklists, migration methodologies and information security." },
+      { "period": "2007 – 2009", "role": "Web Development Director", "org": "OIM", "detail": "Led the development of consuladovirtual.gov.ec and web projects for Ecuador's Ministry of Foreign Affairs." }
+    ],
     "stats": {
       "years": "Years of experience",
       "projects": "Projects delivered",
