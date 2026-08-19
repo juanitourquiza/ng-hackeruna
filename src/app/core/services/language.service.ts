@@ -1,6 +1,7 @@
-import { Injectable, signal, computed, inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, signal, computed, effect, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
+import { TranslocoService } from '@jsverse/transloco';
 import { filter } from 'rxjs/operators';
 
 export type SupportedLanguage = 'es' | 'en';
@@ -18,6 +19,7 @@ export interface LanguageConfig {
 export class LanguageService {
     private platformId = inject(PLATFORM_ID);
     private router = inject(Router);
+    private transloco = inject(TranslocoService);
 
     readonly availableLanguages: LanguageConfig[] = [
         { code: 'es', name: 'Spanish', nativeName: 'Español', flag: '🇪🇸' },
@@ -41,6 +43,17 @@ export class LanguageService {
     readonly isEnglish = computed(() => this._currentLang() === 'en');
 
     constructor() {
+        // Keep Transloco's active language in sync with the current language
+        // signal. This covers initial load (URL / localStorage / browser),
+        // in-app navigation, and the header toggle — so a direct hit on an
+        // English URL renders in English without needing the toggle.
+        effect(() => {
+            const lang = this._currentLang();
+            if (this.transloco.getActiveLang() !== lang) {
+                this.transloco.setActiveLang(lang);
+            }
+        });
+
         // Sync language from URL on navigation
         if (isPlatformBrowser(this.platformId)) {
             this.router.events.pipe(
