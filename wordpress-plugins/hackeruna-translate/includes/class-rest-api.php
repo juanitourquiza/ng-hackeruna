@@ -77,6 +77,50 @@ class Hackeruna_Translate_REST_API
             ]
         ]);
 
+
+
+        // Increment post view count
+        register_rest_route($this->namespace, '/view/(?P<id>\d+)', [
+            'methods' => 'POST',
+            'callback' => [$this, 'increment_post_view'],
+            'permission_callback' => '__return_true',
+            'args' => [
+                'id' => [
+                    'required' => true,
+                    'type' => 'integer',
+                    'description' => 'Post ID'
+                ]
+            ]
+        ]);
+
+        // Expose post view counts in the standard WordPress posts REST response
+        register_rest_field('post', 'views', [
+            'get_callback' => [$this, 'get_post_view_count_field'],
+            'schema' => [
+                'description' => 'Post view count',
+                'type' => 'integer',
+                'context' => ['view', 'edit']
+            ]
+        ]);
+
+        register_rest_field('post', 'post_views', [
+            'get_callback' => [$this, 'get_post_view_count_field'],
+            'schema' => [
+                'description' => 'Post view count',
+                'type' => 'integer',
+                'context' => ['view', 'edit']
+            ]
+        ]);
+
+        register_rest_field('post', 'post_views_count', [
+            'get_callback' => [$this, 'get_post_view_count_field'],
+            'schema' => [
+                'description' => 'Post view count',
+                'type' => 'integer',
+                'context' => ['view', 'edit']
+            ]
+        ]);
+
         // Get translation status
         register_rest_route($this->namespace, '/post/(?P<id>\d+)/translations', [
             'methods' => 'GET',
@@ -166,6 +210,74 @@ class Hackeruna_Translate_REST_API
         return $this->create_cors_response($result, 200);
     }
 
+
+
+    /**
+     * Increment custom post view count used by the Angular frontend.
+     */
+    public function increment_post_view($request)
+    {
+        $post_id = absint($request->get_param('id'));
+        $post = get_post($post_id);
+
+        if (!$post || 'post' !== $post->post_type || 'publish' !== $post->post_status) {
+            return $this->create_cors_response([
+                'success' => false,
+                'message' => 'Post not found',
+                'code' => 'not_found'
+            ], 404);
+        }
+
+        $views = $this->increment_post_view_count($post_id);
+
+        return $this->create_cors_response([
+            'success' => true,
+            'post_id' => $post_id,
+            'views' => $views,
+            'post_views' => $views,
+            'post_views_count' => $views
+        ], 200);
+    }
+
+    /**
+     * REST field callback for standard post responses.
+     */
+    public function get_post_view_count_field($object)
+    {
+        $post_id = isset($object['id']) ? absint($object['id']) : 0;
+        return $this->get_post_view_count($post_id);
+    }
+
+    /**
+     * Atomically increment the canonical view counter meta.
+     */
+    private function increment_post_view_count($post_id)
+    {
+        global $wpdb;
+
+        add_post_meta($post_id, 'post_views_count', 0, true);
+
+        $wpdb->query($wpdb->prepare(
+            "UPDATE {$wpdb->postmeta} SET meta_value = CAST(meta_value AS UNSIGNED) + 1 WHERE post_id = %d AND meta_key = %s",
+            $post_id,
+            'post_views_count'
+        ));
+
+        return $this->get_post_view_count($post_id);
+    }
+
+    /**
+     * Read the canonical view counter meta.
+     */
+    private function get_post_view_count($post_id)
+    {
+        if (!$post_id) {
+            return 0;
+        }
+
+        return max(0, absint(get_post_meta($post_id, 'post_views_count', true)));
+    }
+
     /**
      * Create REST response with CORS headers
      */
@@ -174,7 +286,7 @@ class Hackeruna_Translate_REST_API
         $response = new WP_REST_Response($data, $status);
         $response->header('Access-Control-Allow-Origin', '*');
         $response->header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE');
-        $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+        $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Cache-Control, Pragma');
         // Disable caching to prevent CDN/browser from caching old responses without CORS
         $response->header('Cache-Control', 'no-cache, no-store, must-revalidate');
         $response->header('Pragma', 'no-cache');

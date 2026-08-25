@@ -44,8 +44,7 @@ function hackeruna_translate_cors_headers()
         // Allow requests from any origin (you can restrict this to specific domains)
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE');
-        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-        header('Access-Control-Allow-Credentials: true');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Cache-Control, Pragma');
         header('Access-Control-Max-Age: 86400'); // Cache preflight for 24 hours
 
         // Handle preflight OPTIONS request
@@ -65,11 +64,59 @@ function hackeruna_translate_rest_cors($response)
     if ($response instanceof WP_REST_Response) {
         $response->header('Access-Control-Allow-Origin', '*');
         $response->header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE');
-        $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+        $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Cache-Control, Pragma');
     }
     return $response;
 }
 add_filter('rest_post_dispatch', 'hackeruna_translate_rest_cors');
+
+/**
+ * Extend WordPress REST API allowed CORS request headers.
+ * This avoids preflight failures when the browser sends Cache-Control/Pragma.
+ */
+function hackeruna_translate_allowed_cors_headers($allow_headers, $request)
+{
+    $allow_headers[] = 'Cache-Control';
+    $allow_headers[] = 'Pragma';
+    return array_values(array_unique($allow_headers));
+}
+add_filter('rest_allowed_cors_headers', 'hackeruna_translate_allowed_cors_headers', 10, 2);
+
+/**
+ * Serve CORS preflight requests for the translation namespace explicitly.
+ * This makes the allowed headers deterministic even when a proxy/CDN is involved.
+ */
+function hackeruna_translate_pre_serve_cors($served, $result, $request, $server)
+{
+    $route = $request->get_route();
+
+    if (strpos($route, '/hackeruna/v1/') !== 0) {
+        return $served;
+    }
+
+    if ('OPTIONS' !== $request->get_method()) {
+        return $served;
+    }
+
+    $requested_headers = array_filter(array_map(
+        'trim',
+        explode(',', (string) $request->get_header('access-control-request-headers'))
+    ));
+
+    $allowed_headers = array_values(array_unique(array_filter(array_merge(
+        ['Content-Type', 'Authorization', 'X-Requested-With', 'Cache-Control', 'Pragma'],
+        $requested_headers
+    ))));
+
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE');
+    header('Access-Control-Allow-Headers: ' . implode(', ', $allowed_headers));
+    header('Access-Control-Max-Age: 86400');
+    status_header(200);
+
+    return true;
+}
+add_filter('rest_pre_serve_request', 'hackeruna_translate_pre_serve_cors', 10, 4);
 
 /**
  * Initialize the plugin
