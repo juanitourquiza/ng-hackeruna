@@ -262,7 +262,7 @@ class Hackeruna_Translate_REST_API
     }
 
     /**
-     * Atomically increment the canonical view counter meta.
+     * Atomically increment all known post view counters.
      */
     private function increment_post_view_count($post_id)
     {
@@ -276,11 +276,23 @@ class Hackeruna_Translate_REST_API
             'post_views_count'
         ));
 
+        if ($this->post_views_table_exists()) {
+            $table_name = $this->get_post_views_table_name();
+
+            $wpdb->query($wpdb->prepare(
+                "INSERT INTO {$table_name} (id, type, period, count) VALUES (%d, %d, %s, %d) ON DUPLICATE KEY UPDATE count = count + 1",
+                $post_id,
+                4,
+                'total',
+                1
+            ));
+        }
+
         return $this->get_post_view_count($post_id);
     }
 
     /**
-     * Read the canonical view counter meta.
+     * Read the highest available view counter from known storage backends.
      */
     private function get_post_view_count($post_id)
     {
@@ -288,7 +300,62 @@ class Hackeruna_Translate_REST_API
             return 0;
         }
 
-        return max(0, absint(get_post_meta($post_id, 'post_views_count', true)));
+        $meta_views = absint(get_post_meta($post_id, 'post_views_count', true));
+        $table_views = $this->get_post_views_table_count($post_id);
+
+        return max(0, $meta_views, $table_views);
+    }
+
+    /**
+     * Read historical totals from the dFactory Post Views Counter table, when present.
+     */
+    private function get_post_views_table_count($post_id)
+    {
+        global $wpdb;
+
+        if (!$this->post_views_table_exists()) {
+            return 0;
+        }
+
+        $table_name = $this->get_post_views_table_name();
+        $views = $wpdb->get_var($wpdb->prepare(
+            "SELECT SUM(count) FROM {$table_name} WHERE id = %d AND type = %d AND period = %s",
+            $post_id,
+            4,
+            'total'
+        ));
+
+        return max(0, absint($views));
+    }
+
+    /**
+     * Get the Post Views Counter table name for this WordPress install.
+     */
+    private function get_post_views_table_name()
+    {
+        global $wpdb;
+
+        return $wpdb->prefix . 'post_views';
+    }
+
+    /**
+     * Check whether the legacy/plugin post views table exists.
+     */
+    private function post_views_table_exists()
+    {
+        global $wpdb;
+
+        static $exists = null;
+
+        if (null !== $exists) {
+            return $exists;
+        }
+
+        $table_name = $this->get_post_views_table_name();
+        $found_table = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table_name));
+        $exists = ($found_table === $table_name);
+
+        return $exists;
     }
 
     /**
