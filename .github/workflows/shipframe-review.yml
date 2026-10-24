@@ -24,21 +24,35 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Unprivileged job: runs PR-controlled test code with a read-only token
+  # and no secrets, so it is safe even for fork PRs. Kept separate from the
+  # privileged review job so the two trust boundaries never mix.
+  unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Gatekeeper unit tests
+        run: python3 scripts/test_sf_pr_review.py
+
   review:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     if: github.event.pull_request.head.repo.fork == false
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # Runs BEFORE the anti-tamper pin on purpose: it exercises the PR
-      # version of the script (unit tests touch no secrets), while the
-      # AI review step below keeps using the base-branch-pinned script.
-      - name: Gatekeeper unit tests
-        run: python3 scripts/test_sf_pr_review.py
-
+      # NOTE: from here on no PR-controlled code runs. The reviewer script
+      # is pinned to the base branch and later steps only feed the PR
+      # diff/title/body to it as untrusted data.
       - name: Pin reviewer script to base branch (anti-tamper)
         env:
           BASE_REF: ${{ github.base_ref }}

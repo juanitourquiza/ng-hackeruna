@@ -7,6 +7,7 @@ Run locally:
 
 import io
 import os
+import socket
 import sys
 import tempfile
 import unittest
@@ -186,6 +187,27 @@ class HttpJsonTests(unittest.TestCase):
     def test_double_timeout_raises_with_hint(self):
         with self.assertRaisesRegex(RuntimeError, "timed out .* twice"):
             self.run_http_json([TimeoutError("t1"), TimeoutError("t2")])
+
+    def test_double_socket_timeout_raises_with_hint(self):
+        # socket.timeout is only an alias of TimeoutError since Python 3.10;
+        # this pins the behavior for local runs on older interpreters.
+        with self.assertRaisesRegex(RuntimeError, "timed out .* twice"):
+            self.run_http_json([socket.timeout("t1"), socket.timeout("t2")])
+
+
+class ProviderResponseTests(unittest.TestCase):
+    def test_anthropic_non_dict_content_block_raises_clear_error(self):
+        with mock.patch.object(sf_pr_review, "http_json",
+                               return_value={"content": ["plain string"]}):
+            with self.assertRaisesRegex(RuntimeError, "Unexpected provider response"):
+                sf_pr_review.call_anthropic("http://provider.test", "m", "key", "sys", "user")
+
+    def test_openai_null_content_raises_clear_error(self):
+        with mock.patch.object(sf_pr_review, "http_json",
+                               return_value={"choices": [{"message": {"content": None}}]}):
+            with self.assertRaisesRegex(RuntimeError, "Unexpected provider response"):
+                sf_pr_review.call_openai_compatible("http://provider.test/v1", "m", "key",
+                                                    "sys", "user")
 
 
 class PublishCommentTests(unittest.TestCase):
