@@ -200,6 +200,12 @@ def publish_comment(repo: str, pr_number: str, token: str, sha: str, model: str,
     base = f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments?per_page=100"
     page = 1
     matches = []
+
+    def has_marker(comment) -> bool:
+        # Un body truthy no-str (p. ej. un entero) no debe romper el `in`.
+        body = comment.get("body")
+        return isinstance(body, str) and MARKER in body
+
     while True:
         existing = http_json(f"{base}&page={page}" if "?" in base else f"{base}?page={page}", "GET", token)
         if not isinstance(existing, list):
@@ -209,8 +215,7 @@ def publish_comment(repo: str, pr_number: str, token: str, sha: str, model: str,
             # duplicado), pero la convergencia del siguiente push borra los
             # duplicados anteriores vía MARKER.
             existing = []
-        matches.extend(c for c in existing
-                       if isinstance(c, dict) and MARKER in (c.get("body") or ""))
+        matches.extend(c for c in existing if isinstance(c, dict) and has_marker(c))
         if len(existing) < 100:
             break
         page += 1

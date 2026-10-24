@@ -284,6 +284,17 @@ class PublishCommentTests(unittest.TestCase):
         self.assertTrue(patches[0]["url"].endswith("/comments/4"))
         self.assertEqual(self.by_method(calls, "DELETE"), [])
 
+    def test_non_dict_items_and_non_string_bodies_are_ignored(self):
+        existing = [
+            "not-a-dict",
+            {"id": 2, "body": 42},
+            {"id": 1, "body": sf_pr_review.MARKER},
+        ]
+        calls = self.run_publish(get_results=[existing])
+        patches = self.by_method(calls, "PATCH")
+        self.assertEqual(len(patches), 1)
+        self.assertTrue(patches[0]["url"].endswith("/comments/1"))
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
