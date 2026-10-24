@@ -28,7 +28,15 @@ const esTranslation = {
   footer: {
     copyright: 'Todos los derechos reservados',
     privacy: 'Privacidad',
-    terms: 'Términos'
+    terms: 'Términos',
+    social: {
+      facebook: 'Facebook',
+      twitter: 'Twitter',
+      linkedin: 'LinkedIn',
+      github: 'GitHub',
+      youtube: 'YouTube',
+      spotify: 'Spotify'
+    }
   }
 };
 
@@ -61,8 +69,15 @@ describe('FooterComponent', () => {
   });
 
   // Scoped to the social container so a future aria-label on an unrelated
-  // footer link (privacy/terms) does not break these assertions.
-  const social = () => fixture.nativeElement.querySelector('[data-testid="social-links"]');
+  // footer link (privacy/terms) does not break these assertions. Fails fast
+  // with a clear message if the hook is ever removed from the template.
+  const social = () => {
+    const container = fixture.nativeElement.querySelector('[data-testid="social-links"]');
+    if (!container) {
+      throw new Error('[data-testid="social-links"] container missing in footer template');
+    }
+    return container;
+  };
 
   describe('✅ Redes sociales', () => {
     it('debería renderizar 6 enlaces sociales', () => {

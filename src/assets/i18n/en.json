@@ -147,7 +147,15 @@
     "privacy": "Privacy",
     "terms": "Terms",
     "madeWith": "Made with",
-    "and": "and"
+    "and": "and",
+    "social": {
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "youtube": "YouTube",
+      "spotify": "Spotify"
+    }
   },
   "common": {
     "loading": "Loading...",
