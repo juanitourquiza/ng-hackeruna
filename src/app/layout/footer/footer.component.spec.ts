@@ -60,26 +60,30 @@ describe('FooterComponent', () => {
     fixture.detectChanges();
   });
 
+  // Scoped to the social container so a future aria-label on an unrelated
+  // footer link (privacy/terms) does not break these assertions.
+  const social = () => fixture.nativeElement.querySelector('[data-testid="social-links"]');
+
   describe('✅ Redes sociales', () => {
     it('debería renderizar 6 enlaces sociales', () => {
-      const socialLinks = fixture.nativeElement.querySelectorAll('a[aria-label]');
+      const socialLinks = social().querySelectorAll('a[aria-label]');
       expect(socialLinks.length).toBe(6);
     });
 
     it('debería tener el enlace de YouTube con la URL del canal', () => {
-      const link = fixture.nativeElement.querySelector('a[aria-label="YouTube"]');
+      const link = social().querySelector('a[aria-label="YouTube"]');
       expect(link).not.toBeNull();
       expect(link.getAttribute('href')).toBe('https://www.youtube.com/juanitourquiza');
     });
 
     it('debería tener el enlace de Spotify con la URL del show', () => {
-      const link = fixture.nativeElement.querySelector('a[aria-label="Spotify"]');
+      const link = social().querySelector('a[aria-label="Spotify"]');
       expect(link).not.toBeNull();
       expect(link.getAttribute('href')).toBe('https://open.spotify.com/show/0ifNrkBCtqYS42zg1Eben9');
     });
 
     it('debería abrir los enlaces sociales en pestaña nueva con noopener noreferrer', () => {
-      const socialLinks = fixture.nativeElement.querySelectorAll('a[aria-label]');
+      const socialLinks = social().querySelectorAll('a[aria-label]');
       socialLinks.forEach((link: HTMLAnchorElement) => {
         expect(link.getAttribute('target')).toBe('_blank');
         expect(link.getAttribute('rel')).toBe('noopener noreferrer');
@@ -87,7 +91,7 @@ describe('FooterComponent', () => {
     });
 
     it('debería ocultar los SVG decorativos de los lectores de pantalla', () => {
-      const svgs = fixture.nativeElement.querySelectorAll('a[aria-label] svg');
+      const svgs = social().querySelectorAll('a[aria-label] svg');
       expect(svgs.length).toBe(6);
       svgs.forEach((svg: SVGElement) => {
         expect(svg.getAttribute('aria-hidden')).toBe('true');
@@ -96,7 +100,7 @@ describe('FooterComponent', () => {
 
     it('debería mantener el orden esperado de iconos sociales', () => {
       const labels = Array.from(
-        fixture.nativeElement.querySelectorAll('a[aria-label]') as NodeListOf<Element>
+        social().querySelectorAll('a[aria-label]') as NodeListOf<Element>
       ).map((el: Element) => el.getAttribute('aria-label'));
       expect(labels).toEqual(['Facebook', 'Twitter', 'LinkedIn', 'GitHub', 'YouTube', 'Spotify']);
     });
