@@ -5,6 +5,16 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-10-24
+
+### Added
+- 📺 **Canal de YouTube** (`youtube.com/juanitourquiza`) y 🎧 **Show de Spotify** en el footer — 6 redes sociales
+- 🌐 **aria-labels de redes sociales internacionalizados** (`footer.social.*` en es/en)
+- 🤖 **ShipFrame AI PR review** — gatekeeper con glm5.3-flash en GitHub Actions + job de tests sin privilegios y script con 28 tests unitarios
+
+### Changed
+- Contenedor de redes sociales del footer con hook `data-testid="social-links"` para tests acotados
+
 ## [2.1.0] - 2026-01-08
 
 ### Added
