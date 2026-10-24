@@ -204,7 +204,10 @@ def publish_comment(repo: str, pr_number: str, token: str, sha: str, model: str,
         existing = http_json(f"{base}&page={page}" if "?" in base else f"{base}?page={page}", "GET", token)
         if not isinstance(existing, list):
             # Un payload de error (dict) o forma inesperada: tratar como vacío
-            # en vez de romper la iteración.
+            # en vez de romper la iteración. Trade-off aceptado: ante un error
+            # transitorio de la API se publica un comentario nuevo (posible
+            # duplicado), pero la convergencia del siguiente push borra los
+            # duplicados anteriores vía MARKER.
             existing = []
         matches.extend(c for c in existing
                        if isinstance(c, dict) and MARKER in (c.get("body") or ""))
