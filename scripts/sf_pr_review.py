@@ -27,6 +27,7 @@ from __future__ import annotations
 import json
 import http.client
 import os
+import socket
 import sys
 import time
 import urllib.error
@@ -60,7 +61,6 @@ def http_json(url: str, method: str, token: str, payload: dict | None = None,
         headers["Authorization"] = f"Bearer {token}"
     if extra_headers:
         headers.update(extra_headers)
-    last_error: Exception | None = None
     for attempt in range(1, MAX_ATTEMPTS + 1):
         req = urllib.request.Request(url, data=body, headers=headers, method=method)
         try:
@@ -78,14 +78,15 @@ def http_json(url: str, method: str, token: str, payload: dict | None = None,
                 wait = 2 ** attempt
                 print(f"HTTP {exc.code} from {url} (attempt {attempt}); retrying in {wait}s")
                 time.sleep(wait)
-                last_error = exc
                 continue
             raise RuntimeError(f"HTTP {exc.code} from {url}: {detail}") from exc
-        except (urllib.error.URLError, TimeoutError, http.client.HTTPException,
-                ConnectionError) as exc:
+        except (urllib.error.URLError, TimeoutError, socket.timeout,
+                http.client.HTTPException, ConnectionError) as exc:
             # HTTPException cubre RemoteDisconnected: la API puede cerrar la
-            # conexión sin responder; TimeoutError: socket > REQUEST_TIMEOUT.
-            if isinstance(exc, TimeoutError) and attempt >= 2:
+            # conexión sin responder; TimeoutError/socket.timeout: excede
+            # REQUEST_TIMEOUT. socket.timeout solo es alias de TimeoutError
+            # desde Python 3.10, por eso se listan ambos.
+            if isinstance(exc, (TimeoutError, socket.timeout)) and attempt >= 2:
                 raise RuntimeError(
                     f"Provider timed out after {REQUEST_TIMEOUT}s twice ({url}); "
                     "reduce SF_REVIEW_MAX_DIFF_CHARS or pick a faster model"
@@ -94,10 +95,8 @@ def http_json(url: str, method: str, token: str, payload: dict | None = None,
                 wait = 2 ** attempt
                 print(f"Network error/timeout (attempt {attempt}); retrying in {wait}s: {exc}")
                 time.sleep(wait)
-                last_error = exc
                 continue
             raise
-    raise RuntimeError(f"Gave up after {MAX_ATTEMPTS} attempts: {last_error}")
 
 
 def load_profile_context() -> str:
@@ -162,7 +161,8 @@ def call_anthropic(base_url: str, model: str, api_key: str, system: str, user: s
     }, extra_headers={"x-api-key": api_key, "anthropic-version": "2023-06-01"})
     try:
         return "".join(block.get("text", "") for block in resp["content"]).strip()
-    except (KeyError, TypeError) as exc:
+    except (KeyError, TypeError, AttributeError) as exc:
+        # AttributeError covers non-dict content blocks (.get on wrong type).
         raise RuntimeError(f"Unexpected provider response: {json.dumps(resp)[:500]}") from exc
 
 
@@ -202,7 +202,12 @@ def publish_comment(repo: str, pr_number: str, token: str, sha: str, model: str,
     matches = []
     while True:
         existing = http_json(f"{base}&page={page}" if "?" in base else f"{base}?page={page}", "GET", token)
-        matches.extend(c for c in existing if MARKER in c.get("body", ""))
+        if not isinstance(existing, list):
+            # Un payload de error (dict) o forma inesperada: tratar como vacío
+            # en vez de romper la iteración.
+            existing = []
+        matches.extend(c for c in existing
+                       if isinstance(c, dict) and MARKER in (c.get("body") or ""))
         if len(existing) < 100:
             break
         page += 1
