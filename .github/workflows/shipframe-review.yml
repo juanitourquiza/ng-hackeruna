@@ -51,6 +51,9 @@ jobs:
           git diff "origin/${BASE_REF}...HEAD" > pr.diff
           echo "Diff size: $(wc -c < pr.diff) bytes"
 
+      - name: Gatekeeper unit tests
+        run: python3 scripts/test_sf_pr_review.py
+
       - name: AI review
         env:
           SF_REVIEW_API: "openai_compatible"
