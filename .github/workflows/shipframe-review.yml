@@ -33,6 +33,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Runs BEFORE the anti-tamper pin on purpose: it exercises the PR
+      # version of the script (unit tests touch no secrets), while the
+      # AI review step below keeps using the base-branch-pinned script.
+      - name: Gatekeeper unit tests
+        run: python3 scripts/test_sf_pr_review.py
+
       - name: Pin reviewer script to base branch (anti-tamper)
         env:
           BASE_REF: ${{ github.base_ref }}
@@ -50,9 +56,6 @@ jobs:
         run: |
           git diff "origin/${BASE_REF}...HEAD" > pr.diff
           echo "Diff size: $(wc -c < pr.diff) bytes"
-
-      - name: Gatekeeper unit tests
-        run: python3 scripts/test_sf_pr_review.py
 
       - name: AI review
         env:
