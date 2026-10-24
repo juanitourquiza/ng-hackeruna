@@ -3,8 +3,13 @@ name: ShipFrame AI PR review (nan-builders)
 # Opt-in gatekeeper installed by `install.sh --pr-review <provider>`.
 # One comment per PR, replaced on every push. Fork PRs are skipped:
 # GitHub does not hand secrets to forks, which keeps the API key safe.
-# The reviewer script itself is always pinned to the base branch, so a
-# same-repo PR cannot tamper with it to exfiltrate the API key.
+#
+# Residual risk (documented and accepted): on `pull_request` events GitHub
+# runs the workflow definition from the PR merge commit, so a same-repo
+# branch could edit this file. Same-repo branches can only be pushed by
+# collaborators with write access, who are trusted with the secret anyway.
+# The reviewer *script* is additionally pinned to the base branch below so
+# the code that runs cannot be swapped by the PR branch under review.
 
 on:
   pull_request:
