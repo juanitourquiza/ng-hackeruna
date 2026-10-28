@@ -30,6 +30,10 @@ export class PostDetailComponent implements OnInit {
   private sanitizer = inject(DomSanitizer);
   private languageService = inject(LanguageService);
 
+  get currentLang() {
+    return this.languageService.currentLang();
+  }
+
   post = signal<WpPost | null>(null);
   translatedContent = signal<TranslatedPost | null>(null);
   isTranslated = signal(false);

@@ -91,13 +91,9 @@
           <!-- Trending Sidebar - Deferred Loading -->
           <div class="col-span-1 md:col-span-1 lg:col-span-1">
             @defer (on viewport; prefetch on idle) {
-            <app-trending-sidebar [posts]="trendingPosts()"></app-trending-sidebar>
+            <app-trending-sidebar></app-trending-sidebar>
             } @placeholder {
-            <div class="space-y-4">
-              <div class="h-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
-              <div class="h-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
-              <div class="h-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
-            </div>
+            <app-skeleton-loader type="sidebar"></app-skeleton-loader>
             }
           </div>
         </div>

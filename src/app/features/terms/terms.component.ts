@@ -1,53 +1,62 @@
 import { Component } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
+import { TableOfContentsComponent, TocItem } from '../../shared/components/table-of-contents/table-of-contents.component';
 
 @Component({
   selector: 'app-terms',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TableOfContentsComponent],
   template: `
-    <main class="py-12">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <article class="prose prose-lg max-w-none">
-          <!-- Breadcrumb -->
-          <nav class="mb-8 text-sm">
-            <a 
-              routerLink="/" 
-              class="no-underline hover:underline transition-all"
-              style="color: var(--text-secondary);"
-            >
-              Inicio
-            </a>
-            <span class="mx-2" style="color: var(--text-tertiary);">/</span>
-            <span style="color: var(--text-tertiary);">Términos de Servicio</span>
-          </nav>
+    <main class="py-12 lg:py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb -->
+        <nav class="mb-10 text-sm">
+          <a 
+            routerLink="/" 
+            class="no-underline hover:underline transition-all"
+            style="color: var(--text-secondary);"
+          >
+            Inicio
+          </a>
+          <span class="mx-2" style="color: var(--text-tertiary);">/</span>
+          <span style="color: var(--text-tertiary);">Términos de Servicio</span>
+        </nav>
 
-          <!-- Title -->
+        <!-- Header -->
+        <header class="max-w-4xl mb-12 lg:mb-16">
+          <p class="text-xs font-mono uppercase tracking-widest mb-3" style="color: var(--accent-blue);">
+            // legal
+          </p>
           <h1 
-            class="text-4xl md:text-5xl font-bold leading-tight mb-6"
+            class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-4"
             style="color: var(--text-primary);"
           >
             Términos de Servicio
           </h1>
-
-          <!-- Last Updated -->
-          <p class="text-sm mb-8" style="color: var(--text-tertiary);">
+          <p class="text-sm" style="color: var(--text-tertiary);">
             Última actualización: 11 de Noviembre, 2025
           </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-10 xl:gap-16 items-start">
+          <!-- Table of contents -->
+          <aside class="hidden lg:block">
+            <app-table-of-contents [items]="sections"></app-table-of-contents>
+          </aside>
 
           <!-- Content -->
-          <div style="color: var(--text-primary);">
-            <p class="mb-6" style="color: var(--text-secondary);">
+          <article class="prose prose-lg max-w-none lg:max-w-3xl xl:max-w-4xl">
+            <p class="text-lg mb-8" style="color: var(--text-secondary);">
               Bienvenido a Hackeruna. Al acceder y utilizar este sitio web, aceptas cumplir con estos términos de servicio. Si no estás de acuerdo con alguno de estos términos, por favor no uses nuestro sitio.
             </p>
 
-            <h2 class="text-2xl font-bold mt-8 mb-4" style="color: var(--text-primary);">1. Aceptación de Términos</h2>
+            <h2 id="aceptacion" class="text-2xl font-bold mt-8 mb-4 scroll-mt-28" style="color: var(--text-primary);">1. Aceptación de Términos</h2>
             <p class="mb-4" style="color: var(--text-secondary);">
               Al utilizar Hackeruna, aceptas estar legalmente vinculado por estos términos de servicio, nuestra política de privacidad y todas las leyes y regulaciones aplicables.
             </p>
 
-            <h2 class="text-2xl font-bold mt-8 mb-4" style="color: var(--text-primary);">2. Uso del Sitio Web</h2>
+            <h2 id="uso-del-sitio" class="text-2xl font-bold mt-8 mb-4 scroll-mt-28" style="color: var(--text-primary);">2. Uso del Sitio Web</h2>
             
             <h3 class="text-xl font-semibold mt-6 mb-3" style="color: var(--text-primary);">2.1 Uso Permitido</h3>
             <p class="mb-4" style="color: var(--text-secondary);">
@@ -74,7 +83,7 @@ import { RouterLink } from '@angular/router';
               <li>Publicar contenido ofensivo, difamatorio o ilegal</li>
             </ul>
 
-            <h2 class="text-2xl font-bold mt-8 mb-4" style="color: var(--text-primary);">3. Propiedad Intelectual</h2>
+            <h2 id="propiedad-intelectual" class="text-2xl font-bold mt-8 mb-4 scroll-mt-28" style="color: var(--text-primary);">3. Propiedad Intelectual</h2>
             
             <h3 class="text-xl font-semibold mt-6 mb-3" style="color: var(--text-primary);">3.1 Nuestro Contenido</h3>
             <p class="mb-4" style="color: var(--text-secondary);">
@@ -102,7 +111,7 @@ import { RouterLink } from '@angular/router';
               <li>Aceptas que podemos eliminar contenido inapropiado</li>
             </ul>
 
-            <h2 class="text-2xl font-bold mt-8 mb-4" style="color: var(--text-primary);">4. Contenido de Terceros</h2>
+            <h2 id="contenido-de-terceros" class="text-2xl font-bold mt-8 mb-4 scroll-mt-28" style="color: var(--text-primary);">4. Contenido de Terceros</h2>
             <p class="mb-4" style="color: var(--text-secondary);">
               Nuestro sitio puede contener:
             </p>
@@ -115,7 +124,7 @@ import { RouterLink } from '@angular/router';
               No somos responsables del contenido de terceros ni de las prácticas de sitios externos.
             </p>
 
-            <h2 class="text-2xl font-bold mt-8 mb-4" style="color: var(--text-primary);">5. Precisión del Contenido</h2>
+            <h2 id="precision-del-contenido" class="text-2xl font-bold mt-8 mb-4 scroll-mt-28" style="color: var(--text-primary);">5. Precisión del Contenido</h2>
             <p class="mb-4" style="color: var(--text-secondary);">
               Nos esforzamos por proporcionar información precisa y actualizada, pero:
             </p>
@@ -126,7 +135,7 @@ import { RouterLink } from '@angular/router';
               <li>No somos responsables de daños causados por el uso de nuestro contenido</li>
             </ul>
 
-            <h2 class="text-2xl font-bold mt-8 mb-4" style="color: var(--text-primary);">6. Limitación de Responsabilidad</h2>
+            <h2 id="limitacion-de-responsabilidad" class="text-2xl font-bold mt-8 mb-4 scroll-mt-28" style="color: var(--text-primary);">6. Limitación de Responsabilidad</h2>
             <p class="mb-4" style="color: var(--text-secondary);">
               En la medida permitida por la ley:
             </p>
@@ -137,7 +146,7 @@ import { RouterLink } from '@angular/router';
               <li>Tu uso del sitio es bajo tu propio riesgo</li>
             </ul>
 
-            <h2 class="text-2xl font-bold mt-8 mb-4" style="color: var(--text-primary);">7. Comentarios y Contenido de Usuarios</h2>
+            <h2 id="comentarios-de-usuarios" class="text-2xl font-bold mt-8 mb-4 scroll-mt-28" style="color: var(--text-primary);">7. Comentarios y Contenido de Usuarios</h2>
             <p class="mb-4" style="color: var(--text-secondary);">
               Nos reservamos el derecho de:
             </p>
@@ -148,7 +157,7 @@ import { RouterLink } from '@angular/router';
               <li>Reportar actividad ilegal a las autoridades</li>
             </ul>
 
-            <h2 class="text-2xl font-bold mt-8 mb-4" style="color: var(--text-primary);">8. Publicidad y Patrocinios</h2>
+            <h2 id="publicidad" class="text-2xl font-bold mt-8 mb-4 scroll-mt-28" style="color: var(--text-primary);">8. Publicidad y Patrocinios</h2>
             <p class="mb-4" style="color: var(--text-secondary);">
               Este sitio utiliza:
             </p>
@@ -158,7 +167,7 @@ import { RouterLink } from '@angular/router';
               <li><strong>Contenido patrocinado:</strong> Claramente identificado como tal</li>
             </ul>
 
-            <h2 class="text-2xl font-bold mt-8 mb-4" style="color: var(--text-primary);">9. Modificaciones del Servicio</h2>
+            <h2 id="modificaciones" class="text-2xl font-bold mt-8 mb-4 scroll-mt-28" style="color: var(--text-primary);">9. Modificaciones del Servicio</h2>
             <p class="mb-4" style="color: var(--text-secondary);">
               Nos reservamos el derecho de:
             </p>
@@ -168,12 +177,12 @@ import { RouterLink } from '@angular/router';
               <li>Suspender o terminar tu acceso al sitio</li>
             </ul>
 
-            <h2 class="text-2xl font-bold mt-8 mb-4" style="color: var(--text-primary);">10. Ley Aplicable</h2>
+            <h2 id="ley-aplicable" class="text-2xl font-bold mt-8 mb-4 scroll-mt-28" style="color: var(--text-primary);">10. Ley Aplicable</h2>
             <p class="mb-4" style="color: var(--text-secondary);">
               Estos términos se rigen por las leyes aplicables en el país donde opera Hackeruna. Cualquier disputa se resolverá en los tribunales competentes.
             </p>
 
-            <h2 class="text-2xl font-bold mt-8 mb-4" style="color: var(--text-primary);">11. Contacto</h2>
+            <h2 id="contacto" class="text-2xl font-bold mt-8 mb-4 scroll-mt-28" style="color: var(--text-primary);">11. Contacto</h2>
             <p class="mb-4" style="color: var(--text-secondary);">
               Para preguntas sobre estos términos:
             </p>
@@ -182,27 +191,41 @@ import { RouterLink } from '@angular/router';
               <li>Formulario: <a routerLink="/contact" class="hover:underline" style="color: var(--accent-blue);">Contáctanos</a></li>
             </ul>
 
-            <div class="mt-8 p-4 rounded-lg" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
+            <div class="mt-8 p-4 rounded-lg not-prose" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
               <p class="text-sm" style="color: var(--text-secondary);">
                 <strong>Nota Importante:</strong> Al continuar usando Hackeruna, aceptas estos términos. Si no estás de acuerdo, debes dejar de usar el sitio inmediatamente.
               </p>
             </div>
-          </div>
 
-          <!-- Back to Home -->
-          <div class="mt-12 pt-8 not-prose" style="border-top: 1px solid var(--border-color);">
-            <a 
-              routerLink="/" 
-              class="inline-flex items-center font-semibold hover:underline transition-all"
-              style="color: var(--accent-blue);"
-            >
-              <span class="material-symbols-outlined mr-2">arrow_back</span>
-              Volver al inicio
-            </a>
-          </div>
-        </article>
+            <!-- Back to Home -->
+            <div class="mt-12 pt-8" style="border-top: 1px solid var(--border-color);">
+              <a 
+                routerLink="/" 
+                class="inline-flex items-center font-semibold hover:underline transition-all"
+                style="color: var(--accent-blue);"
+              >
+                <span class="material-symbols-outlined mr-2">arrow_back</span>
+                Volver al inicio
+              </a>
+            </div>
+          </article>
+        </div>
       </div>
     </main>
   `
 })
-export class TermsComponent {}
+export class TermsComponent {
+  readonly sections: TocItem[] = [
+    { id: 'aceptacion', label: '1. Aceptación de Términos' },
+    { id: 'uso-del-sitio', label: '2. Uso del Sitio Web' },
+    { id: 'propiedad-intelectual', label: '3. Propiedad Intelectual' },
+    { id: 'contenido-de-terceros', label: '4. Contenido de Terceros' },
+    { id: 'precision-del-contenido', label: '5. Precisión del Contenido' },
+    { id: 'limitacion-de-responsabilidad', label: '6. Limitación de Responsabilidad' },
+    { id: 'comentarios-de-usuarios', label: '7. Comentarios y Contenido de Usuarios' },
+    { id: 'publicidad', label: '8. Publicidad y Patrocinios' },
+    { id: 'modificaciones', label: '9. Modificaciones del Servicio' },
+    { id: 'ley-aplicable', label: '10. Ley Aplicable' },
+    { id: 'contacto', label: '11. Contacto' },
+  ];
+}

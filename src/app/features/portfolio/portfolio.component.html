@@ -27,13 +27,13 @@
     </div>
 
     <!-- Projects Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-10">
       @for (project of filteredProjects; track trackByProjectId($index, project)) {
       <article
         class="group overflow-hidden rounded-xl transition-all duration-300 hover:-translate-y-1 flex flex-col"
         style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
         <!-- Banner branded (color de acento + icono, sin imagen) -->
-        <div class="relative h-32 overflow-hidden"
+        <div class="relative h-36 lg:h-40 overflow-hidden"
           [style.background]="'radial-gradient(120% 120% at 15% 20%, ' + project.accent + '33 0%, transparent 60%), linear-gradient(135deg, ' + project.accent + '22, transparent 70%)'">
           <span class="material-symbols-outlined absolute -right-3 -bottom-4 text-[8rem] leading-none opacity-20 transition-transform duration-500 group-hover:scale-110"
             [style.color]="project.accent">

@@ -12,13 +12,13 @@ import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner
   imports: [PostCardComponent, LoadingSpinnerComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <main class="py-8 lg:py-12">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold text-text-light-primary dark:text-dark-primary mb-2">
+    <main class="py-10 lg:py-14">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl lg:text-5xl font-bold text-text-light-primary dark:text-dark-primary mb-3">
           Resultados de búsqueda
         </h1>
         @if (searchQuery()) {
-          <p class="text-lg text-text-light-secondary dark:text-dark-secondary mb-8">
+          <p class="text-lg text-text-light-secondary dark:text-dark-secondary mb-10">
             Buscando: "{{ searchQuery() }}"
           </p>
         }

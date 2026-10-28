@@ -19,7 +19,13 @@
     "popularTutorials": "Popular Tutorials",
     "usefulResources": "Useful Resources",
     "viewAll": "View all",
-    "viewPortfolio": "View Portfolio"
+    "viewPortfolio": "View Portfolio",
+    "onThisDay": "On this day",
+    "randomPicks": "Curiosities",
+    "publishedIn": "Published in {{ year }}",
+    "fromArchive": "From the archive · {{ year }}",
+    "yearsAgo": "{{ years }} years ago",
+    "yearAgo": "1 year ago"
   },
   "post": {
     "by": "By",
@@ -162,7 +168,8 @@
     "error": "An error occurred",
     "retry": "Retry",
     "close": "Close",
-    "readTime": "min read"
+    "readTime": "min read",
+    "onThisPage": "On this page"
   },
   "resources": {
     "title": "Useful Resources",

@@ -19,7 +19,13 @@
     "popularTutorials": "Tutoriales Populares",
     "usefulResources": "Recursos Útiles",
     "viewAll": "Ver todo",
-    "viewPortfolio": "Ver Portafolio"
+    "viewPortfolio": "Ver Portafolio",
+    "onThisDay": "Un día como hoy",
+    "randomPicks": "Curiosidades",
+    "publishedIn": "Publicado en {{ year }}",
+    "fromArchive": "Del archivo · {{ year }}",
+    "yearsAgo": "hace {{ years }} años",
+    "yearAgo": "hace 1 año"
   },
   "post": {
     "by": "Por",
@@ -162,7 +168,8 @@
     "error": "Ha ocurrido un error",
     "retry": "Reintentar",
     "close": "Cerrar",
-    "readTime": "min de lectura"
+    "readTime": "min de lectura",
+    "onThisPage": "En esta página"
   },
   "resources": {
     "title": "Recursos Útiles",

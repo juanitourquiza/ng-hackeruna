@@ -5,8 +5,10 @@ import { describe, it, expect, beforeEach, vi, beforeAll } from 'vitest';
 import { ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
+import { TranslocoTestingModule } from '@jsverse/transloco';
 import { ContactComponent } from './contact.component';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
+import es from '../../../assets/i18n/es.json';
 
 // Initialize TestBed once before all tests
 beforeAll(() => {
@@ -29,7 +31,21 @@ describe('ContactComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContactComponent, HttpClientTestingModule, FormsModule]
+      imports: [
+        ContactComponent,
+        HttpClientTestingModule,
+        FormsModule,
+        TranslocoTestingModule.forRoot({
+          langs: { es, en: es },
+          preloadLangs: true,
+          translocoConfig: {
+            availableLangs: ['es', 'en'],
+            defaultLang: 'es',
+            fallbackLang: 'es',
+            missingHandler: { useFallbackTranslation: true }
+          }
+        })
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContactComponent);

@@ -3,8 +3,10 @@ import 'zone.js/testing';
 
 import { describe, it, expect, beforeEach, beforeAll } from 'vitest';
 import { ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
+import { TranslocoTestingModule } from '@jsverse/transloco';
 import { PortfolioComponent } from './portfolio.component';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
+import es from '../../../assets/i18n/es.json';
 
 // Initialize TestBed once before all tests
 beforeAll(() => {
@@ -26,7 +28,19 @@ describe('PortfolioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PortfolioComponent]
+      imports: [
+        PortfolioComponent,
+        TranslocoTestingModule.forRoot({
+          langs: { es, en: es },
+          preloadLangs: true,
+          translocoConfig: {
+            availableLangs: ['es', 'en'],
+            defaultLang: 'es',
+            fallbackLang: 'es',
+            missingHandler: { useFallbackTranslation: true }
+          }
+        })
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(PortfolioComponent);

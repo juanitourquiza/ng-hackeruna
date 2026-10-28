@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, forkJoin, map, of, switchMap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {
   WpPost,
@@ -9,6 +9,19 @@ import {
   WpTag,
   WpApiResponse
 } from '../models/wordpress.models';
+
+/**
+ * Post ligero usado por el sidebar de la home ("Un día como hoy" y curiosidades).
+ * Lo sirve el plugin hackeruna-onthisday; los fallbacks usan el REST estándar.
+ */
+export interface SidebarPost {
+  id: number;
+  slug: string;
+  title: string;
+  date: string;
+  years_ago: number;
+  match: 'on_this_day' | 'archive' | 'random';
+}
 
 @Injectable({
   providedIn: 'root'
@@ -194,12 +207,165 @@ export class WordpressApiService {
   }
 
   // ============================================
+  // SIDEBAR API (Hackeruna On This Day Plugin)
+  // ============================================
+
+  private get hackerunaApiUrl(): string {
+    // Use the base WordPress URL for Hackeruna custom endpoints
+    return this.apiUrl.replace('/wp/v2', '/hackeruna/v1');
+  }
+
+  /**
+   * Posts publicados en la misma fecha (día/mes) de años anteriores.
+   * Usa el endpoint hackeruna/v1/onthisday y, si el plugin aún no está activo,
+   * cae a una búsqueda multi-año contra el REST estándar de WordPress.
+   */
+  getOnThisDay(limit: number = 1, excludeIds: number[] = []): Observable<SidebarPost[]> {
+    const params = new HttpParams()
+      .set('limit', limit.toString())
+      .set('exclude', excludeIds.join(','));
+
+    return this.http.get<SidebarPost[]>(`${this.hackerunaApiUrl}/onthisday`, { params }).pipe(
+      map(posts => posts ?? []),
+      catchError(() => of(null)),
+      switchMap(posts => posts && posts.length > 0
+        ? of(posts)
+        : this.getOnThisDayFallback(limit, excludeIds))
+    );
+  }
+
+  /**
+   * Posts aleatorios para el bloque de curiosidades del sidebar.
+   * @param scope 'all' = todo el blog, 'archive' = solo años anteriores.
+   */
+  getRandomSidebarPosts(
+    limit: number = 2,
+    excludeIds: number[] = [],
+    scope: 'all' | 'archive' = 'all'
+  ): Observable<SidebarPost[]> {
+    const params = new HttpParams()
+      .set('limit', limit.toString())
+      .set('exclude', excludeIds.join(','))
+      .set('scope', scope);
+
+    return this.http.get<SidebarPost[]>(`${this.hackerunaApiUrl}/random`, { params }).pipe(
+      map(posts => posts ?? []),
+      catchError(() => of(null)),
+      switchMap(posts => posts && posts.length > 0
+        ? of(posts)
+        : this.getRandomSidebarFallback(limit, excludeIds, scope))
+    );
+  }
+
+  /**
+   * Fallback sin plugin: consulta el REST estándar para los últimos 10 años
+   * con la misma fecha y elige uno al azar. Los requests son livianos (_fields).
+   */
+  private getOnThisDayFallback(limit: number, excludeIds: number[]): Observable<SidebarPost[]> {
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const years = Array.from({ length: 10 }, (_, index) => now.getFullYear() - 1 - index);
+
+    const requests = years.map(year => {
+      let params = new HttpParams()
+        .set('after', `${year}-${month}-${day}T00:00:00`)
+        .set('before', `${year}-${month}-${day}T23:59:59`)
+        .set('per_page', '5')
+        .set('_fields', 'id,slug,title,date');
+
+      if (excludeIds.length > 0) {
+        params = params.set('exclude', excludeIds.join(','));
+      }
+
+      return this.fetchSidebarPosts(params, 'on_this_day');
+    });
+
+    return forkJoin(requests).pipe(
+      map(groups => groups.flat()),
+      switchMap(posts => posts.length > 0
+        ? of(this.shuffle(posts).slice(0, limit))
+        : this.getRandomSidebarFallback(limit, excludeIds, 'archive'))
+    );
+  }
+
+  /**
+   * Fallback sin plugin: trae los posts más recientes y los baraja en cliente.
+   */
+  private getRandomSidebarFallback(
+    limit: number,
+    excludeIds: number[],
+    scope: 'all' | 'archive'
+  ): Observable<SidebarPost[]> {
+    let params = new HttpParams()
+      .set('per_page', '30')
+      .set('_fields', 'id,slug,title,date');
+
+    if (excludeIds.length > 0) {
+      params = params.set('exclude', excludeIds.join(','));
+    }
+
+    if (scope === 'archive') {
+      params = params.set('before', `${new Date().getFullYear()}-01-01T00:00:00`);
+    }
+
+    return this.fetchSidebarPosts(params, scope === 'archive' ? 'archive' : 'random').pipe(
+      map(posts => this.shuffle(posts).slice(0, limit))
+    );
+  }
+
+  private fetchSidebarPosts(
+    params: HttpParams,
+    match: SidebarPost['match']
+  ): Observable<SidebarPost[]> {
+    return this.http.get<WpPost[]>(`${this.apiUrl}/posts`, { params }).pipe(
+      map(posts => (posts ?? []).map(post => this.toSidebarPost(post, match))),
+      catchError(() => of([]))
+    );
+  }
+
+  private toSidebarPost(post: WpPost, match: SidebarPost['match']): SidebarPost {
+    const date = post.date;
+    const year = new Date(date).getFullYear();
+    const currentYear = new Date().getFullYear();
+
+    return {
+      id: post.id,
+      slug: post.slug,
+      title: this.decodeHtml(post.title?.rendered || ''),
+      date,
+      years_ago: Math.max(0, currentYear - year),
+      match
+    };
+  }
+
+  private decodeHtml(html: string): string {
+    if (typeof document === 'undefined') {
+      return html.replace(/<[^>]*>/g, '').trim();
+    }
+
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = html;
+    return (textarea.value || '').trim();
+  }
+
+  private shuffle<T>(items: T[]): T[] {
+    const copy = [...items];
+
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+
+    return copy;
+  }
+
+  // ============================================
   // TRANSLATION API (Hackeruna Translate Plugin)
   // ============================================
 
   private get translateApiUrl(): string {
-    // Use the base WordPress URL for custom endpoints
-    return this.apiUrl.replace('/wp/v2', '/hackeruna/v1');
+    return this.hackerunaApiUrl;
   }
 
   /**

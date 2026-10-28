@@ -11,40 +11,40 @@ import { LanguageService } from '../../core/services/language.service';
   standalone: true,
   imports: [RouterLink, TranslocoModule],
   template: `
-    <main class="py-12 lg:py-16" *transloco="let t">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main class="py-12 lg:py-20" *transloco="let t">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <!-- Header -->
-        <div class="text-center mb-12">
+        <div class="text-center max-w-4xl mx-auto mb-14">
           <p class="text-xs font-mono uppercase tracking-widest mb-3" style="color: var(--accent-blue);">
             // about
           </p>
-          <h1 class="text-4xl lg:text-5xl font-bold mb-3" style="color: var(--text-primary);">
+          <h1 class="text-4xl lg:text-6xl font-bold tracking-tight mb-4" style="color: var(--text-primary);">
             {{ t('about.title') }}
           </h1>
-          <p class="text-xl" style="color: var(--text-secondary);">
+          <p class="text-xl lg:text-2xl" style="color: var(--text-secondary);">
             Juan Urquiza — {{ t('about.subtitle') }}
           </p>
-          <p class="text-sm font-mono mt-2" style="color: var(--text-tertiary);">
+          <p class="text-sm font-mono mt-3" style="color: var(--text-tertiary);">
             {{ t('about.roleLine') }}
           </p>
         </div>
 
         <!-- Profile Section -->
-        <div class="mb-14">
-          <div class="rounded-2xl p-8 lg:p-12 text-white relative overflow-hidden"
+        <div class="mb-16">
+          <div class="rounded-2xl p-8 lg:p-12 xl:p-16 text-white relative overflow-hidden"
                style="background: linear-gradient(135deg, #0a0e14 0%, #16223a 55%, #0f2f3d 100%);">
             <span class="material-symbols-outlined absolute -right-6 -bottom-8 text-[12rem] leading-none opacity-10">terminal</span>
-            <div class="flex flex-col md:flex-row items-center gap-8 relative">
+            <div class="flex flex-col md:flex-row items-center gap-8 lg:gap-12 relative">
               <div class="flex-shrink-0">
-                <div class="w-32 h-32 lg:w-40 lg:h-40 rounded-full flex items-center justify-center text-6xl lg:text-7xl font-bold"
+                <div class="w-32 h-32 lg:w-44 lg:h-44 rounded-full flex items-center justify-center text-6xl lg:text-7xl font-bold"
                      style="background: rgba(34,211,238,0.12); border: 2px solid rgba(34,211,238,0.4); color: #22d3ee;">
                   JU
                 </div>
               </div>
               <div class="flex-1 text-center md:text-left">
-                <h2 class="text-3xl font-bold mb-4">Juan Urquiza</h2>
-                <p class="text-lg mb-6 opacity-90">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-4">Juan Urquiza</h2>
+                <p class="text-lg lg:text-xl max-w-3xl mb-6 opacity-90">
                   {{ t('about.profileDescription') }}
                 </p>
                 <div class="flex flex-wrap gap-3 justify-center md:justify-start">
@@ -75,30 +75,30 @@ import { LanguageService } from '../../core/services/language.service';
         </div>
 
         <!-- Stats -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 mb-16">
           @for (s of stats; track s.label) {
-          <div class="text-center p-5 rounded-xl" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
-            <div class="text-3xl lg:text-4xl font-bold mb-1" style="color: var(--accent-blue);">{{ s.value }}</div>
-            <div class="text-xs" style="color: var(--text-secondary);">{{ t(s.label) }}</div>
+          <div class="text-center p-6 rounded-xl" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
+            <div class="text-4xl lg:text-5xl font-bold mb-1" style="color: var(--accent-blue);">{{ s.value }}</div>
+            <div class="text-xs lg:text-sm" style="color: var(--text-secondary);">{{ t(s.label) }}</div>
           </div>
           }
         </div>
 
         <!-- Experience / Specialization -->
         <div class="mb-16">
-          <h2 class="text-3xl font-bold mb-8" style="color: var(--text-primary);">
+          <h2 class="text-3xl lg:text-4xl font-bold mb-8" style="color: var(--text-primary);">
             {{ t('about.experience.title') }}
           </h2>
-          <div class="grid md:grid-cols-2 gap-6">
+          <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
             @for (c of specializations; track c.key) {
-            <div class="p-6 rounded-xl" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
+            <div class="p-6 lg:p-8 rounded-xl" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
               <div class="flex items-center gap-3 mb-4">
                 <span class="material-symbols-outlined text-3xl" [style.color]="c.accent">{{ c.icon }}</span>
-                <h3 class="text-xl font-bold" style="color: var(--text-primary);">
+                <h3 class="text-xl lg:text-2xl font-bold" style="color: var(--text-primary);">
                   {{ t('about.experience.' + c.key + '.title') }}
                 </h3>
               </div>
-              <p style="color: var(--text-secondary);">
+              <p class="text-base lg:text-lg" style="color: var(--text-secondary);">
                 {{ t('about.experience.' + c.key + '.description') }}
               </p>
             </div>
@@ -107,8 +107,8 @@ import { LanguageService } from '../../core/services/language.service';
         </div>
 
         <!-- Professional Timeline -->
-        <div class="mb-16">
-          <h2 class="text-3xl font-bold mb-8" style="color: var(--text-primary);">
+        <div class="max-w-4xl mb-16">
+          <h2 class="text-3xl lg:text-4xl font-bold mb-8" style="color: var(--text-primary);">
             {{ t('about.experienceTimeline') }}
           </h2>
           <ol class="relative border-s-2 ms-3" style="border-color: var(--border-color);">
@@ -117,8 +117,8 @@ import { LanguageService } from '../../core/services/language.service';
               <span class="absolute -start-2.5 flex items-center justify-center w-5 h-5 rounded-full"
                     style="background-color: var(--accent-blue);"></span>
               <p class="text-xs font-mono mb-1" style="color: var(--accent-blue);">{{ e.period }}</p>
-              <h3 class="text-lg font-semibold" style="color: var(--text-primary);">{{ e.role }} · <span style="color: var(--text-secondary);">{{ e.org }}</span></h3>
-              <p class="text-sm mt-1" style="color: var(--text-secondary);">{{ e.detail }}</p>
+              <h3 class="text-lg lg:text-xl font-semibold" style="color: var(--text-primary);">{{ e.role }} · <span style="color: var(--text-secondary);">{{ e.org }}</span></h3>
+              <p class="text-sm lg:text-base mt-1" style="color: var(--text-secondary);">{{ e.detail }}</p>
             </li>
             }
           </ol>
@@ -126,16 +126,16 @@ import { LanguageService } from '../../core/services/language.service';
 
         <!-- Book -->
         <div class="mb-16">
-          <div class="rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6"
+          <div class="rounded-2xl p-8 lg:p-12 flex flex-col md:flex-row items-center gap-6 lg:gap-10"
                style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
-            <div class="flex items-center justify-center w-20 h-20 rounded-xl shrink-0"
+            <div class="flex items-center justify-center w-20 h-20 lg:w-24 lg:h-24 rounded-xl shrink-0"
                  style="background: rgba(168,85,247,0.12); color: #a855f7;">
               <span class="material-symbols-outlined text-4xl">menu_book</span>
             </div>
             <div class="flex-1 text-center md:text-left">
               <p class="text-xs font-mono uppercase tracking-widest mb-1" style="color: #a855f7;">{{ t('about.book.label') }}</p>
-              <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">{{ t('about.book.title') }}</h3>
-              <p class="text-sm mb-3" style="color: var(--text-secondary);">{{ t('about.book.description') }}</p>
+              <h3 class="text-xl lg:text-2xl font-bold mb-2" style="color: var(--text-primary);">{{ t('about.book.title') }}</h3>
+              <p class="text-sm lg:text-base max-w-3xl mb-3" style="color: var(--text-secondary);">{{ t('about.book.description') }}</p>
               <a href="https://leanpub.com/u/juanitourquiza" target="_blank" rel="noopener noreferrer"
                  class="inline-flex items-center gap-1 text-sm font-medium hover:underline" style="color: var(--accent-blue);">
                 <span class="material-symbols-outlined text-base">open_in_new</span>{{ t('about.book.cta') }}
@@ -146,7 +146,7 @@ import { LanguageService } from '../../core/services/language.service';
 
         <!-- Tech Stack -->
         <div class="mb-16">
-          <h2 class="text-3xl font-bold mb-6" style="color: var(--text-primary);">
+          <h2 class="text-3xl lg:text-4xl font-bold mb-6" style="color: var(--text-primary);">
             {{ t('about.techStack') }}
           </h2>
           <div class="flex flex-wrap gap-2.5">
@@ -160,10 +160,10 @@ import { LanguageService } from '../../core/services/language.service';
         </div>
 
         <!-- Contact CTA -->
-        <div class="text-center p-8 rounded-2xl text-white"
+        <div class="text-center p-8 lg:p-14 rounded-2xl text-white"
              style="background: linear-gradient(135deg, #0a0e14, #0f2f3d);">
-          <h2 class="text-2xl lg:text-3xl font-bold mb-4">{{ t('about.cta.title') }}</h2>
-          <p class="text-lg mb-6 opacity-90">{{ t('about.cta.subtitle') }}</p>
+          <h2 class="text-2xl lg:text-4xl font-bold mb-4">{{ t('about.cta.title') }}</h2>
+          <p class="text-lg lg:text-xl mb-6 opacity-90">{{ t('about.cta.subtitle') }}</p>
           <a [routerLink]="['/', currentLang, 'contact']"
              class="inline-block px-8 py-3 font-semibold rounded-lg transition-all hover:opacity-90"
              style="background-color: #22d3ee; color: #0a0e14;">

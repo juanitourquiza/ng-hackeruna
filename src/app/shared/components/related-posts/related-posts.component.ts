@@ -2,6 +2,7 @@ import { Component, Input, OnInit, inject, signal, ChangeDetectionStrategy } fro
 
 import { RouterLink } from '@angular/router';
 import { WordpressApiService } from '../../../core/services/wordpress-api.service';
+import { LanguageService } from '../../../core/services/language.service';
 import { WpPost } from '../../../core/models/wordpress.models';
 
 @Component({
@@ -18,7 +19,7 @@ import { WpPost } from '../../../core/models/wordpress.models';
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           @for (post of relatedPosts(); track trackByPostId($index, post)) {
             <article class="group">
-              <a [routerLink]="['/post', post.slug]">
+              <a [routerLink]="['/', currentLang, 'post', post.slug]">
                 <div class="mb-4 overflow-hidden rounded-lg">
                   <img
                     [src]="getPostImage(post)"
@@ -61,7 +62,12 @@ export class RelatedPostsComponent implements OnInit {
   @Input() categoryId?: number;
   
   private wpApi = inject(WordpressApiService);
+  private languageService = inject(LanguageService);
   relatedPosts = signal<WpPost[]>([]);
+
+  get currentLang() {
+    return this.languageService.currentLang();
+  }
 
   ngOnInit(): void {
     this.loadRelatedPosts();
