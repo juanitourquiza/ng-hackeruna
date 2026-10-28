@@ -5,6 +5,25 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-10-27
+
+### Added
+- 🧭 **Sidebar de home ampliado** — 5 más leídas (antes 4), bloque "Un día como hoy" con posts de años anteriores y 2 curiosidades aleatorias, con deduplicación de IDs entre secciones
+- 💀 **Skeletons por sección en el sidebar** con `aria-busy`/`role="status"` (nuevo skeleton `type="sidebar"`)
+- 🔌 **Plugin WordPress `hackeruna-onthisday`** — endpoints `GET /hackeruna/v1/onthisday` y `/random` con caché diaria, exclusión de IDs y fallback al archivo
+- 🗂️ **Índice sticky (TOC)** con scroll-spy para Términos y Privacidad
+- 🧪 **Tests nuevos (Vitest)** para `WordpressApiService`, `TrendingSidebarComponent` y `PopularTutorialsComponent` (9 tests)
+
+### Changed
+- 📰 **Layout editorial tipo Wired/NYT en la noticia** — contenedor `max-w-7xl`, imagen destacada full-bleed (42–64vh), columna de lectura `max-w-4xl`, breakout de medios ≥1280px y autor en los metadatos
+- 📐 **Páginas estáticas ampliadas** — About, Contact, Portfolio, Search y Author unificados a `max-w-7xl` con tipografía y espaciados mayores
+- 🎲 **Tutoriales Populares variables** — rotación aleatoria con anti-repetición por sesión (`sessionStorage`)
+- 🔗 **Enlaces de relacionados y categorías** respetan el idioma activo (`/es`, `/en`)
+- 🌐 **i18n es/en** — nuevas claves del sidebar y del índice (`home.onThisDay`, `home.randomPicks`, `home.publishedIn`, `home.fromArchive`, `home.yearsAgo`, `home.yearAgo`, `common.onThisPage`)
+
+### Fixed
+- 🧩 **Specs de Contact y Portfolio** — faltaba el provider de Transloco (`NG0201 TRANSLOCO_TRANSPILER`)
+
 ## [2.3.0] - 2026-10-24
 
 ### Added

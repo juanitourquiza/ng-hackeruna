@@ -19,6 +19,33 @@
       text-align: left;
     }
 
+    // Párrafo de entrada estilo editorial (Wired / NYT)
+    > p:first-of-type {
+      font-size: 1.15em;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    // Media "breakout": se sale de la columna de lectura en pantallas grandes
+    @media (min-width: 1280px) {
+      img,
+      figure,
+      .wp-block-image,
+      .wp-block-embed {
+        width: calc(100% + 6rem) !important;
+        max-width: calc(100% + 6rem) !important;
+        margin-left: -3rem;
+        margin-right: -3rem;
+      }
+
+      figure img {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
     a {
       color: var(--accent-blue);
       text-decoration: underline;
@@ -137,7 +164,7 @@
         width: 100%;
         aspect-ratio: 16 / 9;
         height: auto;
-        min-height: 400px;
+        min-height: 0;
       }
     }
 

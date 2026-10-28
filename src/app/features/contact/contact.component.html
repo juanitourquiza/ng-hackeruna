@@ -1,23 +1,23 @@
 <main class="flex-1 py-12 sm:py-16" *transloco="let t">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Header -->
-    <div class="flex flex-wrap justify-between gap-3 pb-12">
+    <div class="flex flex-wrap justify-between gap-3 pb-14">
       <div class="flex min-w-72 flex-col gap-4">
-        <h1 class="text-5xl font-black tracking-tight" style="color: var(--text-primary);">
+        <h1 class="text-5xl sm:text-6xl font-black tracking-tight" style="color: var(--text-primary);">
           {{ t('contact.title') }}
         </h1>
-        <p class="text-lg leading-relaxed max-w-2xl" style="color: var(--text-secondary);">
+        <p class="text-lg lg:text-xl leading-relaxed max-w-3xl" style="color: var(--text-secondary);">
           {{ t('contact.subtitle') }}
         </p>
       </div>
     </div>
 
     <!-- Main Content Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 xl:gap-16">
       <!-- Contact Form -->
-      <div class="lg:col-span-2 p-8 sm:p-10 rounded-2xl"
+      <div class="lg:col-span-2 p-8 sm:p-10 lg:p-12 rounded-2xl"
         style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
-        <h2 class="text-3xl font-bold tracking-tight pb-8" style="color: var(--text-primary);">
+        <h2 class="text-3xl lg:text-4xl font-bold tracking-tight pb-8" style="color: var(--text-primary);">
           {{ t('contact.formTitle') }}
         </h2>
 
@@ -106,7 +106,7 @@
       <!-- Sidebar -->
       <div class="lg:col-span-1 space-y-8">
         <!-- Other Contact Methods -->
-        <div class="p-6 rounded-xl"
+        <div class="p-7 rounded-xl"
           style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
           <h3 class="text-lg font-bold mb-4" style="color: var(--text-primary);">
             {{ t('contact.otherWays') }}
@@ -125,7 +125,7 @@
         </div>
 
         <!-- Social Media -->
-        <div class="p-6 rounded-xl"
+        <div class="p-7 rounded-xl"
           style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
           <h3 class="text-lg font-bold mb-4" style="color: var(--text-primary);">
             {{ t('contact.followUs') }}

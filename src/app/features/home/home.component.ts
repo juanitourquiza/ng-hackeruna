@@ -42,7 +42,6 @@ export class HomeComponent implements OnInit {
   // Using signals for reactive state management
   featuredPost = signal<WpPost | null>(null);
   recentPosts = signal<WpPost[]>([]);
-  trendingPosts = signal<WpPost[]>([]);
   loading = signal(true);
   loadingMore = signal(false);
   error = signal<string | null>(null);
@@ -111,22 +110,6 @@ export class HomeComponent implements OnInit {
         console.error('Error loading recent posts:', err);
         this.error.set('Error al cargar los artículos recientes');
         this.loading.set(false);
-      }
-    });
-
-    // Load most read posts (sorted by views)
-    this.wpApi.getMostReadPosts(4).subscribe({
-      next: (posts) => {
-        this.trendingPosts.set(posts);
-      },
-      error: (err) => {
-        console.error('Error loading most read posts:', err);
-        // Fallback to recent posts if views endpoint fails
-        this.wpApi.getPosts(1, 4).subscribe({
-          next: (response) => {
-            this.trendingPosts.set(response.data);
-          }
-        });
       }
     });
   }

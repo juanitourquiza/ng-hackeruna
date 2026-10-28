@@ -1,12 +1,28 @@
 <ng-container *transloco="let t">
   <div class="sticky top-8 p-6 rounded-lg" style="background-color: var(--bg-secondary);">
+
+    <!-- Más leídas -->
     <h3 class="text-sm font-mono uppercase tracking-widest pb-2 mb-6"
       style="color: var(--text-primary); border-bottom: 2px solid var(--accent-blue);">
       {{ t('home.mostRead') }}
     </h3>
 
-    <div class="space-y-6">
-      @for (post of posts; let i = $index; track post.id) {
+    @if (loadingMostRead()) {
+    <div class="space-y-6" role="status" aria-live="polite">
+      <span class="sr-only">{{ t('common.loading') }}</span>
+      @for (item of [1,2,3,4,5]; track item) {
+      <div class="flex items-start gap-3 animate-pulse" aria-hidden="true">
+        <div class="h-7 w-8 rounded shrink-0" style="background-color: var(--bg-tertiary);"></div>
+        <div class="flex-1 space-y-2">
+          <div class="h-4 rounded w-full" style="background-color: var(--bg-tertiary);"></div>
+          <div class="h-4 rounded w-4/5" style="background-color: var(--bg-tertiary);"></div>
+        </div>
+      </div>
+      }
+    </div>
+    } @else {
+    <div class="space-y-6" data-testid="most-read">
+      @for (post of mostRead(); let i = $index; track post.id) {
       <article class="group flex items-start space-x-3">
         <span class="text-2xl font-mono font-bold" style="color: var(--accent-blue);">
           {{ (i + 1).toString().padStart(2, '0') }}
@@ -20,5 +36,83 @@
       </article>
       }
     </div>
+    }
+
+    <!-- Un día como hoy -->
+    <section class="mt-10 pt-6" style="border-top: 1px solid var(--border-color);"
+      data-testid="on-this-day" [attr.aria-busy]="loadingOnThisDay()">
+      <h3 class="text-xs font-mono uppercase tracking-widest mb-4 flex items-center gap-2"
+        style="color: var(--text-primary);">
+        <span class="material-symbols-outlined text-base" style="color: var(--accent-blue);">history</span>
+        {{ t('home.onThisDay') }}
+      </h3>
+
+      @if (loadingOnThisDay()) {
+      <div class="space-y-2 animate-pulse" role="status" aria-live="polite">
+        <span class="sr-only">{{ t('common.loading') }}</span>
+        <div class="h-4 rounded w-full" style="background-color: var(--bg-tertiary);" aria-hidden="true"></div>
+        <div class="h-4 rounded w-3/4" style="background-color: var(--bg-tertiary);" aria-hidden="true"></div>
+        <div class="h-3 rounded w-1/2 mt-3" style="background-color: var(--bg-tertiary);" aria-hidden="true"></div>
+      </div>
+      } @else if (onThisDay(); as day) {
+      <article class="group">
+        <a [routerLink]="['/', currentLang, 'post', day.slug]" class="block">
+          <h4 class="text-base font-semibold leading-snug group-hover:underline transition-all"
+            style="color: var(--text-primary);">
+            {{ day.title }}
+          </h4>
+        </a>
+        <p class="mt-2 text-xs font-mono" style="color: var(--text-tertiary);">
+          @if (day.match === 'archive') {
+          {{ t('home.fromArchive', { year: yearOf(day.date) }) }}
+          } @else {
+          {{ t('home.publishedIn', { year: yearOf(day.date) }) }}
+          }
+          @if (day.years_ago > 0) {
+          <span class="mx-1">·</span>
+          {{ day.years_ago === 1 ? t('home.yearAgo') : t('home.yearsAgo', { years: day.years_ago }) }}
+          }
+        </p>
+      </article>
+      }
+    </section>
+
+    <!-- Curiosidades al azar -->
+    <section class="mt-10 pt-6" style="border-top: 1px solid var(--border-color);"
+      data-testid="random-picks" [attr.aria-busy]="loadingRandom()">
+      <h3 class="text-xs font-mono uppercase tracking-widest mb-4 flex items-center gap-2"
+        style="color: var(--text-primary);">
+        <span class="material-symbols-outlined text-base" style="color: var(--accent-purple);">auto_awesome</span>
+        {{ t('home.randomPicks') }}
+      </h3>
+
+      @if (loadingRandom()) {
+      <div class="space-y-5 animate-pulse" role="status" aria-live="polite">
+        <span class="sr-only">{{ t('common.loading') }}</span>
+        @for (item of [1,2]; track item) {
+        <div class="space-y-2" aria-hidden="true">
+          <div class="h-4 rounded w-full" style="background-color: var(--bg-tertiary);"></div>
+          <div class="h-4 rounded w-2/3" style="background-color: var(--bg-tertiary);"></div>
+        </div>
+        }
+      </div>
+      } @else {
+      <div class="space-y-5" data-testid="random-picks-list">
+        @for (post of randomPosts(); track post.id) {
+        <article class="group">
+          <a [routerLink]="['/', currentLang, 'post', post.slug]" class="block">
+            <h4 class="text-sm font-semibold leading-snug group-hover:underline transition-all"
+              style="color: var(--text-primary);">
+              {{ post.title }}
+            </h4>
+          </a>
+          <p class="mt-1 text-xs font-mono" style="color: var(--text-tertiary);">
+            {{ yearOf(post.date) }}
+          </p>
+        </article>
+        }
+      </div>
+      }
+    </section>
   </div>
 </ng-container>

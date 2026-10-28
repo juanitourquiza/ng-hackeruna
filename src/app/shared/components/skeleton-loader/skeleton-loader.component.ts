@@ -74,7 +74,7 @@ import { CommonModule } from '@angular/common';
     }
 
     @if (type === 'post-detail') {
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 animate-pulse">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-pulse">
         <!-- Breadcrumb skeleton -->
         <div class="h-4 w-48 bg-gray-300 dark:bg-gray-700 rounded mb-8"></div>
         
@@ -82,24 +82,51 @@ import { CommonModule } from '@angular/common';
         <div class="h-6 w-24 bg-gray-300 dark:bg-gray-700 rounded mb-6"></div>
         
         <!-- Title skeleton -->
-        <div class="h-10 bg-gray-300 dark:bg-gray-700 rounded mb-3"></div>
-        <div class="h-10 bg-gray-300 dark:bg-gray-700 rounded w-2/3 mb-6"></div>
+        <div class="h-12 bg-gray-300 dark:bg-gray-700 rounded mb-3 max-w-5xl"></div>
+        <div class="h-12 bg-gray-300 dark:bg-gray-700 rounded w-2/3 mb-6 max-w-5xl"></div>
         
         <!-- Meta info -->
         <div class="flex gap-6 mb-10">
           <div class="h-4 w-32 bg-gray-300 dark:bg-gray-700 rounded"></div>
           <div class="h-4 w-40 bg-gray-300 dark:bg-gray-700 rounded"></div>
         </div>
-        
-        <!-- Featured image -->
-        <div class="w-full h-96 bg-gray-300 dark:bg-gray-700 rounded mb-10"></div>
+
+        <!-- Full-bleed featured image -->
+        <div class="w-full h-[46vh] sm:h-[55vh] lg:h-[64vh] max-h-[700px] bg-gray-300 dark:bg-gray-700 mb-12"></div>
         
         <!-- Content skeleton -->
-        <div class="space-y-4">
+        <div class="max-w-4xl mx-auto space-y-4">
           @for (line of [1, 2, 3, 4, 5, 6, 7, 8]; track line) {
             <div class="h-4 bg-gray-300 dark:bg-gray-700 rounded" [ngClass]="{'w-11/12': line % 3 === 0, 'w-full': line % 3 !== 0}"></div>
           }
         </div>
+      </div>
+    }
+
+    @if (type === 'sidebar') {
+      <div class="rounded-lg p-6 animate-pulse" style="background-color: var(--bg-secondary);">
+        <!-- Section heading -->
+        <div class="h-4 w-28 rounded mb-6" style="background-color: var(--bg-tertiary);"></div>
+
+        <!-- Most read rows -->
+        @for (item of [1, 2, 3, 4, 5]; track item) {
+          <div class="flex items-start gap-3 mb-6">
+            <div class="h-7 w-8 rounded shrink-0" style="background-color: var(--bg-tertiary);"></div>
+            <div class="flex-1 space-y-2">
+              <div class="h-4 w-full rounded" style="background-color: var(--bg-tertiary);"></div>
+              <div class="h-4 w-4/5 rounded" style="background-color: var(--bg-tertiary);"></div>
+            </div>
+          </div>
+        }
+
+        <!-- Secondary sections -->
+        @for (section of [1, 2]; track section) {
+          <div class="mt-10 pt-6" style="border-top: 1px solid var(--border-color);">
+            <div class="h-3 w-24 rounded mb-4" style="background-color: var(--bg-tertiary);"></div>
+            <div class="h-4 w-full rounded mb-2" style="background-color: var(--bg-tertiary);"></div>
+            <div class="h-4 w-2/3 rounded" style="background-color: var(--bg-tertiary);"></div>
+          </div>
+        }
       </div>
     }
 
@@ -154,5 +181,5 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class SkeletonLoaderComponent {
-  @Input() type: 'post-card' | 'post-featured' | 'post-list' | 'post-detail' | 'trending' | 'portfolio' = 'post-card';
+  @Input() type: 'post-card' | 'post-featured' | 'post-list' | 'post-detail' | 'trending' | 'portfolio' | 'sidebar' = 'post-card';
 }
