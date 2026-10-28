@@ -22,100 +22,170 @@
   <article>
     <!-- Header editorial -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Breadcrumb -->
-      <nav class="mb-8 text-sm">
-        <a [routerLink]="['/', currentLang]" class="no-underline hover:underline transition-all"
-          style="color: var(--text-secondary);">
-          Inicio
-        </a>
-        @if (categories.length > 0) {
-        <span class="mx-2" style="color: var(--text-tertiary);">/</span>
-        @for (category of categories; track category.id; let isLast = $last) {
-        <span style="color: var(--text-tertiary);">
-          {{ category.name }}@if (!isLast) {<span>, </span>}
-        </span>
-        }
-        }
-      </nav>
+      <div class="article-grid">
+        <div class="hidden xl:block" aria-hidden="true"></div>
 
-      <div class="max-w-5xl">
-        <!-- Category Badges -->
-        <div class="mb-6 flex flex-wrap gap-2">
-          @for (category of categories; track category.id) {
-          <a [routerLink]="['/', currentLang]" [queryParams]="{ category: category.id }"
-            class="text-xs font-mono uppercase tracking-wider py-1.5 px-4 inline-block rounded hover:opacity-80 transition-opacity cursor-pointer"
-            style="background-color: var(--accent-blue); color: #ffffff !important; text-decoration: none !important;"
-            [title]="'Ver todos los posts de ' + category.name">
-            {{ category.name }}
-          </a>
-          }
-        </div>
+        <header class="article-column">
+          <!-- Breadcrumb -->
+          <nav class="mb-6 text-sm">
+            <a [routerLink]="['/', currentLang]" class="no-underline hover:underline transition-all"
+              style="color: var(--text-secondary);">
+              Inicio
+            </a>
+            @if (categories.length > 0) {
+            <span class="mx-2" style="color: var(--text-tertiary);">/</span>
+            @for (category of categories; track category.id; let isLast = $last) {
+            <span style="color: var(--text-tertiary);">
+              {{ category.name }}@if (!isLast) {<span>, </span>}
+            </span>
+            }
+            }
+          </nav>
 
-        <!-- Title -->
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight mb-6"
-          style="color: var(--text-primary);">
-          {{ displayTitle() }}
-        </h1>
+          <!-- Category Badges -->
+          <div class="mb-5 flex flex-wrap gap-2">
+            @for (category of categories; track category.id) {
+            <a [routerLink]="['/', currentLang]" [queryParams]="{ category: category.id }"
+              class="text-xs font-mono uppercase tracking-wider py-1.5 px-4 inline-block rounded hover:opacity-80 transition-opacity cursor-pointer"
+              style="background-color: var(--accent-blue); color: #ffffff !important; text-decoration: none !important;"
+              [title]="'Ver todos los posts de ' + category.name">
+              {{ category.name }}
+            </a>
+            }
+          </div>
 
-        <!-- Meta Information -->
-        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm" style="color: var(--text-tertiary);">
-          <span class="flex items-center">
-            <span class="material-symbols-outlined text-base mr-2">calendar_today</span>
-            <time [attr.datetime]="post()!.date">{{ formatDate(post()!.date) }}</time>
-          </span>
-          <span class="flex items-center">
-            <span class="material-symbols-outlined text-base mr-2">visibility</span>
-            <span>{{ formatViews(postViews) }} vistas</span>
-          </span>
-          <span class="flex items-center">
-            <span class="material-symbols-outlined text-base mr-2">person</span>
-            <span>{{ authorName }}</span>
-          </span>
-        </div>
+          <!-- Title -->
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.12] tracking-tight mb-5"
+            style="color: var(--text-primary);">
+            {{ displayTitle() }}
+          </h1>
+
+          <!-- Meta Information -->
+          <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm" style="color: var(--text-tertiary);">
+            <span class="flex items-center">
+              <span class="material-symbols-outlined text-base mr-2">calendar_today</span>
+              <time [attr.datetime]="post()!.date">{{ formatDate(post()!.date) }}</time>
+            </span>
+            <span class="flex items-center">
+              <span class="material-symbols-outlined text-base mr-2">visibility</span>
+              <span>{{ formatViews(postViews) }} vistas</span>
+            </span>
+            <span class="flex items-center">
+              <span class="material-symbols-outlined text-base mr-2">person</span>
+              <span>{{ authorName }}</span>
+            </span>
+          </div>
+        </header>
+
+        <div class="hidden lg:block" aria-hidden="true"></div>
       </div>
     </div>
 
-    <!-- Featured Image full-bleed -->
-    <figure class="mt-8 mb-10 lg:mt-10 lg:mb-14 w-full">
+    <!-- Featured Image full-bleed, respetando la proporción original -->
+    <figure class="w-full mt-8 lg:mt-10">
       <img [src]="featuredImage" [alt]="displayTitle()"
-        class="w-full h-[42vh] sm:h-[52vh] lg:h-[64vh] max-h-[700px] object-cover" loading="eager"
-        fetchpriority="high" decoding="async" />
+        class="block w-full h-auto max-h-[85vh] object-contain mx-auto"
+        style="background-color: var(--bg-secondary);" loading="eager" fetchpriority="high" decoding="async" />
     </figure>
 
-    <!-- Content column -->
+    <!-- Cuerpo y rieles -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-4xl mx-auto">
-        <!-- Content -->
-        <div class="prose prose-lg xl:prose-xl max-w-none" style="color: var(--text-primary);"
-          [innerHTML]="safeContent()"></div>
+      <div class="article-grid">
+        <!-- Riel vertical de compartir (Wired) -->
+        <aside class="hidden xl:block">
+          <app-article-share-rail [url]="shareUrl" [title]="displayTitle()"
+            [description]="post()!.excerpt.rendered || ''"></app-article-share-rail>
+        </aside>
 
-        <!-- Social Share -->
-        <app-social-share [url]="'https://hackeruna.com/post/' + post()!.slug" [title]="post()!.title.rendered"
-          [description]="post()!.excerpt.rendered || ''"></app-social-share>
+        <!-- Columna de lectura -->
+        <div class="article-column pt-10 lg:pt-12">
+          <!-- Content -->
+          <div class="prose prose-lg xl:prose-xl max-w-none" style="color: var(--text-primary);"
+            [innerHTML]="safeContent()"></div>
 
-        <!-- Comments Section -->
-        <div class="mt-12 pt-8" style="border-top: 1px solid var(--border-color);">
-          <h2 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">
-            💬 Comentarios
-          </h2>
-          <p class="text-sm mb-6" style="color: var(--text-secondary);">
-            Comparte tus ideas, preguntas o sugerencias. Los comentarios se gestionan a través de GitHub Discussions.
-          </p>
-          @defer (on viewport; prefetch on idle) {
-          <app-giscus-comments></app-giscus-comments>
-          } @placeholder {
-          <div class="h-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
-          }
+          <!-- Social Share -->
+          <app-social-share [url]="shareUrl" [title]="displayTitle()"
+            [description]="post()!.excerpt.rendered || ''"></app-social-share>
+
+          <!-- Comments Section -->
+          <div class="mt-12 pt-8" style="border-top: 1px solid var(--border-color);">
+            <h2 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">
+              💬 Comentarios
+            </h2>
+            <p class="text-sm mb-6" style="color: var(--text-secondary);">
+              Comparte tus ideas, preguntas o sugerencias. Los comentarios se gestionan a través de GitHub Discussions.
+            </p>
+            @defer (on viewport; prefetch on idle) {
+            <app-giscus-comments></app-giscus-comments>
+            } @placeholder {
+            <div class="h-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
+            }
+          </div>
+
+          <!-- Back to Home -->
+          <div class="mt-12 pt-8" style="border-top: 1px solid var(--border-color);">
+            <a [routerLink]="['/', currentLang]"
+              class="inline-flex items-center font-semibold hover:underline transition-all" style="color: var(--accent-blue);">
+              <span class="material-symbols-outlined mr-2">arrow_back</span>
+              Volver al inicio
+            </a>
+          </div>
         </div>
 
-        <!-- Back to Home -->
-        <div class="mt-12 pt-8" style="border-top: 1px solid var(--border-color);">
-          <a [routerLink]="['/', currentLang]"
-            class="inline-flex items-center font-semibold hover:underline transition-all" style="color: var(--accent-blue);">
-            <span class="material-symbols-outlined mr-2">arrow_back</span>
-            Volver al inicio
-          </a>
-        </div>
+        <!-- Barra lateral sticky -->
+        <aside class="hidden lg:block">
+          <div class="sticky top-24 space-y-6">
+            <!-- Autor -->
+            <div class="rounded-lg p-5" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
+              <p class="text-xs font-mono uppercase tracking-widest mb-4" style="color: var(--accent-blue);">
+                Escrito por
+              </p>
+              <div class="flex items-center gap-3">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full font-bold"
+                  style="background: rgba(34, 211, 238, 0.12); color: var(--accent-blue);">
+                  {{ authorInitials }}
+                </div>
+                <div>
+                  <p class="font-semibold leading-tight" style="color: var(--text-primary);">{{ authorName }}</p>
+                  <p class="text-xs" style="color: var(--text-tertiary);">Fundador de Hackeruna</p>
+                </div>
+              </div>
+              <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs font-mono pt-4"
+                style="border-top: 1px solid var(--border-color); color: var(--text-tertiary);">
+                <span>{{ formatDate(post()!.date) }}</span>
+                <span>{{ formatViews(postViews) }} vistas</span>
+              </div>
+              <a [routerLink]="['/', currentLang, 'about']"
+                class="mt-4 inline-flex items-center gap-1 text-xs font-semibold hover:underline"
+                style="color: var(--accent-blue);">
+                Sobre mí <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+
+            <!-- Más leídas -->
+            @if (mostRead().length > 0) {
+            <div class="rounded-lg p-5" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color);">
+              <h3 class="text-xs font-mono uppercase tracking-widest pb-2 mb-4"
+                style="color: var(--text-primary); border-bottom: 2px solid var(--accent-blue);">
+                Más leídas
+              </h3>
+              <div class="space-y-4">
+                @for (related of mostRead(); let i = $index; track related.id) {
+                <a [routerLink]="['/', currentLang, 'post', related.slug]" class="group flex items-start gap-3">
+                  <span class="text-lg font-mono font-bold leading-none" style="color: var(--accent-blue);">
+                    {{ (i + 1).toString().padStart(2, '0') }}
+                  </span>
+                  <h4 class="text-sm font-semibold leading-snug group-hover:underline"
+                    style="color: var(--text-primary);">
+                    {{ stripHtml(related.title.rendered) }}
+                  </h4>
+                </a>
+                }
+              </div>
+            </div>
+            }
+          </div>
+        </aside>
       </div>
     </div>
 

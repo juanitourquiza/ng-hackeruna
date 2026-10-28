@@ -75,30 +75,39 @@ import { CommonModule } from '@angular/common';
 
     @if (type === 'post-detail') {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-pulse">
-        <!-- Breadcrumb skeleton -->
-        <div class="h-4 w-48 bg-gray-300 dark:bg-gray-700 rounded mb-8"></div>
-        
-        <!-- Category badge -->
-        <div class="h-6 w-24 bg-gray-300 dark:bg-gray-700 rounded mb-6"></div>
-        
-        <!-- Title skeleton -->
-        <div class="h-12 bg-gray-300 dark:bg-gray-700 rounded mb-3 max-w-5xl"></div>
-        <div class="h-12 bg-gray-300 dark:bg-gray-700 rounded w-2/3 mb-6 max-w-5xl"></div>
-        
-        <!-- Meta info -->
-        <div class="flex gap-6 mb-10">
-          <div class="h-4 w-32 bg-gray-300 dark:bg-gray-700 rounded"></div>
-          <div class="h-4 w-40 bg-gray-300 dark:bg-gray-700 rounded"></div>
+        <div class="max-w-[46rem]">
+          <!-- Breadcrumb skeleton -->
+          <div class="h-4 w-48 bg-gray-300 dark:bg-gray-700 rounded mb-6"></div>
+
+          <!-- Category badge -->
+          <div class="h-6 w-24 bg-gray-300 dark:bg-gray-700 rounded mb-5"></div>
+
+          <!-- Title skeleton -->
+          <div class="h-10 bg-gray-300 dark:bg-gray-700 rounded mb-3"></div>
+          <div class="h-10 bg-gray-300 dark:bg-gray-700 rounded w-3/4 mb-5"></div>
+
+          <!-- Meta info -->
+          <div class="flex gap-6">
+            <div class="h-4 w-32 bg-gray-300 dark:bg-gray-700 rounded"></div>
+            <div class="h-4 w-40 bg-gray-300 dark:bg-gray-700 rounded"></div>
+          </div>
         </div>
 
-        <!-- Full-bleed featured image -->
-        <div class="w-full h-[46vh] sm:h-[55vh] lg:h-[64vh] max-h-[700px] bg-gray-300 dark:bg-gray-700 mb-12"></div>
-        
-        <!-- Content skeleton -->
-        <div class="max-w-4xl mx-auto space-y-4">
-          @for (line of [1, 2, 3, 4, 5, 6, 7, 8]; track line) {
-            <div class="h-4 bg-gray-300 dark:bg-gray-700 rounded" [ngClass]="{'w-11/12': line % 3 === 0, 'w-full': line % 3 !== 0}"></div>
-          }
+        <!-- Featured image (proporción original) -->
+        <div class="w-full aspect-[16/9] max-h-[85vh] bg-gray-300 dark:bg-gray-700 mt-8"></div>
+
+        <!-- Wired grid: content + right rail -->
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[56px_minmax(0,1fr)_300px] gap-x-10 pt-10">
+          <div class="hidden xl:block"></div>
+          <div class="max-w-[46rem] space-y-4">
+            @for (line of [1, 2, 3, 4, 5, 6, 7, 8]; track line) {
+              <div class="h-4 bg-gray-300 dark:bg-gray-700 rounded" [ngClass]="{'w-11/12': line % 3 === 0, 'w-full': line % 3 !== 0}"></div>
+            }
+          </div>
+          <div class="hidden lg:block space-y-6">
+            <div class="h-40 bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
+            <div class="h-56 bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
+          </div>
         </div>
       </div>
     }

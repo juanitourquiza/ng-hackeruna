@@ -1,3 +1,32 @@
+// Layout estilo Wired: riel de compartir + columna de lectura + barra lateral
+:host {
+  display: block;
+}
+
+.article-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 2.5rem;
+}
+
+.article-column {
+  width: 100%;
+  max-width: 46rem;
+}
+
+@media (min-width: 1024px) {
+  .article-grid {
+    grid-template-columns: minmax(0, 1fr) 280px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .article-grid {
+    grid-template-columns: 56px minmax(0, 1fr) 300px;
+    column-gap: 3.5rem;
+  }
+}
+
 // Custom prose styles for better contrast
 :host ::ng-deep {
   .prose {
@@ -32,10 +61,10 @@
       figure,
       .wp-block-image,
       .wp-block-embed {
-        width: calc(100% + 6rem) !important;
-        max-width: calc(100% + 6rem) !important;
-        margin-left: -3rem;
-        margin-right: -3rem;
+        width: calc(100% + 4rem) !important;
+        max-width: calc(100% + 4rem) !important;
+        margin-left: -2rem;
+        margin-right: -2rem;
       }
 
       figure img {
