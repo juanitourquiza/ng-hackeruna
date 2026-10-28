@@ -15,7 +15,8 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - 🧪 **Tests nuevos (Vitest)** para `WordpressApiService`, `TrendingSidebarComponent` y `PopularTutorialsComponent` (9 tests)
 
 ### Changed
-- 📰 **Layout editorial tipo Wired/NYT en la noticia** — header y texto alineados a la columna de lectura `max-w-4xl`, imagen destacada full-bleed respetando la proporción original (máx. 85vh), breakout de medios ≥1280px y autor en los metadatos
+- 📰 **Layout editorial tipo Wired en la noticia** — header y cuerpo alineados en una columna de lectura de 46rem, riel vertical de compartir sticky, barra lateral derecha con autor y "Más leídas", imagen destacada full-bleed respetando la proporción original (máx. 85vh) y breakout de medios ≥1280px
+- ⚡ **Más leídas optimizado** — el endpoint ahora consulta solo `id,slug,title,date,views,post_views,post_views_count` con `_fields` en lugar de `_embed` (de ~9.4s a ~1.3s), usado por el sidebar de home y la barra del artículo
 - 📐 **Páginas estáticas ampliadas** — About, Contact, Portfolio, Search y Author unificados a `max-w-7xl` con tipografía y espaciados mayores
 - 🎲 **Tutoriales Populares variables** — rotación aleatoria con anti-repetición por sesión (`sessionStorage`)
 - 🔗 **Enlaces de relacionados y categorías** respetan el idioma activo (`/es`, `/en`)

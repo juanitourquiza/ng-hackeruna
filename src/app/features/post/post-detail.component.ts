@@ -10,6 +10,7 @@ import { RelatedPostsComponent } from '../../shared/components/related-posts/rel
 import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
 import { SocialShareComponent } from '../../shared/components/social-share/social-share.component';
 import { GiscusCommentsComponent } from '../../shared/components/giscus-comments/giscus-comments.component';
+import { ArticleShareRailComponent } from '../../shared/components/article-share-rail/article-share-rail.component';
 import { MetaTagsService } from '../../core/services/meta-tags.service';
 import { SchemaService } from '../../core/services/schema.service';
 import { environment } from '../../../environments/environment';
@@ -17,7 +18,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-post-detail',
   standalone: true,
-  imports: [RouterLink, RelatedPostsComponent, SkeletonLoaderComponent, SocialShareComponent, GiscusCommentsComponent],
+  imports: [RouterLink, RelatedPostsComponent, SkeletonLoaderComponent, SocialShareComponent, GiscusCommentsComponent, ArticleShareRailComponent],
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss']
 })
@@ -39,6 +40,7 @@ export class PostDetailComponent implements OnInit {
   isTranslated = signal(false);
   loading = signal(true);
   error = signal<string | null>(null);
+  mostRead = signal<WpPost[]>([]);
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -61,6 +63,7 @@ export class PostDetailComponent implements OnInit {
     this.wpApi.getPostBySlug(slug).subscribe({
       next: (post) => {
         this.post.set(post);
+        this.loadMostRead(post.id);
 
         // Increment view count
         this.incrementViewCount(post.id);
@@ -101,6 +104,17 @@ export class PostDetailComponent implements OnInit {
     });
   }
 
+
+  private loadMostRead(currentPostId: number): void {
+    this.wpApi.getMostReadPosts(5).subscribe({
+      next: (posts) => {
+        this.mostRead.set(
+          posts.filter(post => post.id !== currentPostId).slice(0, 3)
+        );
+      },
+      error: () => this.mostRead.set([])
+    });
+  }
 
   private incrementViewCount(postId: number): void {
     // Llamar al endpoint de WordPress para incrementar el contador
@@ -254,7 +268,7 @@ export class PostDetailComponent implements OnInit {
     ]);
   }
 
-  private stripHtml(html: string): string {
+  stripHtml(html: string): string {
     const tmp = document.createElement('div');
     tmp.innerHTML = html;
     return tmp.textContent || tmp.innerText || '';
@@ -284,6 +298,24 @@ export class PostDetailComponent implements OnInit {
   get featuredImage(): string {
     return this.post()?._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
       'https://backend.hackeruna.com/wp-content/themes/magazinebook/img/default-bg-img.png';
+  }
+
+  get shareUrl(): string {
+    const post = this.post();
+    return post
+      ? `https://hackeruna.com/${this.currentLang}/post/${post.slug}`
+      : 'https://hackeruna.com';
+  }
+
+  get authorInitials(): string {
+    const initials = this.authorName
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(word => word.charAt(0).toUpperCase())
+      .join('');
+
+    return initials || 'HA';
   }
 
   get authorName(): string {
