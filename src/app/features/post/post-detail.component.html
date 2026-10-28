@@ -22,25 +22,25 @@
   <article>
     <!-- Header editorial -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Breadcrumb -->
-      <nav class="mb-8 text-sm">
-        <a [routerLink]="['/', currentLang]" class="no-underline hover:underline transition-all"
-          style="color: var(--text-secondary);">
-          Inicio
-        </a>
-        @if (categories.length > 0) {
-        <span class="mx-2" style="color: var(--text-tertiary);">/</span>
-        @for (category of categories; track category.id; let isLast = $last) {
-        <span style="color: var(--text-tertiary);">
-          {{ category.name }}@if (!isLast) {<span>, </span>}
-        </span>
-        }
-        }
-      </nav>
+      <div class="max-w-4xl mx-auto">
+        <!-- Breadcrumb -->
+        <nav class="mb-6 text-sm">
+          <a [routerLink]="['/', currentLang]" class="no-underline hover:underline transition-all"
+            style="color: var(--text-secondary);">
+            Inicio
+          </a>
+          @if (categories.length > 0) {
+          <span class="mx-2" style="color: var(--text-tertiary);">/</span>
+          @for (category of categories; track category.id; let isLast = $last) {
+          <span style="color: var(--text-tertiary);">
+            {{ category.name }}@if (!isLast) {<span>, </span>}
+          </span>
+          }
+          }
+        </nav>
 
-      <div class="max-w-5xl">
         <!-- Category Badges -->
-        <div class="mb-6 flex flex-wrap gap-2">
+        <div class="mb-5 flex flex-wrap gap-2">
           @for (category of categories; track category.id) {
           <a [routerLink]="['/', currentLang]" [queryParams]="{ category: category.id }"
             class="text-xs font-mono uppercase tracking-wider py-1.5 px-4 inline-block rounded hover:opacity-80 transition-opacity cursor-pointer"
@@ -52,13 +52,13 @@
         </div>
 
         <!-- Title -->
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight mb-6"
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.12] tracking-tight mb-5"
           style="color: var(--text-primary);">
           {{ displayTitle() }}
         </h1>
 
         <!-- Meta Information -->
-        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm" style="color: var(--text-tertiary);">
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm mb-10" style="color: var(--text-tertiary);">
           <span class="flex items-center">
             <span class="material-symbols-outlined text-base mr-2">calendar_today</span>
             <time [attr.datetime]="post()!.date">{{ formatDate(post()!.date) }}</time>
@@ -75,16 +75,16 @@
       </div>
     </div>
 
-    <!-- Featured Image full-bleed -->
-    <figure class="mt-8 mb-10 lg:mt-10 lg:mb-14 w-full">
+    <!-- Featured Image full-bleed, respetando la proporción original -->
+    <figure class="w-full">
       <img [src]="featuredImage" [alt]="displayTitle()"
-        class="w-full h-[42vh] sm:h-[52vh] lg:h-[64vh] max-h-[700px] object-cover" loading="eager"
-        fetchpriority="high" decoding="async" />
+        class="block w-full h-auto max-h-[85vh] object-contain mx-auto"
+        style="background-color: var(--bg-secondary);" loading="eager" fetchpriority="high" decoding="async" />
     </figure>
 
     <!-- Content column -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-4xl mx-auto">
+      <div class="max-w-4xl mx-auto pt-10 lg:pt-12">
         <!-- Content -->
         <div class="prose prose-lg xl:prose-xl max-w-none" style="color: var(--text-primary);"
           [innerHTML]="safeContent()"></div>
